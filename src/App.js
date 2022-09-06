@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import CssBaseline from '@mui/material/CssBaseline';
 
-function App() {
+import { AuthContextProvider } from './context/AuthContext';
+import { UIContextProvider } from './context/UIContext';
+
+import LoadingSpinner from './components/ui/LoadingSpinner';
+import Modal from './components/ui/Modal';
+import Notification from './components/ui/Notification';
+
+import RoutesConfig from './components/router/RoutesConfig';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UIContextProvider>
+      <AuthContextProvider>
+        <CssBaseline />
+
+        <LoadingSpinner />
+        <Modal />
+        <Notification />
+
+        <RoutesConfig />
+      </AuthContextProvider>
+    </UIContextProvider>
   );
-}
+};
 
 export default App;
