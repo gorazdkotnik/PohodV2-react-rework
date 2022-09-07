@@ -13,6 +13,7 @@ const UserHome = ({ user }) => {
 
   useEffect(() => {
     if (user.group) {
+      console.log(user.group);
       setShowLoadingSpinner(true);
       request('/points/unlocked')
         .then(res => {
