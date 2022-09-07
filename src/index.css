@@ -1,1 +1,9 @@
+.leaflet-container {
+  width: 100%;
+  height: 78vh;
+}
 
+.leaflet-event-container {
+  width: 100%;
+  height: 50vh;
+}

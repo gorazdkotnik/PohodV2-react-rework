@@ -34,7 +34,7 @@ function RoutesList() {
       <Container sx={{ mt: 15, mb: 5 }}>
         <Routes>
           {/* Home Page */}
-          {<Route exact path="/" element={<Home user={user} />} />}
+          {<Route exact path="/" element={<Home user={user} />} user={user} />}
 
           {/* Login Page */}
           <Route exact path="/login" element={<Login />} />

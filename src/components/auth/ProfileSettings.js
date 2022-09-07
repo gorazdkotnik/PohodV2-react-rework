@@ -13,8 +13,6 @@ const ProfileSettings = () => {
   const { logout } = useAuthContext();
   const toggleTheme = useToggleTheme();
 
-  console.log(toggleTheme);
-
   const logoutHandler = () => {
     navigate('/');
     logout();
