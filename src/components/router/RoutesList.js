@@ -22,7 +22,7 @@ function RoutesList() {
     <>
       {/* Navbar */}
       <Navbar user={user} />
-      <Container sx={{ mt: 4 }}>
+      <Container sx={{ mt: 15 }}>
         <Routes>
           {/* Home Page */}
           {<Route exact path="/" element={<Home user={user} />} />}
