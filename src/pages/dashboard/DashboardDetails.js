@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams, NavLink, useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,13 +11,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import Fab from '@mui/material/Fab';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
 import { dashboard } from '../../utils/consts';
 
 const DashboardDetails = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const { setShowLoadingSpinner, setDialog } = useUIContext();
@@ -63,6 +66,10 @@ const DashboardDetails = () => {
   return (
     <Card>
       <CardContent>
+        <Fab size="small" color="primary" aria-label="add">
+          <ArrowBack onClick={() => navigate('/dashboard')} />
+        </Fab>
+
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
           {title}
         </Typography>
