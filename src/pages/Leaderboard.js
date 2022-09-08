@@ -98,7 +98,7 @@ const Leaderboard = () => {
             <InputLabel id="event">Dogodek</InputLabel>
             <Select
               labelId="event"
-              id="demo-simple-select"
+              id="event"
               value={selectedEvent}
               label="Dogodek"
               onChange={eventOnChangeHandler}
@@ -143,7 +143,7 @@ const Leaderboard = () => {
           )}
           {selectedEvent !== '' && groups && groups.length < 1 && (
             <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
-            Ni rezultatov za prikaz!
+              Ni rezultatov za prikaz!
             </Typography>
           )}
         </Stack>
