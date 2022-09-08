@@ -1,7 +1,12 @@
 import React from 'react';
 
+import PageMenu from '../ui/PageMenu';
+
 const EventsNavigation = () => {
-  return <div>EventsNavigation</div>;
+  const labels = ['Vsi Dogodki', 'Nov Dogodek'];
+  const links = ['/events/all', '/events/new'];
+
+  return <PageMenu labels={labels} links={links} />;
 };
 
 export default EventsNavigation;
