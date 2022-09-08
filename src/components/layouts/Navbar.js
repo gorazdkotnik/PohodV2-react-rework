@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,14 +10,15 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+
+import MobileMenu from './navbar/MobileMenu';
+import DesktopMenu from './navbar/DesktopMenu';
 
 import { useAuthContext } from '../../context/AuthContext';
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const navigate = useNavigate();
   const { logout, loggedIn } = useAuthContext();
 
@@ -83,45 +84,13 @@ const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {!loggedIn && (
-                <MenuItem
-                  key={'Prijavi se'}
-                  onClick={handleCloseNavMenu}
-                  component={Link}
-                  to="/login"
-                >
-                  <Typography textAlign="center">Prijavi se</Typography>
-                </MenuItem>
-              )}
-              {loggedIn && (
-                <MenuItem
-                  key={'Domov'}
-                  onClick={handleCloseNavMenu}
-                  component={Link}
-                  to="/"
-                >
-                  <Typography textAlign="center">Domov</Typography>
-                </MenuItem>
-              )}
-            </Menu>
+
+            <MobileMenu
+              anchorElNav={anchorElNav}
+              handleCloseNavMenu={handleCloseNavMenu}
+              loggedIn={loggedIn}
+              user={user}
+            />
           </Box>
           <Typography
             variant="h5"
@@ -142,28 +111,11 @@ const Navbar = () => {
             POHOD
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {!loggedIn && (
-              <Button
-                key={'Prijavi se'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                component={Link}
-                to="/login"
-              >
-                Prijavi se
-              </Button>
-            )}
-            {loggedIn && (
-              <Button
-                key={'Domov'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                component={Link}
-                to="/"
-              >
-                Domov
-              </Button>
-            )}
+            <DesktopMenu
+              loggedIn={loggedIn}
+              user={user}
+              handleCloseNavMenu={handleCloseNavMenu}
+            />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
