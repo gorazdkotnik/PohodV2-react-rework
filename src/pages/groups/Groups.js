@@ -25,8 +25,6 @@ const Groups = ({ user }) => {
     '/groups/join',
   ]);
 
-  const [ready, setReady] = useState(false);
-
   useEffect(() => {
     if (user.group) {
       setLabels(['Moja Skupina']);
@@ -35,8 +33,6 @@ const Groups = ({ user }) => {
       setLabels(['Nova Skupina', 'Pridruži Se']);
       setLinks(['/groups/new', '/groups/join']);
     }
-
-    setReady(true);
 
     if (pathname === '/groups') {
       if (user.group) {
@@ -50,7 +46,7 @@ const Groups = ({ user }) => {
   return (
     <Card>
       <CardContent>
-        {ready && <GroupsNavigation labels={labels} links={links} />}
+        <GroupsNavigation labels={labels} links={links} />
         <Routes>
           {!user.group && <Route path="new" element={<NewGroup />} />}
           {!user.group && <Route path="join" element={<JoinGroup />} />}
