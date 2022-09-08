@@ -117,13 +117,12 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
             alignItems="center"
             sx={{ my: 2 }}
           >
-            <Button color="secondary">Secondary</Button>
             <Button variant="contained" color="error" onClick={onDeleteHandler}>
               Izbriši dogodek
             </Button>
             <Button
-              variant="outlined"
-              color="error"
+              variant="contained"
+              color="warning"
               onClick={() => setShowEditForm(prev => !prev)}
             >
               {showEditForm ? 'Zapri' : 'Uredi'}

@@ -45,10 +45,12 @@ const Map = ({
             <Popup>
               <p>{point.name}</p>
               {onMapClickHandler && onMarkerClickHandler && (
-                <Button variant="contained" color="error">
-                  {' '}
+                <Button
+                  variant="contained"
+                  color="error"
                   onClick={onMarkerClickHandler.bind(null, point.point_id)}
-                  Error
+                >
+                  Izbriši
                 </Button>
               )}
             </Popup>
