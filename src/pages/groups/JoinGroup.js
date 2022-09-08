@@ -1,7 +1,9 @@
 import React from 'react';
 
+import JoinGroupForm from '../../components/groups/JoinGroupForm';
+
 const JoinGroup = () => {
-  return <div>JoinGroup</div>;
+  return <JoinGroupForm />;
 };
 
 export default JoinGroup;

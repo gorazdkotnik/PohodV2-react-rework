@@ -66,7 +66,7 @@ const MembersList = ({ user }) => {
                     <Button
                       variant="contained"
                       color="error"
-                      onClick={() => kickMemberHandler(member)}
+                      onClick={kickMemberHandler.bind(null, member)}
                     >
                       Odstrani
                     </Button>
