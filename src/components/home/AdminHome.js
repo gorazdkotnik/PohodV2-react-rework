@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 /* Primer generacije qr kode */
-import QRCode from "react-qr-code";
+import QRCode from 'react-qr-code';
 import Box from '@mui/material/Box';
 
 const AdminHome = () => {
@@ -27,14 +27,16 @@ const AdminHome = () => {
           <Typography variant="h4">Pohod V2 - Admin</Typography>
           <Typography variant="h6">
             Aplikacija za organizacijo in izvedbo orientacijskega pohoda.
-            <Box sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              my: 5
-            }}>
-              <QRCode value="hey" />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                my: 5,
+              }}
+            >
+              {/* <QRCode value="hey" /> */}
             </Box>
           </Typography>
         </Stack>
