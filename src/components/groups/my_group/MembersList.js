@@ -18,7 +18,7 @@ const MembersList = ({ user }) => {
 
   const kickMemberHandler = ({ user_id, first_name, last_name } = {}) => {
     setShowLoadingSpinner(true);
-    console.log(`/groups/kick/${user_id}`);
+
     request(`/groups/kick/${user_id}`, 'DELETE')
       .then(data => {
         setNotification({
