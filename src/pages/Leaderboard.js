@@ -141,6 +141,11 @@ const Leaderboard = () => {
               </Table>
             </TableContainer>
           )}
+          {selectedEvent !== '' && groups && groups.length < 1 && (
+            <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+            Ni rezultatov za prikaz!
+            </Typography>
+          )}
         </Stack>
       </CardContent>
     </Card>
