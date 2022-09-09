@@ -76,7 +76,7 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   };
 
   return (
-    <Card sx={{ my: 4, border: 'none' }}>
+    <Card sx={{ my: 4, boxShadow: showDetails ? 'none !important' : '' }}>
       <CardContent>
         <Typography
           variant="h5"
