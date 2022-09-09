@@ -1,7 +1,9 @@
 import React from 'react';
 
+import EventsForm from '../../components/events/EventsForm';
+
 const NewEvent = () => {
-  return <div>NewEvent</div>;
+  return <EventsForm />;
 };
 
 export default NewEvent;

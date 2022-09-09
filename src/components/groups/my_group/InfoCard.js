@@ -74,7 +74,12 @@ const InfoCard = ({ user }) => {
       <Typography
         variant="h4"
         gutterBottom
-        sx={{ backgroundColor: '#4dabf5', textAlign: 'center', p: 1 }}
+        sx={{
+          backgroundColor: '#2196f3',
+          p: 1,
+          color: '#fff',
+          textAlign: 'center',
+        }}
       >
         {user.group.name}
       </Typography>

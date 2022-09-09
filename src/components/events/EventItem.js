@@ -76,12 +76,12 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   };
 
   return (
-    <Card sx={{ my: 4 }}>
+    <Card sx={{ my: 4, border: 'none' }}>
       <CardContent>
         <Typography
           variant="h5"
           gutterBottom
-          sx={{ backgroundColor: '#4dabf5', p: 1 }}
+          sx={{ backgroundColor: '#2196f3', p: 1, color: '#fff' }}
         >
           {event.name}
         </Typography>
