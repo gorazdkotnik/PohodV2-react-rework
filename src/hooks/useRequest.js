@@ -17,7 +17,6 @@ const useRequest = (url, method, body, headers) => {
       .catch(err => {
         setError(err);
         setLoading(false);
-        console.log('err', err?.response?.data);
       });
   }, [url, method, body, headers]);
 

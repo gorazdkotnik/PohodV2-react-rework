@@ -27,7 +27,6 @@ const Results = () => {
         setShowLoadingSpinner(false);
 
         const newData = data.map((result, index) => {
-          console.log(result);
           return [
             index + 1,
             result.point?.name,
