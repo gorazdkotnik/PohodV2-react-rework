@@ -4,13 +4,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
+import Table from '../components/ui/Table';
 
 import { useUIContext } from '../context/UIContext';
 
@@ -20,6 +15,7 @@ const Results = () => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
   const [results, setResults] = useState([]);
+  const [resultsColumns, setResultsColumns] = useState([]);
 
   useEffect(() => {
     request('/results/my_group')
@@ -27,14 +23,25 @@ const Results = () => {
         setShowLoadingSpinner(false);
 
         const newData = data.map((result, index) => {
-          return [
-            index + 1,
-            result.point?.name,
-            `${result.correct_answers} / ${result.all_answers}`,
-          ];
+          return {
+            id: index + 1,
+            pointName: result.point?.name,
+            correctAnswers: `${result.correct_answers} / ${result.all_answers}`,
+          };
         });
 
+        const newColumns = [
+          { field: 'id', headerName: '#', width: 100 },
+          { field: 'pointName', headerName: 'Ime točke', width: 300 },
+          {
+            field: 'correctAnswers',
+            headerName: 'Pravilni odgovori / Vprašanja',
+            width: 300,
+          },
+        ];
+
         setResults(newData);
+        setResultsColumns(newColumns);
       })
       .catch(err => {
         setShowLoadingSpinner(false);
@@ -64,31 +71,7 @@ const Results = () => {
 
           {/* Table */}
           {results && results.length > 0 && (
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650, mt: 5 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell>Ime točke</TableCell>
-                    <TableCell>Pravilni odgovori / Vprašanja</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results.map(row => (
-                    <TableRow
-                      key={row[0]}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row[0]}
-                      </TableCell>
-                      <TableCell>{row[1]}</TableCell>
-                      <TableCell>{row[2]}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Table data={results} columns={resultsColumns} />
           )}
           {results && results.length < 1 && (
             <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>

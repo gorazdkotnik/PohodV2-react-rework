@@ -72,8 +72,6 @@ const Leaderboard = () => {
             },
           ];
 
-          console.log(newData, newColumns);
-
           setGroups(newData);
           setGroupsColumns(newColumns);
         })
