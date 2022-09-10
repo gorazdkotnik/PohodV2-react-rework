@@ -153,7 +153,6 @@ const PointQuestions = () => {
     // If there is a remaining time stored, set it
     if (remainingTimeStored) {
       setRemainingTime(remainingTimeStored);
-      console.log(remainingTimeStored);
     } else {
       setRemainingTime(timerDuration);
     }
