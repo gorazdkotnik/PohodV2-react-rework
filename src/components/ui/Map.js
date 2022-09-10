@@ -37,25 +37,37 @@ const Map = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <HandleMapClick onMapClickHandler={onMapClickHandler} />
-        {points.map(point => (
-          <Marker
-            position={[+point.location_lat, +point.location_long]}
-            key={point.point_id}
-          >
-            <Popup>
-              <p>{point.name}</p>
-              {onMapClickHandler && onMarkerClickHandler && (
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={onMarkerClickHandler.bind(null, point.point_id)}
-                >
-                  Izbriši
-                </Button>
-              )}
-            </Popup>
-          </Marker>
-        ))}
+        {points.map(point => {
+          const pointsWithSameCoordinates = points.filter(
+            p =>
+              p.location_lat === point.location_lat &&
+              p.location_long === point.location_long
+          );
+
+          const pointText = pointsWithSameCoordinates
+            .map(p => p.name)
+            .join(', ');
+
+          return (
+            <Marker
+              position={[+point.location_lat, +point.location_long]}
+              key={point.point_id}
+            >
+              <Popup>
+                <p>{pointText}</p>
+                {onMapClickHandler && onMarkerClickHandler && (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={onMarkerClickHandler.bind(null, point.point_id)}
+                  >
+                    Izbriši
+                  </Button>
+                )}
+              </Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </div>
   );
