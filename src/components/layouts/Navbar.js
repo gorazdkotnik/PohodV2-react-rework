@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,10 +20,14 @@ import { useAuthContext } from '../../context/AuthContext';
 
 const Navbar = ({ user }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const { logout, loggedIn } = useAuthContext();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const [point, setPoint] = React.useState(null);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -50,6 +54,10 @@ const Navbar = ({ user }) => {
     navigate('/');
     logout();
   };
+
+  React.useEffect(() => {
+    setPoint(localStorage.getItem('point'));
+  }, [pathname]);
 
   return (
     <AppBar position="fixed">
@@ -90,6 +98,7 @@ const Navbar = ({ user }) => {
               handleCloseNavMenu={handleCloseNavMenu}
               loggedIn={loggedIn}
               user={user}
+              pointHash={point}
             />
           </Box>
           <Typography
@@ -115,6 +124,7 @@ const Navbar = ({ user }) => {
               loggedIn={loggedIn}
               user={user}
               handleCloseNavMenu={handleCloseNavMenu}
+              pointHash={point}
             />
           </Box>
 

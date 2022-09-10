@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 import { userTypes } from '../../../utils/consts';
 
-const DesktopMenu = ({ loggedIn, handleCloseNavMenu, user }) => {
+const DesktopMenu = ({ loggedIn, handleCloseNavMenu, user, pointHash }) => {
   return (
     <>
       {loggedIn && (
@@ -84,6 +84,28 @@ const DesktopMenu = ({ loggedIn, handleCloseNavMenu, user }) => {
           Rezultati
         </Button>
       )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 &&
+        user.group &&
+        user.group &&
+        pointHash && (
+          <Button
+            key={`Vprašanja točke`}
+            onClick={handleCloseNavMenu}
+            sx={{
+              my: 2,
+              color: 'white',
+              display: 'block',
+              fontWeight: 'boldd',
+            }}
+            component={Link}
+            to={`/points/${pointHash}`}
+            size="large"
+          >
+            Vprašanja točke
+          </Button>
+        )}
       {!loggedIn && (
         <Button
           key={'Prijavi se'}

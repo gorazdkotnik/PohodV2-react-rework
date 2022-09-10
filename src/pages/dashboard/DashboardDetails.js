@@ -89,7 +89,11 @@ const DashboardDetails = () => {
   return (
     <Card>
       <CardContent>
-        <Button variant="outlined" onClick={() => navigate('/dashboard')}>
+        <Button
+          variant="outlined"
+          onClick={() => navigate('/dashboard')}
+          sx={{ mb: 3 }}
+        >
           Nazaj
         </Button>
 

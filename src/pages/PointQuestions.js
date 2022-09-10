@@ -41,6 +41,7 @@ const PointQuestions = () => {
 
   // Update local storage timer
   const onUpdateTimer = newRemainingTime => {
+    localStorage.setItem('point', `${hash}`);
     localStorage.setItem(
       `remainingTime-${hash}-${questionIndex}`,
       newRemainingTime
@@ -51,6 +52,8 @@ const PointQuestions = () => {
   const getQuestion = useCallback(() => {
     // If last question is answered, redirect to results
     if (questionIndex === numberOfQuestions) {
+      localStorage.removeItem('point');
+
       navigate('/results');
     }
 

@@ -7,7 +7,13 @@ import Typography from '@mui/material/Typography';
 
 import { userTypes } from '../../../utils/consts';
 
-const MobileMenu = ({ anchorElNav, handleCloseNavMenu, loggedIn, user }) => {
+const MobileMenu = ({
+  anchorElNav,
+  handleCloseNavMenu,
+  loggedIn,
+  user,
+  pointHash,
+}) => {
   return (
     <Menu
       id="menu-appbar"
@@ -97,6 +103,26 @@ const MobileMenu = ({ anchorElNav, handleCloseNavMenu, loggedIn, user }) => {
           <Typography textAlign="center">Rezultati</Typography>
         </MenuItem>
       )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 &&
+        user.group &&
+        user.group &&
+        pointHash && (
+          <MenuItem
+            key={'Vprašanja tpčke'}
+            onClick={handleCloseNavMenu}
+            component={Link}
+            to={`/points/${pointHash}`}
+          >
+            <Typography
+              textAlign="center"
+              sx={{ fontWeight: 'bold', fontStyle: 'italic' }}
+            >
+              Vprašanja točke
+            </Typography>
+          </MenuItem>
+        )}
       {!loggedIn && (
         <MenuItem
           key={'Prijavi se'}
