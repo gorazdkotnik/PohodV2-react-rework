@@ -44,7 +44,6 @@ const DashboardDetails = () => {
               field: key,
               headerName: key,
               width: 300,
-              editable: true,
             };
           });
 
