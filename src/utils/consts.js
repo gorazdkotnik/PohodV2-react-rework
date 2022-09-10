@@ -191,10 +191,12 @@ export const tableDefinitionsObj = {
         type: 'id',
       },
       text: {
-        translation: 'Ime skupine vprašanj',
+        translation: 'Besedilo vprašanja',
       },
     },
   },
 };
+
+export const timerDuration = 30; // seconds
 
 export const notificationTimeout = 5000;
