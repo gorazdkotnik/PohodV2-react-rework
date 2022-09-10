@@ -4,15 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Fab from '@mui/material/Fab';
-import ArrowBack from '@mui/icons-material/ArrowBack';
+import Button from '@mui/material/Button';
 
 import Table from '../../components/ui/Table';
 
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
-import { dashboard } from '../../utils/consts';
+import { dashboard, tableDefinitionsObj } from '../../utils/consts';
 
 const DashboardDetails = () => {
   const navigate = useNavigate();
@@ -40,9 +39,12 @@ const DashboardDetails = () => {
           keys = Object.keys(res[0]);
 
           let newColumns = keys.map(key => {
+            const translatedColumn =
+              tableDefinitionsObj[id]?.columns[key]?.translation;
+
             return {
               field: key,
-              headerName: key,
+              headerName: translatedColumn ? translatedColumn : key,
               width: 300,
             };
           });
@@ -54,8 +56,8 @@ const DashboardDetails = () => {
 
           const newData = res.map((item, index) => {
             keys.forEach(key => {
-              if (typeof item[key] === 'object') {
-                item[key] = 'object';
+              if (tableDefinitionsObj[id]?.columns[key]?.type === 'custom') {
+                item[key] = tableDefinitionsObj[id]?.columns[key].custom_name;
               }
             });
 
@@ -81,14 +83,9 @@ const DashboardDetails = () => {
   return (
     <Card>
       <CardContent>
-        <Fab
-          size="small"
-          color="primary"
-          aria-label="add"
-          onClick={() => navigate('/dashboard')}
-        >
-          <ArrowBack />
-        </Fab>
+        <Button variant="outlined" onClick={() => navigate('/dashboard')}>
+          Nazaj
+        </Button>
 
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
           {title}
