@@ -4,17 +4,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+
+import Table from '../components/ui/Table';
 
 import { useUIContext } from '../context/UIContext';
 
@@ -24,7 +19,9 @@ const Leaderboard = () => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
   const [events, setEvents] = useState([]);
+
   const [groups, setGroups] = useState([]);
+  const [groupsColumns, setGroupsColumns] = useState([]);
 
   const [selectedEvent, setSelectedEvent] = useState('');
 
@@ -56,15 +53,29 @@ const Leaderboard = () => {
           setShowLoadingSpinner(false);
 
           const newData = data.map((item, index) => {
-            return [
-              index + 1,
-              item.name,
-              item.time,
-              `${item.correct_answers} / ${item.possible_points}`,
-            ];
+            return {
+              id: index + 1,
+              groupName: item.name,
+              time: item.time,
+              answersPoints: `${item.correct_answers} / ${item.possible_points}`,
+            };
           });
 
+          const newColumns = [
+            { field: 'id', headerName: '#', width: 100 },
+            { field: 'groupName', headerName: 'Ime skupine', width: 250 },
+            { field: 'time', headerName: 'Čas hoje', width: 250 },
+            {
+              field: 'answersPoints',
+              headerName: 'Točke za odgovore',
+              width: 200,
+            },
+          ];
+
+          console.log(newData, newColumns);
+
           setGroups(newData);
+          setGroupsColumns(newColumns);
         })
         .catch(err => {
           setShowLoadingSpinner(false);
@@ -113,33 +124,7 @@ const Leaderboard = () => {
 
           {/* Table */}
           {selectedEvent && groups && groups.length > 0 && (
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650, mt: 5 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell>Ime skupine</TableCell>
-                    <TableCell>Čas hoje</TableCell>
-                    <TableCell>Točke za odgovore</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {groups.map(row => (
-                    <TableRow
-                      key={row[0]}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row[0]}
-                      </TableCell>
-                      <TableCell>{row[1]}</TableCell>
-                      <TableCell>{row[2]}</TableCell>
-                      <TableCell>{row[3]}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Table data={groups} columns={groupsColumns} />
           )}
           {selectedEvent !== '' && groups && groups.length < 1 && (
             <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
