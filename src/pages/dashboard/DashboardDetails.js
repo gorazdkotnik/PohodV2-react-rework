@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Fab from '@mui/material/Fab';
 import ArrowBack from '@mui/icons-material/ArrowBack';
+
+import Table from '../../components/ui/Table';
+
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
@@ -43,15 +39,36 @@ const DashboardDetails = () => {
         if (res && res.length > 0) {
           keys = Object.keys(res[0]);
 
-          setColumns(keys);
+          let newColumns = keys.map(key => {
+            return {
+              field: key,
+              headerName: key,
+              width: 300,
+            };
+          });
 
-          setData(
-            res.map(item => {
-              return keys.map(key => {
-                return typeof item[key] === 'object' ? 'object' : item[key];
-              });
-            })
-          );
+          newColumns = [
+            { field: 'id', headerName: '#', width: 100 },
+            ...newColumns,
+          ];
+
+          const newData = res.map((item, index) => {
+            keys.forEach(key => {
+              if (typeof item[key] === 'object') {
+                item[key] = 'object';
+              }
+            });
+
+            return {
+              id: index + 1,
+              ...item,
+            };
+          });
+
+          console.log(newData, newColumns);
+
+          setColumns(newColumns);
+          setData(newData);
         }
       })
       .catch(err => {
@@ -66,8 +83,13 @@ const DashboardDetails = () => {
   return (
     <Card>
       <CardContent>
-        <Fab size="small" color="primary" aria-label="add">
-          <ArrowBack onClick={() => navigate('/dashboard')} />
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="add"
+          onClick={() => navigate('/dashboard')}
+        >
+          <ArrowBack />
         </Fab>
 
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
@@ -75,40 +97,7 @@ const DashboardDetails = () => {
         </Typography>
 
         {data && columns && data.length > 0 && columns.length > 0 && (
-          <TableContainer component={Paper}>
-            <Table
-              sx={{ minWidth: columns.length * 200, mt: 5 }}
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow>
-                  {columns.map(column => (
-                    <TableCell key={column}>{column}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map(row => (
-                  <TableRow
-                    key={row[0]}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    {row.map((cell, index) => (
-                      <TableCell key={index}>
-                        {typeof cell === 'object' ? (
-                          <NavLink to={`/${id}/${cell.id}`}>
-                            {cell.name}
-                          </NavLink>
-                        ) : (
-                          cell
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Table data={data} columns={columns} />
         )}
 
         {(!data || data.length < 1) && (
