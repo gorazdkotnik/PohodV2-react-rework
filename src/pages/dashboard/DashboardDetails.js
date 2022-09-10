@@ -58,6 +58,12 @@ const DashboardDetails = () => {
             keys.forEach(key => {
               if (tableDefinitionsObj[id]?.columns[key]?.type === 'custom') {
                 item[key] = tableDefinitionsObj[id]?.columns[key].custom_name;
+              } else if (
+                tableDefinitionsObj[id]?.columns[key]?.type === 'map'
+              ) {
+                item[key] = tableDefinitionsObj[id]?.columns[key].map.get(
+                  +item[key]
+                );
               }
             });
 
