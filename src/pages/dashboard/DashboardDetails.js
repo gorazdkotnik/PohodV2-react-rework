@@ -44,6 +44,7 @@ const DashboardDetails = () => {
               field: key,
               headerName: key,
               width: 300,
+              editable: true,
             };
           });
 
@@ -64,8 +65,6 @@ const DashboardDetails = () => {
               ...item,
             };
           });
-
-          console.log(newData, newColumns);
 
           setColumns(newColumns);
           setData(newData);
@@ -97,7 +96,7 @@ const DashboardDetails = () => {
         </Typography>
 
         {data && columns && data.length > 0 && columns.length > 0 && (
-          <Table data={data} columns={columns} />
+          <Table data={data} columns={columns} editUrl={id} />
         )}
 
         {(!data || data.length < 1) && (
