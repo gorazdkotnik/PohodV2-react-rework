@@ -10,9 +10,7 @@ import { request } from '../../utils/functions';
 const useMutation = editUrl => {
   return React.useCallback(
     entity => {
-      const newEntity = { ...entity };
-
-      delete newEntity.id;
+      const newEntity = { user_id: entity.user_id, email: entity.email };
 
       return request(
         `/${editUrl}/${entity[`${editUrl.slice(0, -1)}_id`]}`,
@@ -33,13 +31,14 @@ const Table = ({ data, columns, editUrl }) => {
 
   const processRowUpdate = React.useCallback(
     async newRow => {
-      console.log(newRow);
-
       const response = await mutateRow(newRow);
       setSnackbar({
         children: 'Entiteta je bila uspešno spremenjena',
         severity: 'success',
       });
+
+      console.log('response', response);
+
       return response;
     },
     [mutateRow]
