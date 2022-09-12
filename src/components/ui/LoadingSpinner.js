@@ -13,7 +13,7 @@ const LoadingSpinner = () => {
     <>
       {showLoadingSpinner &&
         ReactDom.createPortal(
-          <Backdrop open={true}>
+          <Backdrop open={true} sx={{ zIndex: 1000 }}>
             <CircularProgress color="primary" size={80} />
           </Backdrop>,
           document.getElementById('spinner-root')

@@ -69,7 +69,7 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       });
   };
 
-  const downloadQRCode = pointHash => {
+  const downloadQRCode = (pointHash, pointName) => {
     const svg = document.getElementById(`${pointHash}-qrcode`);
 
     const serializer = new XMLSerializer();
@@ -94,7 +94,12 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
 
     const downloadLink = document.createElement('a');
     downloadLink.href = url;
-    downloadLink.download = `${pointHash}-qrcode.jpg`;
+
+    if (pointName)
+      downloadLink.download = `${pointName
+        .toLowerCase()
+        .replace(/\s/g, '_')}.svg`;
+
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -173,7 +178,7 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                   </Button>
                   <Button
                     variant="outlined"
-                    onClick={() => downloadQRCode(point.hash)}
+                    onClick={() => downloadQRCode(point.hash, point.name)}
                   >
                     Shrani QR kodo
                   </Button>
