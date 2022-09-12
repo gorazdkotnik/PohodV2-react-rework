@@ -159,7 +159,7 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                   sx={{ mt: 1 }}
                 >
                   <Button
-                    variant="contained"
+                    variant={showQRCode[point.hash] ? 'contained' : 'outlined'}
                     onClick={() => {
                       setShowQRCode(prevState => ({
                         ...prevState,
@@ -172,7 +172,7 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                       : 'Prikaži QR kodo'}
                   </Button>
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     onClick={() => downloadQRCode(point.hash)}
                   >
                     Shrani QR kodo
