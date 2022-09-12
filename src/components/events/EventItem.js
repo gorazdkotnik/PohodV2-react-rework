@@ -12,6 +12,7 @@ import { useUIContext } from '../../context/UIContext';
 import Map from '../ui/Map';
 
 import EventsForm from './EventsForm';
+import EventPoints from './EventPoints';
 
 import { formatDate, request } from '../../utils/functions';
 
@@ -21,6 +22,7 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showPoints, setShowPoints] = useState(false);
 
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
@@ -111,7 +113,7 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
         )}
         {showDetails && (
           <Stack
-            direction="row"
+            direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
             justifyContent="flex-start"
             alignItems="center"
@@ -127,11 +129,18 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
             >
               {showEditForm ? 'Zapri' : 'Uredi'}
             </Button>
+            <Button
+              variant="contained"
+              onClick={() => setShowPoints(prev => !prev)}
+            >
+              Točke
+            </Button>
           </Stack>
         )}
         {showDetails && (
           <EventsForm data={event} method="PUT" show={showEditForm} />
         )}
+        {showPoints && <EventPoints points={event.points} />}
       </CardContent>
     </Card>
   );
