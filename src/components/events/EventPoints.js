@@ -69,6 +69,37 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       });
   };
 
+  const downloadQRCode = pointHash => {
+    const svg = document.getElementById(`${pointHash}-qrcode`);
+
+    const serializer = new XMLSerializer();
+    let source = serializer.serializeToString(svg);
+
+    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+      source = source.replace(
+        /^<svg/,
+        '<svg xmlns="http://www.w3.org/2000/svg"'
+      );
+    }
+    if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+      source = source.replace(
+        /^<svg/,
+        '<svg xmlns:xlink="http://www.w3.org/1999/xlink"'
+      );
+    }
+
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+    const url =
+      'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = `${pointHash}-qrcode.jpg`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   React.useEffect(() => {
     setCurrentPoints(points.slice(0, pointsPerPage));
 
@@ -120,18 +151,33 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                 </Typography>
 
                 {/* button to show qr code */}
-                <Button
-                  variant="contained"
-                  sx={{ mt: 2 }}
-                  onClick={() => {
-                    setShowQRCode(prevState => ({
-                      ...prevState,
-                      [point.hash]: !prevState[point.hash],
-                    }));
-                  }}
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                  sx={{ mt: 1 }}
                 >
-                  {showQRCode[point.hash] ? 'Skrij QR kodo' : 'Prikaži QR kodo'}
-                </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setShowQRCode(prevState => ({
+                        ...prevState,
+                        [point.hash]: !prevState[point.hash],
+                      }));
+                    }}
+                  >
+                    {showQRCode[point.hash]
+                      ? 'Skrij QR kodo'
+                      : 'Prikaži QR kodo'}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => downloadQRCode(point.hash)}
+                  >
+                    Shrani QR kodo
+                  </Button>
+                </Stack>
               </Box>
 
               {questionGroups && questionGroups.length > 0 && (
@@ -158,10 +204,14 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                 </FormControl>
               )}
             </Stack>
-            <Box sx={{ mt: 2 }}>
-              {showQRCode[point.hash] && (
-                <QRCode value={`${BACKEND_URL}/points/${point.hash}`} />
-              )}
+            <Box
+              sx={{ mt: 2, display: showQRCode[point.hash] ? 'block' : 'none' }}
+            >
+              <QRCode
+                id={`${point.hash}-qrcode`}
+                value={`${BACKEND_URL}/points/${point.hash}`}
+                title={point.name}
+              />
             </Box>
           </CardContent>
         </Card>
