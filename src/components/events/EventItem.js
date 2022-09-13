@@ -140,7 +140,13 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
         {showDetails && (
           <EventsForm data={event} method="PUT" show={showEditForm} />
         )}
-        {showPoints && <EventPoints points={event.points} />}
+        {showPoints && (
+          <EventPoints
+            points={event.points}
+            event={event}
+            onReloadEvent={onReloadEvent}
+          />
+        )}
       </CardContent>
     </Card>
   );

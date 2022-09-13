@@ -29,14 +29,19 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
   );
 
   const [questionGroups, setQuestionGroups] = React.useState(null);
-  const [questionGroupId, setQuestionGroupId] = React.useState(null);
+  const [questionGroupId, setQuestionGroupId] = React.useState({});
 
   const [showQRCode, setShowQRCode] = React.useState({});
 
-  const changeQuestionGroupHandler = e => {
-    setQuestionGroupId(e.target.value);
+  const changeQuestionGroupHandler = (e, pointId) => {
+    setQuestionGroupId(prevState => ({
+      ...prevState,
+      [pointId]: e.target.value,
+    }));
 
-    updatePointQuestionGroup(e.target.value);
+    console.log(e.target.value);
+
+    updatePointQuestionGroup(pointId, e.target.value);
   };
 
   const showMorePointsHandler = numberOfPoints => {
@@ -44,10 +49,10 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
     setCurrentPoints(points.slice(0, pointsPerPage + numberOfPoints));
   };
 
-  const updatePointQuestionGroup = pointId => {
+  const updatePointQuestionGroup = (pointId, newQuestionGroupId) => {
     const updatedPoints = points.map(point => {
       if (point.point_id === pointId) {
-        point.question_group_id = questionGroupId;
+        point.question_group_id = newQuestionGroupId;
       }
       return point;
     });
@@ -58,7 +63,8 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
     })
       .then(res => {
         setShowLoadingSpinner(false);
-        onReloadEvent();
+        // onReloadEvent();
+        console.log(updatedPoints);
       })
       .catch(e => {
         setShowLoadingSpinner(false);
@@ -66,6 +72,7 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
           title: 'Napaka pri točkah',
           text: 'Prišlo je do napake pri spreminjanju točk. Poskusite znova.',
         });
+        console.log(e);
       });
   };
 
@@ -113,6 +120,11 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
         ...prevState,
         [point.point_id]: false,
       }));
+
+      setQuestionGroupId(prevState => ({
+        ...prevState,
+        [point.point_id]: point.question_group_id,
+      }));
     });
   }, [points, pointsPerPage]);
 
@@ -122,10 +134,6 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       .then(res => {
         setShowLoadingSpinner(false);
         setQuestionGroups(res);
-
-        if (res.length > 0) {
-          setQuestionGroupId(res[0].question_group_id);
-        }
       })
       .catch(err => {
         setShowLoadingSpinner(false);
@@ -193,9 +201,11 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                   <Select
                     labelId="questionGroupLabel"
                     id="questionGroup"
-                    value={questionGroupId}
+                    value={questionGroupId[point.point_id]}
                     label="Skupina vprašanj"
-                    onChange={changeQuestionGroupHandler}
+                    onChange={e => {
+                      changeQuestionGroupHandler(e, point.point_id);
+                    }}
                   >
                     {questionGroups.map(questionGroup => (
                       <MenuItem

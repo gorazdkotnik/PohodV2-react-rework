@@ -17,6 +17,7 @@ import Leaderboard from '../../pages/Leaderboard';
 import Dashboard from '../../pages/dashboard/Dashboard';
 import DashboardDetails from '../../pages/dashboard/DashboardDetails';
 import Events from '../../pages/events/Events';
+import QuestionGroups from '../../pages/question_groups/QuestionGroups';
 import Groups from '../../pages/groups/Groups';
 import PointQuestions from '../../pages/PointQuestions';
 
@@ -67,6 +68,11 @@ function RoutesList() {
           {/* Events */}
           {userExists() && user.user_type === userTypes.ADMIN && (
             <Route path="/events/*" element={<Events />} />
+          )}
+
+          {/* Question groups */}
+          {userExists() && user.user_type === userTypes.ADMIN && (
+            <Route path="/question_groups/*" element={<QuestionGroups />} />
           )}
 
           {/* Groups */}

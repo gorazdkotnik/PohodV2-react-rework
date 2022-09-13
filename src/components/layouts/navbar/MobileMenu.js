@@ -68,6 +68,18 @@ const MobileMenu = ({
           </MenuItem>
         )}
       {loggedIn &&
+        user.user_type === userTypes.ADMIN &&
+        Object.keys(user).length > 0 && (
+          <MenuItem
+            key={'Skupine vprašanj'}
+            onClick={handleCloseNavMenu}
+            component={Link}
+            to="/question_groups"
+          >
+            <Typography textAlign="center">Skupine vprašanj</Typography>
+          </MenuItem>
+        )}
+      {loggedIn &&
         user.user_type === userTypes.USER &&
         Object.keys(user).length > 0 && (
           <MenuItem
