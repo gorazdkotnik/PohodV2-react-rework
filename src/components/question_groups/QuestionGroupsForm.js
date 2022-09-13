@@ -15,7 +15,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
 
   const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
 
   const nameOnChangeHandler = event => {
@@ -36,12 +36,15 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
     }
 
     setShowLoadingSpinner(true);
-    request('/question_groups', 'POST', { name })
+    request(
+      `/question_groups${method === 'PUT' ? `/${data.question_group_id}` : ''}`,
+      method,
+      { name }
+    )
       .then(response => {
         setShowLoadingSpinner(false);
         setNotification({
           title: 'Uspešno dodana nova skupina vprašanja',
-          text: 'Uspešno ste dodali novo skupino vprašanj.',
         });
         navigate('/question_groups');
       })

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -11,25 +11,32 @@ const AllQuestionGroups = () => {
 
   const [questionGroups, setQuestionGroups] = useState([]);
 
-  useEffect(() => {
+  const fetchQuestionGroups = useCallback(() => {
     setShowLoadingSpinner(true);
     request('/question_groups')
-      .then(response => {
+      .then(res => {
         setShowLoadingSpinner(false);
-        setQuestionGroups(response);
-
-        console.log(response);
+        setQuestionGroups(res);
       })
-      .catch(error => {
+      .catch(err => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri pridobivanju dogodkov',
-          text: 'Prišlo je do napake pri pridobivanju dogodkov. Poskusite znova.',
+          title: 'Napaka pri pridobivanju skupine vprašanj',
+          text: 'Prišlo je do napake pri pridobivanju skupine vprašanj. Poskusite znova.',
         });
       });
   }, [setShowLoadingSpinner, setDialog]);
 
-  return <QuestionGroupsList questionGroups={questionGroups} />;
+  useEffect(() => {
+    fetchQuestionGroups();
+  }, [fetchQuestionGroups]);
+
+  return (
+    <QuestionGroupsList
+      questionGroups={questionGroups}
+      onReloadQuestionGroups={fetchQuestionGroups}
+    />
+  );
 };
 
 export default AllQuestionGroups;
