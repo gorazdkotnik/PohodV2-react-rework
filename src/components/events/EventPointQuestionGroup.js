@@ -67,11 +67,11 @@ const EventPointQuestionGroup = ({
       sx={{ zIndex: 500 }}
     >
       <DialogTitle id="alert-dialog-title">
-        {"Use Google's location service?"}
+        {`Spremeni skupino vprašanj za točko "${point.name}"`}
       </DialogTitle>
       <DialogContent>
         {questionGroups && questionGroups.length > 0 && (
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ mt: 1 }}>
             <InputLabel id="questionGroupLabel">Skupina vprašanj</InputLabel>
             <Select
               labelId="questionGroupLabel"
