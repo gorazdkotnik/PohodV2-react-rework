@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
+// Avatar name to color
 function stringToColor(string) {
   try {
     let hash = 0;
@@ -24,6 +25,7 @@ function stringToColor(string) {
   } catch (err) {}
 }
 
+// Avatar settings
 function stringAvatar(name) {
   try {
     return {
@@ -38,8 +40,10 @@ function stringAvatar(name) {
 }
 
 const ProfileInfo = ({ user }) => {
+  // UI context
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
+  // User data type
   const userType =
     user.user_type === '2'
       ? 'Administrator'
@@ -47,8 +51,10 @@ const ProfileInfo = ({ user }) => {
       ? 'Učitelj'
       : 'Dijak';
 
+  // Event
   const [event, setEvent] = useState(null);
 
+  // Get event
   useEffect(() => {
     if (user.group) {
       setShowLoadingSpinner(true);
@@ -76,23 +82,32 @@ const ProfileInfo = ({ user }) => {
         spacing={2}
         sx={{ my: 5 }}
       >
+        {/* Avatar */}
         <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} />
+
+        {/* Name */}
         <Typography variant="h5" gutterBottom>
           {user.first_name} {user.last_name}
         </Typography>
+
+        {/* User type */}
         <Typography variant="button" display="block" gutterBottom>
           {userType}
         </Typography>
+
+        {/* Email */}
         <Typography variant="p" display="block" gutterBottom>
           {user.email}
         </Typography>
       </Stack>
+
       <Stack
         direction="column"
         justifyContent="center"
         spacing={2}
         sx={{ my: 5 }}
       >
+        {/* User group */}
         {user.group && (
           <Card>
             <CardContent>
@@ -105,6 +120,8 @@ const ProfileInfo = ({ user }) => {
             </CardContent>
           </Card>
         )}
+
+        {/* User event */}
         {user.group && event && (
           <Card>
             <CardContent>
@@ -118,6 +135,7 @@ const ProfileInfo = ({ user }) => {
           </Card>
         )}
 
+        {/* User group code */}
         {user.group && (
           <Card>
             <CardContent>

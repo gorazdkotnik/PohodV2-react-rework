@@ -8,11 +8,16 @@ import { useAuthContext } from '../../context/AuthContext';
 import { useToggleTheme } from '../../context/ThemeContext';
 
 const ProfileSettings = () => {
+  // Navigate
   const navigate = useNavigate();
 
+  // Auth context
   const { logout } = useAuthContext();
+
+  // Toggle theme
   const toggleTheme = useToggleTheme();
 
+  // Logout button click handler
   const logoutHandler = () => {
     navigate('/');
     logout();
@@ -26,6 +31,7 @@ const ProfileSettings = () => {
       spacing={2}
       sx={{ my: 5 }}
     >
+      {/* Change password */}
       <Button
         variant="text"
         component="a"
@@ -35,9 +41,13 @@ const ProfileSettings = () => {
       >
         Spremeni geslo
       </Button>
+
+      {/* Toggle theme */}
       <Button variant="outlined" onClick={toggleTheme}>
         Preklopi med temami
       </Button>
+
+      {/* Logout */}
       <Button variant="contained" onClick={logoutHandler}>
         Izpiši se
       </Button>
