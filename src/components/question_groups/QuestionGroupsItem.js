@@ -47,14 +47,14 @@ const QuestionGroupsItem = ({
     <Card sx={{ width: '100%', my: 2 }}>
       <CardContent>
         <Stack
-          direction="row"
+          direction={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
           alignItems="center"
         >
           <Typography variant="h5" component="div">
             {questionGroup.name}
           </Typography>
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={1} sx={{ mt: { xs: 2, sm: 0 } }}>
             <Button
               variant="contained"
               color="primary"
