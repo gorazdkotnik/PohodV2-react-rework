@@ -15,7 +15,7 @@ import QuestionOverlay from '../components/questions/QuestionOverlay';
 import QuestionCard from '../components/questions/QuestionCard';
 
 const PointQuestions = () => {
-  const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
+  const { setShowLoadingSpinner, setNotification } = useUIContext();
 
   const { hash } = useParams();
   const navigate = useNavigate();
@@ -50,13 +50,6 @@ const PointQuestions = () => {
 
   // Get Question
   const getQuestion = useCallback(() => {
-    // If last question is answered, redirect to results
-    if (questionIndex === numberOfQuestions) {
-      localStorage.removeItem('point');
-
-      navigate('/results');
-    }
-
     setShowLoadingSpinner(true);
 
     // Get number of questions
@@ -82,19 +75,10 @@ const PointQuestions = () => {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        setDialog({
-          title: 'Napaka pri pridobivanju vprašanj',
-          text: 'Prišlo je do napake pri pridobivanju vprašanj. Poskusite znova.',
-        });
+        localStorage.removeItem('point');
+        navigate('/results');
       });
-  }, [
-    hash,
-    setShowLoadingSpinner,
-    setDialog,
-    navigate,
-    numberOfQuestions,
-    questionIndex,
-  ]);
+  }, [hash, setShowLoadingSpinner, navigate]);
 
   // Submit Question
   const submitQuestion = useCallback(() => {

@@ -144,14 +144,16 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                       : 'Prikaži QR kodo'}
                   </Button>
                   <Button
-                    variant="outlined"
+                    variant="contained"
+                    color="success"
                     onClick={() => downloadQRCode(point.hash, point.name)}
                   >
                     Shrani QR kodo
                   </Button>
 
                   <Button
-                    variant="outlined"
+                    variant="contained"
+                    color="warning"
                     onClick={() => {
                       setSelectedPoint(point);
                       setShowQuestionGroupSelection(true);
