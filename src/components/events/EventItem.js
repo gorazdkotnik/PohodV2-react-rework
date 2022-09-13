@@ -48,6 +48,7 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
       .then(res => {
         setShowLoadingSpinner(false);
         onReloadEvent();
+        console.log(res);
       })
       .catch(e => {
         setShowLoadingSpinner(false);
@@ -66,15 +67,38 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   const onMapClickHandler = e => {
     const { lat, lng } = e.latlng;
 
-    const point = {
-      name: `Točka ${event.points.length + 1}`,
-      event_id: +event.event_id,
-      serial_number: event.points.length,
-      location_lat: lat,
-      location_long: lng,
-    };
+    setShowLoadingSpinner(true);
+    request('/question_groups')
+      .then(res => {
+        setShowLoadingSpinner(false);
 
-    postPoints([...event.points, point]);
+        if (res.length === 0) {
+          setDialog({
+            title: 'Za ustvarjanje točke ni skupin vprašanj',
+            text: 'Za ustvarjanje točke morate najprej ustvariti skupino vprašanj.',
+          });
+
+          return;
+        }
+
+        const point = {
+          name: `Točka ${event.points.length + 1}`,
+          event_id: +event.event_id,
+          serial_number: event.points.length,
+          location_lat: lat,
+          location_long: lng,
+          question_group_id: res[0].question_group_id,
+        };
+
+        postPoints([...event.points, point]);
+      })
+      .catch(err => {
+        setShowLoadingSpinner(false);
+        setDialog({
+          title: 'Napaka pri pridobivanju skupine vprašanj',
+          text: 'Prišlo je do napake pri pridobivanju skupine vprašanj. Poskusite znova.',
+        });
+      });
   };
 
   return (

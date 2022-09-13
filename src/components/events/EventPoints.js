@@ -7,13 +7,11 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
 import QRCode from 'react-qr-code';
+
+import EventPointQuestionGroup from './EventPointQuestionGroup';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -28,52 +26,18 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
     points.slice(0, pointsPerPage)
   );
 
+  const [selectedPoint, setSelectedPoint] = React.useState(null);
+
   const [questionGroups, setQuestionGroups] = React.useState(null);
-  const [questionGroupId, setQuestionGroupId] = React.useState({});
 
   const [showQRCode, setShowQRCode] = React.useState({});
 
-  const changeQuestionGroupHandler = (e, pointId) => {
-    setQuestionGroupId(prevState => ({
-      ...prevState,
-      [pointId]: e.target.value,
-    }));
-
-    console.log(e.target.value);
-
-    updatePointQuestionGroup(pointId, e.target.value);
-  };
+  const [showQuestionGroupSelection, setShowQuestionGroupSelection] =
+    React.useState(false);
 
   const showMorePointsHandler = numberOfPoints => {
     setPointsPerPage(pointsPerPage + numberOfPoints);
     setCurrentPoints(points.slice(0, pointsPerPage + numberOfPoints));
-  };
-
-  const updatePointQuestionGroup = (pointId, newQuestionGroupId) => {
-    const updatedPoints = points.map(point => {
-      if (point.point_id === pointId) {
-        point.question_group_id = newQuestionGroupId;
-      }
-      return point;
-    });
-
-    setShowLoadingSpinner(true);
-    request(`/points/${event.event_id}`, 'PUT', {
-      points: updatedPoints,
-    })
-      .then(res => {
-        setShowLoadingSpinner(false);
-        // onReloadEvent();
-        console.log(updatedPoints);
-      })
-      .catch(e => {
-        setShowLoadingSpinner(false);
-        setDialog({
-          title: 'Napaka pri točkah',
-          text: 'Prišlo je do napake pri spreminjanju točk. Poskusite znova.',
-        });
-        console.log(e);
-      });
   };
 
   const downloadQRCode = (pointHash, pointName) => {
@@ -119,11 +83,6 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       setShowQRCode(prevState => ({
         ...prevState,
         [point.point_id]: false,
-      }));
-
-      setQuestionGroupId(prevState => ({
-        ...prevState,
-        [point.point_id]: point.question_group_id,
       }));
     });
   }, [points, pointsPerPage]);
@@ -190,34 +149,18 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
                   >
                     Shrani QR kodo
                   </Button>
-                </Stack>
-              </Box>
 
-              {questionGroups && questionGroups.length > 0 && (
-                <FormControl fullWidth>
-                  <InputLabel id="questionGroupLabel">
-                    Skupina vprašanj
-                  </InputLabel>
-                  <Select
-                    labelId="questionGroupLabel"
-                    id="questionGroup"
-                    value={questionGroupId[point.point_id]}
-                    label="Skupina vprašanj"
-                    onChange={e => {
-                      changeQuestionGroupHandler(e, point.point_id);
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setSelectedPoint(point);
+                      setShowQuestionGroupSelection(true);
                     }}
                   >
-                    {questionGroups.map(questionGroup => (
-                      <MenuItem
-                        key={questionGroup.question_group_id}
-                        value={questionGroup.question_group_id}
-                      >
-                        {questionGroup.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              )}
+                    Izberi skupino vprašanj
+                  </Button>
+                </Stack>
+              </Box>
             </Stack>
             <Box
               sx={{ mt: 2, display: showQRCode[point.hash] ? 'block' : 'none' }}
@@ -249,6 +192,18 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
             <AddIcon />
           </Fab>
         </Stack>
+      )}
+
+      {selectedPoint && (
+        <EventPointQuestionGroup
+          open={showQuestionGroupSelection}
+          onClose={() => setShowQuestionGroupSelection(false)}
+          questionGroups={questionGroups}
+          point={selectedPoint}
+          points={points}
+          event={event}
+          onReloadEvent={onReloadEvent}
+        />
       )}
     </>
   );
