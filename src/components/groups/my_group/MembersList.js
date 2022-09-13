@@ -66,7 +66,14 @@ const MembersList = ({ user }) => {
                     <Button
                       variant="contained"
                       color="error"
-                      onClick={kickMemberHandler.bind(null, member)}
+                      onClick={() => {
+                        setDialog({
+                          title: 'Odstrani člana',
+                          text: `Ali ste prepričani, da želite odstraniti člana "${member.first_name} ${member.last_name}"?`,
+
+                          onClose: kickMemberHandler.bind(null, member),
+                        });
+                      }}
                     >
                       Odstrani
                     </Button>

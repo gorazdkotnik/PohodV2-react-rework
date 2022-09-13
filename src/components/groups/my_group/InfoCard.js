@@ -123,7 +123,17 @@ const InfoCard = ({ user }) => {
         >
           Regeneriraj kodo
         </Button>
-        <Button variant="contained" color="error" onClick={leaveGroupHandler}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => {
+            setDialog({
+              title: 'Zapusti skupino',
+              text: 'Ali ste prepričani, da želite zapustiti skupino?',
+              onClose: leaveGroupHandler,
+            });
+          }}
+        >
           Zapusti skupino
         </Button>
       </Stack>

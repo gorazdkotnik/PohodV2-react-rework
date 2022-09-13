@@ -9,6 +9,8 @@ import {
 
 import Button from '@mui/material/Button';
 
+import { useUIContext } from '../../context/UIContext';
+
 const position = [46.386079810551266, 15.087464857546308];
 
 function HandleMapClick({ onMapClickHandler = () => {} }) {
@@ -24,6 +26,8 @@ const Map = ({
   onMarkerClickHandler = () => {},
   onMapClickHandler,
 } = {}) => {
+  const { setDialog } = useUIContext();
+
   return (
     <div className={className}>
       <MapContainer
@@ -59,7 +63,16 @@ const Map = ({
                   <Button
                     variant="contained"
                     color="error"
-                    onClick={onMarkerClickHandler.bind(null, point.point_id)}
+                    onClick={() => {
+                      setDialog({
+                        title: 'Izbriši točko',
+                        text: `Ali ste prepričani, da želite izbrisati točko "${point.name}"?`,
+                        onClose: onMarkerClickHandler.bind(
+                          null,
+                          point.point_id
+                        ),
+                      });
+                    }}
                   >
                     Izbriši
                   </Button>

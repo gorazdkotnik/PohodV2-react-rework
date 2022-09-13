@@ -143,7 +143,17 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
             alignItems="center"
             sx={{ my: 2 }}
           >
-            <Button variant="contained" color="error" onClick={onDeleteHandler}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                setDialog({
+                  title: 'Brisanje dogodka',
+                  text: 'Ali ste prepričani, da želite izbrisati dogodek?',
+                  onClose: onDeleteHandler,
+                });
+              }}
+            >
               Izbriši dogodek
             </Button>
             <Button

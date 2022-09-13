@@ -32,8 +32,22 @@ const Modal = () => {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
+              {dialog.onClose && (
+                <Button
+                  onClick={() => {
+                    setDialog(null);
+                  }}
+                >
+                  Prekliči
+                </Button>
+              )}
+
               <Button
                 onClick={() => {
+                  if (dialog.onClose) {
+                    dialog.onClose();
+                  }
+
                   setDialog(null);
                 }}
                 autoFocus

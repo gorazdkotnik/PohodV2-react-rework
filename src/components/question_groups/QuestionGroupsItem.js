@@ -63,7 +63,17 @@ const QuestionGroupsItem = ({
             >
               Uredi
             </Button>
-            <Button variant="contained" color="error" onClick={onDeleteHandler}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                setDialog({
+                  title: 'Brisanje skupine vprašanj',
+                  text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
+                  onClose: onDeleteHandler,
+                });
+              }}
+            >
               Izbriši
             </Button>
 
