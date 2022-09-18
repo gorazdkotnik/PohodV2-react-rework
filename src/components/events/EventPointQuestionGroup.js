@@ -36,8 +36,6 @@ const EventPointQuestionGroup = ({
       return point;
     });
 
-    console.log(updatedPoints);
-
     setShowLoadingSpinner(true);
     request(`/points/${event.event_id}`, 'PUT', {
       points: updatedPoints,

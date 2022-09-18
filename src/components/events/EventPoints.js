@@ -1,22 +1,15 @@
 import React from 'react';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-
-import QRCode from 'react-qr-code';
 
 import EventPointQuestionGroup from './EventPointQuestionGroup';
+import EventPointItem from './EventPointItem';
 
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
-import { BACKEND_URL } from '../../config/env';
 
 const EventPoints = ({ event, points, onReloadEvent }) => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
@@ -106,75 +99,18 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
   return (
     <>
       {currentPoints.map(point => (
-        <Card key={point.point_id} sx={{ mb: 2 }}>
-          <CardContent>
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={2}
-            >
-              <Box>
-                <Typography variant="h6" component="h2">
-                  {point.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {point.location_lat}, {point.location_long}
-                </Typography>
-
-                {/* button to show qr code */}
-                <Stack
-                  direction={{ xs: 'column', sm: 'row' }}
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  spacing={1}
-                  sx={{ mt: 1 }}
-                >
-                  <Button
-                    variant={showQRCode[point.hash] ? 'contained' : 'outlined'}
-                    onClick={() => {
-                      setShowQRCode(prevState => ({
-                        ...prevState,
-                        [point.hash]: !prevState[point.hash],
-                      }));
-                    }}
-                  >
-                    {showQRCode[point.hash]
-                      ? 'Skrij QR kodo'
-                      : 'Prikaži QR kodo'}
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    onClick={() => downloadQRCode(point.hash, point.name)}
-                  >
-                    Shrani QR kodo
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    color="warning"
-                    onClick={() => {
-                      setSelectedPoint(point);
-                      setShowQuestionGroupSelection(true);
-                    }}
-                  >
-                    Izberi skupino vprašanj
-                  </Button>
-                </Stack>
-              </Box>
-            </Stack>
-            <Box
-              sx={{ mt: 2, display: showQRCode[point.hash] ? 'block' : 'none' }}
-            >
-              <QRCode
-                id={`${point.hash}-qrcode`}
-                value={`${BACKEND_URL}/points/${point.hash}`}
-                title={point.name}
-              />
-            </Box>
-          </CardContent>
-        </Card>
+        <EventPointItem
+          key={point.point_id}
+          point={point}
+          event={event}
+          points={points}
+          showQRCode={showQRCode}
+          setShowQRCode={setShowQRCode}
+          downloadQRCode={downloadQRCode}
+          setSelectedPoint={setSelectedPoint}
+          setShowQuestionGroupSelection={setShowQuestionGroupSelection}
+          onReloadEvent={onReloadEvent}
+        />
       ))}
       {pointsPerPage < points.length && (
         <Stack
