@@ -122,13 +122,15 @@ const InfoCard = ({ user }) => {
         alignItems="center"
         spacing={2}
       >
-        <Button
-          variant="contained"
-          color="warning"
-          onClick={regenerateCodeHandler}
-        >
-          Regeneriraj kodo
-        </Button>
+        {user?.user_id === user?.group?.leader_id && (
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={regenerateCodeHandler}
+          >
+            Regeneriraj kodo
+          </Button>
+        )}
         <Button
           variant="contained"
           color="error"
