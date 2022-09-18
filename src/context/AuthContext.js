@@ -7,16 +7,17 @@ const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthContextProvider = ({ children }) => {
-  const { setShowLoadingSpinner, setDialog } = useUIContext();
+  const { setDialog } = useUIContext();
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [userLoading, setUserLoading] = useState(true);
 
   useEffect(() => {
-    setShowLoadingSpinner(true);
+    setUserLoading(true);
     request('/me')
       .then(data => {
-        setShowLoadingSpinner(false);
+        setUserLoading(false);
         if (data) {
           setLoggedIn(true);
           setUser(data);
@@ -26,7 +27,7 @@ const AuthContextProvider = ({ children }) => {
         }
       })
       .catch(() => {
-        setShowLoadingSpinner(false);
+        setUserLoading(false);
         setLoggedIn(false);
         setUser({});
         setDialog({
@@ -38,10 +39,10 @@ const AuthContextProvider = ({ children }) => {
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
-      setShowLoadingSpinner(true);
+      setUserLoading(true);
       request('/auth/login', 'POST', { email, password })
         .then(data => {
-          setShowLoadingSpinner(false);
+          setUserLoading(false);
           if (data) {
             setLoggedIn(true);
             setUser(data);
@@ -52,7 +53,7 @@ const AuthContextProvider = ({ children }) => {
           resolve(data);
         })
         .catch(err => {
-          setShowLoadingSpinner(false);
+          setUserLoading(false);
 
           setLoggedIn(false);
           setUser({});
@@ -68,17 +69,14 @@ const AuthContextProvider = ({ children }) => {
 
   const logout = () => {
     return new Promise((resolve, reject) => {
-      setShowLoadingSpinner(true);
       request('/auth/logout', 'POST')
         .then(data => {
-          setShowLoadingSpinner(false);
 
           setLoggedIn(false);
           setUser({});
           resolve(data);
         })
         .catch(err => {
-          setShowLoadingSpinner(false);
 
           setLoggedIn(false);
           setUser({});
@@ -98,8 +96,11 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
   };
+  console.log("ul", userLoading)
+  return (
+    userLoading ? null : <Provider value={value}>{children}</Provider>
+  )
 
-  return <Provider value={value}>{children}</Provider>;
 };
 
 const useAuthContext = () => useContext(AuthContext);
