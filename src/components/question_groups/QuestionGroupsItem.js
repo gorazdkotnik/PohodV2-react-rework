@@ -13,6 +13,7 @@ import { request } from '../../utils/functions';
 
 import QuestionGroupsForm from './QuestionGroupsForm';
 import QuestionsForm from './QuestionsForm';
+import QuestionsList from './QuestionsList';
 
 const QuestionGroupsItem = ({
   questionGroup,
@@ -52,7 +53,13 @@ const QuestionGroupsItem = ({
   };
 
   return (
-    <Card sx={{ width: '100%', my: 2 }}>
+    <Card
+      sx={{
+        width: '100%',
+        my: 2,
+        boxShadow: showDetails ? 'none !important' : '',
+      }}
+    >
       <CardContent>
         <Stack
           direction={{ sm: 'column', md: 'row' }}
@@ -65,7 +72,7 @@ const QuestionGroupsItem = ({
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             spacing={1}
-            sx={{ mt: { xs: 2, sm: 0 } }}
+            sx={{ mt: { xs: 2, sm: 0 }, my: 2 }}
           >
             {!showDetails && (
               <Button
@@ -127,6 +134,13 @@ const QuestionGroupsItem = ({
             questionGroupId={questionGroup.question_group_id}
             onReloadQuestionGroup={onReloadQuestionGroup}
             setShowAddQuestionForm={setShowAddQuestionForm}
+          />
+        )}
+
+        {showDetails && (
+          <QuestionsList
+            questions={questionGroup.questions}
+            onReloadQuestionGroup={onReloadQuestionGroup}
           />
         )}
       </CardContent>
