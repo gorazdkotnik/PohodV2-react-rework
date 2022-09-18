@@ -18,10 +18,6 @@ const useUser = authRequired => {
 
   useEffect(() => {
     getUser();
-  }, []);
-
-  useEffect(() => {
-    getUser();
   }, [pathname]);
 
   return { user };

@@ -84,6 +84,7 @@ const InfoCard = ({ user }) => {
           p: 1,
           color: '#fff',
           textAlign: 'center',
+          mt: 2,
         }}
       >
         {user.group.name}
