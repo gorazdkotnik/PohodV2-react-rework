@@ -52,7 +52,6 @@ const EventPointQuestionGroup = ({
           title: 'Napaka pri točkah',
           text: 'Prišlo je do napake pri spreminjanju točk. Poskusite znova.',
         });
-        console.log(e);
       });
   };
 

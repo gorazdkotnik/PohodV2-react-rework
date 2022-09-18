@@ -12,6 +12,7 @@ import { useUIContext } from '../../context/UIContext';
 import { request } from '../../utils/functions';
 
 import QuestionGroupsForm from './QuestionGroupsForm';
+import QuestionsForm from './QuestionsForm';
 
 const QuestionGroupsItem = ({
   questionGroup,
@@ -24,6 +25,9 @@ const QuestionGroupsItem = ({
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showAddQuestionForm, setShowAddQuestionForm] = useState(false);
+
+  console.log('questionGroup', questionGroup);
 
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
@@ -51,22 +55,49 @@ const QuestionGroupsItem = ({
     <Card sx={{ width: '100%', my: 2 }}>
       <CardContent>
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
+          direction={{ sm: 'column', md: 'row' }}
           justifyContent="space-between"
           alignItems="center"
         >
           <Typography variant="h5" component="div">
             {questionGroup.name}
           </Typography>
-          <Stack direction="row" spacing={1} sx={{ mt: { xs: 2, sm: 0 } }}>
-            <Button
-              variant="contained"
-              color="primary"
-              component={NavLink}
-              to={`/question_groups/${questionGroup.question_group_id}`}
-            >
-              Uredi
-            </Button>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={1}
+            sx={{ mt: { xs: 2, sm: 0 } }}
+          >
+            {!showDetails && (
+              <Button
+                variant="contained"
+                color="primary"
+                component={NavLink}
+                to={`/question_groups/${questionGroup.question_group_id}`}
+              >
+                Uredi
+              </Button>
+            )}
+
+            {showDetails && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setShowEditForm(prev => !prev)}
+              >
+                {showEditForm ? 'Skrij' : 'Spremeni'}
+              </Button>
+            )}
+
+            {showDetails && (
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={() => setShowAddQuestionForm(prev => !prev)}
+              >
+                {showAddQuestionForm ? 'Skrij' : 'Dodaj vprašanje'}
+              </Button>
+            )}
+
             <Button
               variant="contained"
               color="error"
@@ -80,26 +111,24 @@ const QuestionGroupsItem = ({
             >
               Izbriši
             </Button>
-
-            {showDetails && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setShowEditForm(prev => !prev)}
-              >
-                {showEditForm ? 'Skrij' : 'Uredi'}
-              </Button>
-            )}
           </Stack>
-
-          {showEditForm && (
-            <QuestionGroupsForm
-              data={questionGroup}
-              onReloadQuestionGroup={onReloadQuestionGroup}
-              method="PUT"
-            />
-          )}
         </Stack>
+
+        {showEditForm && (
+          <QuestionGroupsForm
+            data={questionGroup}
+            onReloadQuestionGroup={onReloadQuestionGroup}
+            method="PUT"
+          />
+        )}
+
+        {showAddQuestionForm && (
+          <QuestionsForm
+            questionGroupId={questionGroup.question_group_id}
+            onReloadQuestionGroup={onReloadQuestionGroup}
+            setShowAddQuestionForm={setShowAddQuestionForm}
+          />
+        )}
       </CardContent>
     </Card>
   );
