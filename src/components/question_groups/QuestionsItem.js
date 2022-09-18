@@ -16,7 +16,6 @@ import { request } from '../../utils/functions';
 const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
-  const [showAnswers, setShowAnswers] = React.useState(false);
   const [showAddAnswerForm, setShowAddAnswerForm] = React.useState(false);
 
   const onDeleteHandler = questionId => {
@@ -55,15 +54,6 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
               <Button
-                variant="outlined"
-                onClick={() => {
-                  setShowAnswers(prevState => !prevState);
-                }}
-              >
-                {showAnswers ? 'Skrij odgovore' : 'Prikaži odgovore'}
-              </Button>
-
-              <Button
                 variant="contained"
                 onClick={() => {
                   setShowAddAnswerForm(true);
@@ -98,13 +88,11 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
             />
           )}
 
-          {showAnswers && (
-            <AnswersList
-              answers={question.answers}
-              question={question}
-              onReloadQuestionGroup={onReloadQuestionGroup}
-            />
-          )}
+          <AnswersList
+            answers={question.answers}
+            question={question}
+            onReloadQuestionGroup={onReloadQuestionGroup}
+          />
         </CardContent>
       </Card>
     </>
