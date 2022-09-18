@@ -103,19 +103,21 @@ const QuestionGroupsItem = ({
               </Button>
             )}
 
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => {
-                setDialog({
-                  title: 'Brisanje skupine vprašanj',
-                  text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
-                  onClose: onDeleteHandler,
-                });
-              }}
-            >
-              Izbriši
-            </Button>
+            {!showDetails && (
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  setDialog({
+                    title: 'Brisanje skupine vprašanj',
+                    text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
+                    onClose: onDeleteHandler,
+                  });
+                }}
+              >
+                Izbriši
+              </Button>
+            )}
           </Stack>
         </Stack>
 

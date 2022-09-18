@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 import AnswersForm from './AnswersForm';
+import AnswersList from './AnswersList';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -15,6 +16,7 @@ import { request } from '../../utils/functions';
 const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
+  const [showAnswers, setShowAnswers] = React.useState(false);
   const [showAddAnswerForm, setShowAddAnswerForm] = React.useState(false);
 
   const onDeleteHandler = questionId => {
@@ -52,7 +54,14 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
               {question.text}
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
-              <Button variant="outlined">Prikaži odgovore</Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setShowAnswers(prevState => !prevState);
+                }}
+              >
+                {showAnswers ? 'Skrij odgovore' : 'Prikaži odgovore'}
+              </Button>
 
               <Button
                 variant="contained"
@@ -66,7 +75,15 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => onDeleteHandler(question.question_id)}
+                onClick={() => {
+                  setDialog({
+                    title: 'Brisanje vprašanja',
+                    text: 'Ali ste prepričani, da želite izbrisati to vprašanje?',
+                    onClose: () => {
+                      onDeleteHandler(question.question_id);
+                    },
+                  });
+                }}
               >
                 Izbriši
               </Button>
@@ -78,6 +95,14 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
               question={question}
               onReloadQuestionGroup={onReloadQuestionGroup}
               onClose={() => setShowAddAnswerForm(false)}
+            />
+          )}
+
+          {showAnswers && (
+            <AnswersList
+              answers={question.answers}
+              question={question}
+              onReloadQuestionGroup={onReloadQuestionGroup}
             />
           )}
         </CardContent>

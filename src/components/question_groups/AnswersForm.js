@@ -74,7 +74,6 @@ const AnswersForm = ({ question, onReloadQuestionGroup, onClose }) => {
         justifyContent="center"
         alignItems="stretch"
         spacing={4}
-        sx={{ p: 1 }}
       >
         <FormControl fullWidth>
           <InputLabel htmlFor="answer-label">Odgovor</InputLabel>
