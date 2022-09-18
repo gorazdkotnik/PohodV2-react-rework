@@ -7,7 +7,7 @@ import Navbar from '../layouts/Navbar';
 
 import { userTypes } from '../../utils/consts';
 
-import useUser from '../../hooks/useUser';
+import { useAuthContext } from '../../context/AuthContext';
 
 import Home from '../../pages/Home';
 import Login from '../../pages/Login';
@@ -26,9 +26,12 @@ const DashboardDetails = React.lazy(() =>
 );
 
 function RoutesList() {
-  const { user } = useUser();
+  const { user } = useAuthContext();
 
-  const userExists = () => Object.keys(user).length > 0;
+  const userExists = React.useCallback(
+    () => Object.keys(user).length > 0,
+    [user]
+  );
 
   return (
     <>
