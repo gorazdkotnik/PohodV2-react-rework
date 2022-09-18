@@ -35,7 +35,7 @@ const AuthContextProvider = ({ children }) => {
           text: 'Prišlo je do napake pri pridobivanju osebnih podatkov. Poskusite znova.',
         });
       });
-  }, []);
+  }, [setDialog]);
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -71,13 +71,11 @@ const AuthContextProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       request('/auth/logout', 'POST')
         .then(data => {
-
           setLoggedIn(false);
           setUser({});
           resolve(data);
         })
         .catch(err => {
-
           setLoggedIn(false);
           setUser({});
 
@@ -96,11 +94,8 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
   };
-  console.log("ul", userLoading)
-  return (
-    userLoading ? null : <Provider value={value}>{children}</Provider>
-  )
-
+  console.log('ul', userLoading);
+  return userLoading ? null : <Provider value={value}>{children}</Provider>;
 };
 
 const useAuthContext = () => useContext(AuthContext);

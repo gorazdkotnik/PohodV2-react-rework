@@ -5,11 +5,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
+import Table from '../components/ui/Table';
+
 import { useUIContext } from '../context/UIContext';
 
 import { request } from '../utils/functions';
-
-const Table = React.lazy(() => import('../components/ui/Table'));
 
 const Results = () => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
