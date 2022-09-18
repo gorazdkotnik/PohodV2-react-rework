@@ -19,7 +19,7 @@ import { formatDate, request } from '../../utils/functions';
 const EventItem = ({ event, showDetails, onReloadEvent }) => {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner, setDialog } = useUIContext();
+  const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [showPoints, setShowPoints] = useState(false);
@@ -29,6 +29,10 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
     request(`/events/${event.event_id}`, 'DELETE')
       .then(() => {
         setShowLoadingSpinner(false);
+        setNotification({
+          title: 'Dogodek je bil uspešno izbrisan',
+        });
+
         navigate('/events/all');
       })
       .catch(err => {
@@ -47,8 +51,12 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
     })
       .then(res => {
         setShowLoadingSpinner(false);
+
+        setNotification({
+          title: 'Točke so bile uspešno posodobljene',
+        });
+
         onReloadEvent();
-        console.log(res);
       })
       .catch(e => {
         setShowLoadingSpinner(false);

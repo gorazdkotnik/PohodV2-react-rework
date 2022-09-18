@@ -21,7 +21,7 @@ const QuestionGroupsItem = ({
 }) => {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner, setDialog } = useUIContext();
+  const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -31,6 +31,10 @@ const QuestionGroupsItem = ({
       .then(() => {
         setShowLoadingSpinner(false);
         navigate('/question_groups/all');
+
+        setNotification({
+          title: 'Skupina vprašanj je bila uspešno izbrisana',
+        });
 
         onReloadQuestionGroups();
       })

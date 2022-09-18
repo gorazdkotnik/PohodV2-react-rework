@@ -18,7 +18,7 @@ const InfoCard = ({ user }) => {
 
   const copyCodeHandler = () => {
     setNotification({
-      title: 'Koda, skupine je bila kopirana!',
+      title: 'Koda skupine je bila kopirana',
       type: 'success',
     });
 
@@ -31,6 +31,11 @@ const InfoCard = ({ user }) => {
     request('/groups/leave', 'POST')
       .then(data => {
         setShowLoadingSpinner(false);
+
+        setNotification({
+          title: 'Uspešno ste zapustili skupino',
+        });
+
         navigate('/groups/new');
       })
       .catch(err => {
@@ -51,7 +56,7 @@ const InfoCard = ({ user }) => {
         navigate('/groups');
 
         setNotification({
-          title: 'Koda, skupine je bila posodobljena!',
+          title: 'Koda skupine je bila posodobljena',
           type: 'success',
         });
       })

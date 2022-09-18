@@ -91,7 +91,7 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
           type: 'success',
           title: `Dogodek ${
             method === 'PUT' ? 'posodobljen' : 'ustvarjen'
-          } uspešno!`,
+          } uspešno`,
         });
 
         navigate('/events/all', {

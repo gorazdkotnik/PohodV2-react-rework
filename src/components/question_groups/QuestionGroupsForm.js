@@ -44,7 +44,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
       .then(response => {
         setShowLoadingSpinner(false);
         setNotification({
-          title: 'Uspešno dodana nova skupina vprašanja',
+          title: 'Uspešno dodana nova skupina vprašanj',
         });
         navigate('/question_groups');
       })

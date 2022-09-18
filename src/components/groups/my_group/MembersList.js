@@ -22,7 +22,7 @@ const MembersList = ({ user }) => {
     request(`/groups/kick/${user_id}`, 'DELETE')
       .then(data => {
         setNotification({
-          title: `Uporabnik ${first_name} ${last_name} je bil odstranjen!`,
+          title: `Uporabnik ${first_name} ${last_name} je bil odstranjen iz skupine`,
           type: 'success',
         });
 
