@@ -40,12 +40,6 @@ const QuestionsForm = ({
 
     setShowLoadingSpinner(true);
 
-    console.log(
-      `/questions${method === 'PUT' ? `/${questionGroupId}` : ''}`,
-      method,
-      { text: question, question_group_id: questionGroupId, answers: [] }
-    );
-
     request(
       `/questions${method === 'PUT' ? `/${questionGroupId}` : ''}`,
       method,

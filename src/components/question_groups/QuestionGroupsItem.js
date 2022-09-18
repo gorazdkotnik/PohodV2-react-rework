@@ -28,8 +28,6 @@ const QuestionGroupsItem = ({
   const [showEditForm, setShowEditForm] = useState(false);
   const [showAddQuestionForm, setShowAddQuestionForm] = useState(false);
 
-  console.log('questionGroup', questionGroup);
-
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
     request(`/question_groups/${questionGroup.question_group_id}`, 'DELETE')
