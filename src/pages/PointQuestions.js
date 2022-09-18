@@ -76,7 +76,7 @@ const PointQuestions = () => {
       .catch(err => {
         setShowLoadingSpinner(false);
         localStorage.removeItem('point');
-        navigate('/results');
+        navigate('/leaderboard');
       });
   }, [hash, setShowLoadingSpinner, navigate]);
 
