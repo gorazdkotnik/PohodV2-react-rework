@@ -88,6 +88,7 @@ const Leaderboard = () => {
         })
         .catch(err => {
           setShowLoadingSpinner(false);
+          console.log(err);
           setDialog({
             title: 'Napaka pri pridobivanju rezultatov',
             text: 'Prišlo je do napake pri pridobivanju rezultatov. Poskusite znova.',
