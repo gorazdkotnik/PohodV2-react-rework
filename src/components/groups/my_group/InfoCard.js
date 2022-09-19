@@ -10,9 +10,11 @@ import MembersList from './MembersList';
 import { useUIContext } from '../../../context/UIContext';
 
 import { request } from '../../../utils/functions';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const InfoCard = ({ user }) => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuthContext();
 
   const { setNotification, setShowLoadingSpinner, setDialog } = useUIContext();
 
@@ -36,7 +38,9 @@ const InfoCard = ({ user }) => {
           title: 'Uspešno ste zapustili skupino',
         });
 
-        navigate('/groups/new');
+        refreshUser().then(() => {
+          navigate('/groups/new');
+        });
       })
       .catch(err => {
         setShowLoadingSpinner(false);

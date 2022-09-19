@@ -9,8 +9,10 @@ import GroupsNavigation from '../../components/groups/GroupsNavigation';
 import NewGroup from './NewGroup';
 import JoinGroup from './JoinGroup';
 import MyGroup from './MyGroup';
+import { useAuthContext } from '../../context/AuthContext';
 
-const Groups = ({ user }) => {
+const Groups = () => {
+  const {user} = useAuthContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

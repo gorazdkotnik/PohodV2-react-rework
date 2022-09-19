@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useAuthContext } from '../../context/AuthContext';
 
 // Avatar name to color
 function stringToColor(string) {
@@ -39,7 +40,8 @@ function stringAvatar(name) {
   } catch (err) {}
 }
 
-const ProfileInfo = ({ user }) => {
+const ProfileInfo = () => {
+  const { user } = useAuthContext();
   // UI context
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 

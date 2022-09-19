@@ -35,7 +35,7 @@ const ProfileSettings = () => {
       <Button
         variant="text"
         component="a"
-        href="https://malice.scv.si/students/password/new"
+        href="https://mdm.arnes.si/Prijava/Login.aspx"
         target="_blank"
         sx={{ alignSelf: 'start' }}
       >

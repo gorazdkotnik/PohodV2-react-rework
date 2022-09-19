@@ -11,8 +11,10 @@ import Button from '@mui/material/Button';
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
+import { useAuthContext } from '../../context/AuthContext';
 
 const NewGroupForm = () => {
+  const { refreshUser } = useAuthContext();
   const navigate = useNavigate();
 
   const { setShowLoadingSpinner, setDialog } = useUIContext();
@@ -53,7 +55,9 @@ const NewGroupForm = () => {
     request('/groups', 'POST', { name: groupName, event_id: selectedEvent })
       .then(data => {
         setShowLoadingSpinner(false);
-        navigate('/groups/my_group', { replace: true });
+        refreshUser().then(() => {
+          navigate('/groups/my_group', { replace: true });
+        });
       })
       .catch(err => {
         setShowLoadingSpinner(false);

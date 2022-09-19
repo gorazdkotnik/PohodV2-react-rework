@@ -10,9 +10,11 @@ import Typography from '@mui/material/Typography';
 import { useUIContext } from '../../../context/UIContext';
 
 import { request } from '../../../utils/functions';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const MembersList = ({ user }) => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuthContext();
 
   const { setNotification, setShowLoadingSpinner, setDialog } = useUIContext();
 
@@ -25,8 +27,9 @@ const MembersList = ({ user }) => {
           title: `Uporabnik ${first_name} ${last_name} je bil odstranjen iz skupine`,
           type: 'success',
         });
-
-        navigate('/groups');
+        refreshUser().then(() => {
+          navigate('/groups');
+        });
 
         setShowLoadingSpinner(false);
       })
@@ -58,7 +61,7 @@ const MembersList = ({ user }) => {
                 </Typography>
 
                 {member.user_id === user.group.leader_id && (
-                  <Button variant="contained">Vodja</Button>
+                  <Button variant="contained" disabled>Vodja</Button>
                 )}
 
                 {member.user_id !== user.group.leader_id &&

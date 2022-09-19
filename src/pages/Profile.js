@@ -7,12 +7,12 @@ import CardContent from '@mui/material/CardContent';
 import ProfileInfo from '../components/auth/ProfileInfo';
 import ProfileSettings from '../components/auth/ProfileSettings';
 
-const Profile = ({ user }) => {
+const Profile = () => {
   return (
     <Container maxWidth="md">
       <Card>
         <CardContent>
-          <ProfileInfo user={user} />
+          <ProfileInfo />
           <ProfileSettings />
         </CardContent>
       </Card>

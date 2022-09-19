@@ -9,9 +9,11 @@ import Button from '@mui/material/Button';
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
+import { useAuthContext } from '../../context/AuthContext';
 
 const JoinGroupForm = () => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuthContext();
 
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
@@ -33,10 +35,12 @@ const JoinGroupForm = () => {
     }
 
     setShowLoadingSpinner(true);
-    request(`/groups/${groupCode}`, 'PUT')
+    request(`/joingroup/${groupCode}`, 'PUT')
       .then(() => {
         setShowLoadingSpinner(false);
-        navigate('/groups/my_group', { replace: true });
+        refreshUser().then(() => {
+          navigate('/groups/my_group', { replace: true });
+        });
       })
       .catch(error => {
         setShowLoadingSpinner(false);

@@ -103,7 +103,7 @@ const LoginForm = () => {
           <Button
             variant="text"
             component="a"
-            href="https://malice.scv.si/students/password/new"
+            href="https://mdm.arnes.si/Prijava/Password.aspx"
             target="_blank"
             size="small"
           >

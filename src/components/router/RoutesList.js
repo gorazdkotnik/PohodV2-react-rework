@@ -7,8 +7,6 @@ import Navbar from '../layouts/Navbar';
 
 import { userTypes } from '../../utils/consts';
 
-import useUser from '../../hooks/useUser';
-
 import Home from '../../pages/Home';
 import Login from '../../pages/Login';
 import QuestionGroups from '../../pages/question_groups/QuestionGroups';
@@ -21,14 +19,23 @@ import Results from '../../pages/Results';
 import PointQuestions from '../../pages/PointQuestions';
 import Dashboard from '../../pages/dashboard/Dashboard';
 import DashboardDetails from '../../pages/dashboard/DashboardDetails';
+import { useAuthContext } from '../../context/AuthContext';
 
 function RoutesList() {
-  const { user } = useUser();
+  const { user, userLoading, userError } = useAuthContext();
 
   const userExists = React.useCallback(
     () => Object.keys(user).length > 0,
     [user]
   );
+
+  if (userLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (userError) {
+    return <div>Error</div>;
+  }
 
   return (
     <>
@@ -37,14 +44,14 @@ function RoutesList() {
       <Container sx={{ mt: 15, mb: 5 }}>
         <Routes>
           {/* Home Page */}
-          {<Route exact path="/" element={<Home user={user} />} user={user} />}
+          {<Route exact path="/" element={<Home />} />}
 
           {/* Login Page */}
           <Route exact path="/login" element={<Login />} />
 
           {/* Profile Page */}
           {userExists() && (
-            <Route exact path="/profile" element={<Profile user={user} />} />
+            <Route exact path="/profile" element={<Profile />} />
           )}
 
           {/* Leaderboard Page */}
@@ -79,7 +86,7 @@ function RoutesList() {
 
           {/* Groups */}
           {userExists() && user.user_type === userTypes.USER && (
-            <Route path="/groups/*" element={<Groups user={user} />} />
+            <Route path="/groups/*" element={<Groups />} />
           )}
 
           {/* Point Questions */}

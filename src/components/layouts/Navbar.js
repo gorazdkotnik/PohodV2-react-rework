@@ -18,11 +18,11 @@ import DesktopMenu from './navbar/DesktopMenu';
 
 import { useAuthContext } from '../../context/AuthContext';
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const { logout, loggedIn } = useAuthContext();
+  const { logout, loggedIn, user } = useAuthContext();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

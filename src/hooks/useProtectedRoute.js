@@ -7,6 +7,8 @@ const useProtectedRoute = authRequired => {
   const navigate = useNavigate();
   const { loggedIn } = useAuthContext();
 
+  console.log('useProtectedRoute', loggedIn, authRequired);
+
   useEffect(() => {
     switch (authRequired) {
       case 'required':

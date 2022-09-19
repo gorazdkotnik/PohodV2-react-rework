@@ -7,8 +7,10 @@ import { userTypes } from '../utils/consts';
 import UserHome from '../components/home/UserHome';
 import TeacherHome from '../components/home/TeacherHome';
 import AdminHome from '../components/home/AdminHome';
+import { useAuthContext } from '../context/AuthContext';
 
-const Home = ({ user }) => {
+const Home = () => {
+  const { user } = useAuthContext();
   useProtectedRoute('required');
 
   return (

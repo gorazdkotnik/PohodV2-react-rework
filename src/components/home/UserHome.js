@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAuthContext } from '../../context/AuthContext';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -6,7 +7,8 @@ import { request } from '../../utils/functions';
 
 import Map from '../ui/Map';
 
-const UserHome = ({ user }) => {
+const UserHome = () => {
+  const {user} = useAuthContext();
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
   const [points, setPoints] = useState([]);
