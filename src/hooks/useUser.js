@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { request } from '../utils/functions';
 
 const useUser = authRequired => {
-
   const [user, setUser] = useState({});
   const [userLoading, setUserLoading] = useState(true);
   const [userError, setUserError] = useState(null);
@@ -13,9 +12,8 @@ const useUser = authRequired => {
     setUserLoading(true);
     setUserError(null);
     try {
-      const data = await request('/me')
+      const data = await request('/me');
       setUserLoading(false);
-      console.log("me",data);
       if (data) {
         setUser(data);
         setLoggedIn(true);

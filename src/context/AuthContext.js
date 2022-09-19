@@ -1,4 +1,4 @@
-import { useContext, createContext, useEffect, useState } from 'react';
+import { useContext, createContext, useEffect } from 'react';
 import { request } from '../utils/functions';
 
 import { useUIContext } from './UIContext';
@@ -20,7 +20,6 @@ const AuthContextProvider = ({ children }) => {
       });
     }
   }, [userError, setDialog]);
-
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -65,7 +64,6 @@ const AuthContextProvider = ({ children }) => {
     user,
     userLoading,
     userError,
-    loggedIn,
     refreshUser,
     login,
     logout,

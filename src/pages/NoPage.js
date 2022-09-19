@@ -17,12 +17,19 @@ const NoPage = () => {
           <Typography gutterBottom variant="h5" component="div">
             404
           </Typography>
+
           <Typography variant="body2" color="text.secondary">
             Stran, ki jo trenutno iščete ni na voljo.
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{margin: 1}}>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mt: 4, mb: 1 }}
+          >
             Mogoče se morate prijaviti?
           </Typography>
+
           <LoginButton />
         </CardContent>
         <CardActions>

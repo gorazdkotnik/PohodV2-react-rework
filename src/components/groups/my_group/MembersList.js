@@ -61,7 +61,7 @@ const MembersList = ({ user }) => {
                 </Typography>
 
                 {member.user_id === user.group.leader_id && (
-                  <Button variant="contained" disabled>Vodja</Button>
+                  <Button variant="contained">Vodja</Button>
                 )}
 
                 {member.user_id !== user.group.leader_id &&
