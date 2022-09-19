@@ -57,9 +57,9 @@ const Leaderboard = () => {
             return {
               id: index + 1,
               groupName: item.name,
-              start_time: item.start_time.split(" ")[1],
+              start_time: item.start_time ? item.start_time.split(" ")[1] : "",
               end_time: item.done ? item.end_time.split(" ")[1] : "",
-              time: item.done ? item.time : 'Še na poti',
+              time: item.done ? item.time : (item.start_time ? 'Še na poti' : 'Čaka na začetek'),
               answersPoints: `${item.correct_answers} / ${item.possible_points}`,
             };
           });
