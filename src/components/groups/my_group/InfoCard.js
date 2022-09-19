@@ -57,7 +57,9 @@ const InfoCard = ({ user }) => {
       .then(() => {
         setShowLoadingSpinner(false);
 
-        navigate('/groups');
+        refreshUser().then(() => {
+          navigate('/groups');
+        });
 
         setNotification({
           title: 'Koda skupine je bila posodobljena',
