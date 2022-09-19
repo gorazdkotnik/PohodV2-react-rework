@@ -7,7 +7,7 @@ import Navbar from '../layouts/Navbar';
 
 import { userTypes } from '../../utils/consts';
 
-import { useAuthContext } from '../../context/AuthContext';
+import useUser from '../../hooks/useUser';
 
 import Home from '../../pages/Home';
 import Login from '../../pages/Login';
@@ -23,7 +23,7 @@ import Dashboard from '../../pages/dashboard/Dashboard';
 import DashboardDetails from '../../pages/dashboard/DashboardDetails';
 
 function RoutesList() {
-  const { user } = useAuthContext();
+  const { user } = useUser();
 
   const userExists = React.useCallback(
     () => Object.keys(user).length > 0,
