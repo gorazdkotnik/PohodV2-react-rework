@@ -15,7 +15,7 @@ import QRCode from 'react-qr-code';
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
-import { BACKEND_URL } from '../../config/env';
+import { BACKEND_URL, FRONTEND_URL } from '../../config/env';
 
 const EventPointItem = ({
   point,
@@ -173,7 +173,7 @@ const EventPointItem = ({
         <Box sx={{ mt: 2, display: showQRCode[point.hash] ? 'block' : 'none' }}>
           <QRCode
             id={`${point.hash}-qrcode`}
-            value={`${BACKEND_URL}/points/${point.hash}`}
+            value={`${FRONTEND_URL}/points/${point.hash}`}
             title={point.name}
           />
         </Box>
