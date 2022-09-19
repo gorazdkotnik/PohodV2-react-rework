@@ -31,7 +31,9 @@ const Leaderboard = () => {
       .then(data => {
         setShowLoadingSpinner(false);
         setEvents(data);
-        setSelectedEvent(data[0].event_id);
+        if (data.length > 0) {
+          setSelectedEvent(data[0].event_id);
+        }
       })
       .catch(err => {
         setShowLoadingSpinner(false);
