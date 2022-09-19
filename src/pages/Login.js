@@ -34,19 +34,7 @@ const Login = () => {
             </Typography>
 
             {/* Login button */}
-            <LoginButton
-              url={`https://login.microsoftonline.com/f6232921-d0d7-4c1a-9eee-0da15213004d/oauth2/v2.0/authorize?
-client_id=dbfa2de4-b07a-4dd4-8e6b-509ce7766079
-&response_type=code
-&redirect_uri=${encodeURI(BACKEND_URL + '/auth/login')}
-&response_mode=query
-&scope=user.read
-&state=${btoa(
-                JSON.stringify({
-                  redirect: FRONTEND_URL,
-                })
-              )}`}
-            />
+            <LoginButton />
           </Stack>
         </CardContent>
       </Card>

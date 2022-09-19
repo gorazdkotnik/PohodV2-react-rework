@@ -7,6 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import LoginButton from '../components/auth/LoginButton';
 
 const NoPage = () => {
   return (
@@ -19,6 +20,10 @@ const NoPage = () => {
           <Typography variant="body2" color="text.secondary">
             Stran, ki jo trenutno iščete ni na voljo.
           </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{margin: 1}}>
+            Mogoče se morate prijaviti?
+          </Typography>
+          <LoginButton />
         </CardContent>
         <CardActions>
           <Button size="small" component={Link} to="/">
