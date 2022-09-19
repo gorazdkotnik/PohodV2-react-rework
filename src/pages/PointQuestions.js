@@ -80,7 +80,9 @@ const PointQuestions = () => {
 
         navigate('/leaderboard');
 
-        if (err === 'GROUP_UNABLE_TO_START') {
+        console.log("Answer error", err);
+
+        if (err?.response?.data === 'GROUP_UNABLE_TO_START') {
           setDialog({
             title: 'Skupina ni pripravljena',
             text: 'Za odgovarjanje je zahtevano minimalno število članov.',

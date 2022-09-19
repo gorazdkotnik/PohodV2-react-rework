@@ -45,7 +45,9 @@ const JoinGroupForm = () => {
       .catch(error => {
         setShowLoadingSpinner(false);
 
-        if (error === 'GROUP_FULL') {
+        console.log("join err", error);
+
+        if (error?.response?.data === 'GROUP_FULL') {
           setDialog({
             title: 'Skupina je polna',
             text: 'V tej skupini ni več prostih mest.',
