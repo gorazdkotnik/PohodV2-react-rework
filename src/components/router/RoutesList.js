@@ -24,11 +24,6 @@ import { useAuthContext } from '../../context/AuthContext';
 function RoutesList() {
   const { user, userLoading, userError } = useAuthContext();
 
-  const userExists = React.useCallback(
-    () => Object.keys(user).length > 0,
-    [user]
-  );
-
   if (userLoading) {
     return <div>Loading...</div>;
   }
@@ -50,47 +45,47 @@ function RoutesList() {
           <Route exact path="/login" element={<Login />} />
 
           {/* Profile Page */}
-          {userExists() && (
-            <Route exact path="/profile" element={<Profile />} />
-          )}
+          {
+            user && <Route exact path="/profile" element={<Profile />} />
+          }
 
           {/* Leaderboard Page */}
-          {userExists() && user.group && (
+          {user?.group && (
             <Route exact path="/results" element={<Results />} />
           )}
 
           {/* Leaderboard Page */}
-          {userExists() && (
-            <Route exact path="/leaderboard" element={<Leaderboard />} />
-          )}
+          {
+            user && <Route exact path="/leaderboard" element={<Leaderboard />} />
+          }
 
           {/* Dashboard */}
-          {userExists() && user.user_type === userTypes.ADMIN && (
+          {user?.user_type === userTypes.ADMIN && (
             <Route path="/dashboard" element={<Dashboard />} />
           )}
 
           {/* Dashboard Details */}
-          {userExists() && user.user_type === userTypes.ADMIN && (
+          {user?.user_type === userTypes.ADMIN && (
             <Route path="/dashboard/:id" element={<DashboardDetails />} />
           )}
 
           {/* Events */}
-          {userExists() && user.user_type === userTypes.ADMIN && (
+          {user?.user_type === userTypes.ADMIN && (
             <Route path="/events/*" element={<Events />} />
           )}
 
           {/* Question groups */}
-          {userExists() && user.user_type === userTypes.ADMIN && (
+          {user?.user_type === userTypes.ADMIN && (
             <Route path="/question_groups/*" element={<QuestionGroups />} />
           )}
 
           {/* Groups */}
-          {userExists() && user.user_type === userTypes.USER && (
+          {user?.user_type === userTypes.USER && (
             <Route path="/groups/*" element={<Groups />} />
           )}
 
           {/* Point Questions */}
-          {userExists() && user.user_type === userTypes.USER && (
+          {user?.user_type === userTypes.USER && (
             <Route path="/points/:hash" element={<PointQuestions />} />
           )}
 

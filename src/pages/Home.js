@@ -11,8 +11,8 @@ import { useAuthContext } from '../context/AuthContext';
 
 const Home = () => {
   const { user } = useAuthContext();
-  useProtectedRoute('required');
-
+  const loggedIn = useProtectedRoute('required');
+  if(!loggedIn) return null;
   return (
     <>
       {user.user_type === userTypes.ADMIN && <AdminHome />}

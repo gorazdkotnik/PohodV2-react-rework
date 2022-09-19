@@ -25,6 +25,8 @@ const useProtectedRoute = authRequired => {
         break;
     }
   }, [authRequired, loggedIn, navigate]);
+
+  return loggedIn;
 };
 
 export default useProtectedRoute;
