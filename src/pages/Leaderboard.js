@@ -57,19 +57,23 @@ const Leaderboard = () => {
             return {
               id: index + 1,
               groupName: item.name,
-              start_time: item.start_time ? item.start_time.split(" ")[1] : "",
-              end_time: item.done ? item.end_time.split(" ")[1] : "",
-              time: item.done ? item.time : (item.start_time ? 'Še na poti' : 'Čaka na začetek'),
+              start_time: item.start_time ? item.start_time.split(' ')[1] : '',
+              end_time: item.done ? item.end_time.split(' ')[1] : '',
+              time: item.done
+                ? item.time
+                : item.start_time
+                ? 'Še na poti'
+                : 'Čaka na začetek',
               answersPoints: `${item.correct_answers} / ${item.possible_points}`,
             };
           });
 
           const newColumns = [
             { field: 'id', headerName: '#', width: 50 },
-            { field: 'groupName', headerName: 'Ime skupine', width: 150 },
-            { field: 'start_time', headerName: 'Začetni čas', width: 125 },
-            { field: 'end_time', headerName: 'Končni čas', width: 125 },
-            { field: 'time', headerName: 'Čas hoje', width: 125 },
+            { field: 'groupName', headerName: 'Ime skupine', width: 200 },
+            { field: 'start_time', headerName: 'Začetni čas', width: 200 },
+            { field: 'end_time', headerName: 'Končni čas', width: 200 },
+            { field: 'time', headerName: 'Čas hoje', width: 200 },
             {
               field: 'answersPoints',
               headerName: 'Točke za odgovore',
