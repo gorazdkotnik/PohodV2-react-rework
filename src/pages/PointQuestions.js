@@ -83,7 +83,7 @@ const PointQuestions = () => {
         if (err === 'GROUP_UNABLE_TO_START') {
           setDialog({
             title: 'Skupina ni pripravljena',
-            text: 'Skupina še ni pripravljena za odgovarjanje na vprašanja.',
+            text: 'Za odgovarjanje je zahtevano minimalno število članov.',
           });
         }
       });
