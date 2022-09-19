@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import LoginButton from '../components/auth/LoginButton';
-import { BACKEND_URL, FRONTEND_URL } from './../config/env';
 
 const Login = () => {
   useProtectedRoute('notRequired');
