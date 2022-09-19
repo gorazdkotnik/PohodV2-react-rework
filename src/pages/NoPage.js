@@ -7,6 +7,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
 import LoginButton from '../components/auth/LoginButton';
 
 import { useAuthContext } from '../context/AuthContext';
@@ -15,35 +17,37 @@ const NoPage = () => {
   const { loggedIn } = useAuthContext();
 
   return (
-    <Container maxWidth="sm">
-      <Card>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            404
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary">
-            Stran, ki jo trenutno iščete ni na voljo.
-          </Typography>
-
-          {!loggedIn && (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 4, mb: 1 }}
-            >
-              Mogoče se morate prijaviti?
+    <Container maxWidth="sm" sx={{ height: '100%' }}>
+      <Stack direction="column" justifyContent="center" sx={{ height: '60vh' }}>
+        <Card>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              404
             </Typography>
-          )}
 
-          {!loggedIn && <LoginButton />}
-        </CardContent>
-        <CardActions>
-          <Button size="small" component={Link} to="/">
-            Pojdite nazaj
-          </Button>
-        </CardActions>
-      </Card>
+            <Typography variant="body2" color="text.secondary">
+              Stran, ki jo trenutno iščete ni na voljo.
+            </Typography>
+
+            {!loggedIn && (
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ mt: 4, mb: 1 }}
+              >
+                Mogoče se morate prijaviti?
+              </Typography>
+            )}
+
+            {!loggedIn && <LoginButton />}
+          </CardContent>
+          <CardActions>
+            <Button size="small" component={Link} to="/">
+              Pojdite nazaj
+            </Button>
+          </CardActions>
+        </Card>
+      </Stack>
     </Container>
   );
 };

@@ -13,30 +13,32 @@ const Login = () => {
   useProtectedRoute('notRequired');
 
   return (
-    <Container maxWidth="sm">
-      <Card>
-        <CardContent>
-          <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={6}
-          >
-            <img
-              src="/images/school_logo.svg"
-              alt="logo"
-              className="school-logo"
-            />
+    <Container maxWidth="sm" sx={{ height: '100%' }}>
+      <Stack direction="column" justifyContent="center" sx={{ height: '60vh' }}>
+        <Card>
+          <CardContent>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={6}
+            >
+              <img
+                src="/images/school_logo.svg"
+                alt="logo"
+                className="school-logo"
+              />
 
-            <Typography variant="h6" component="h1">
-              Prijava v aplikacijo
-            </Typography>
+              <Typography variant="h6" component="h1">
+                Prijava v aplikacijo
+              </Typography>
 
-            {/* Login button */}
-            <LoginButton />
-          </Stack>
-        </CardContent>
-      </Card>
+              {/* Login button */}
+              <LoginButton />
+            </Stack>
+          </CardContent>
+        </Card>
+      </Stack>
     </Container>
   );
 };
