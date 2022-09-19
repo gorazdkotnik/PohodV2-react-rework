@@ -9,7 +9,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import LoginButton from '../components/auth/LoginButton';
 
+import { useAuthContext } from '../context/AuthContext';
+
 const NoPage = () => {
+  const { loggedIn } = useAuthContext();
+
   return (
     <Container maxWidth="sm">
       <Card>
@@ -22,15 +26,17 @@ const NoPage = () => {
             Stran, ki jo trenutno iščete ni na voljo.
           </Typography>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ mt: 4, mb: 1 }}
-          >
-            Mogoče se morate prijaviti?
-          </Typography>
+          {!loggedIn && (
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mt: 4, mb: 1 }}
+            >
+              Mogoče se morate prijaviti?
+            </Typography>
+          )}
 
-          <LoginButton />
+          {!loggedIn && <LoginButton />}
         </CardContent>
         <CardActions>
           <Button size="small" component={Link} to="/">
