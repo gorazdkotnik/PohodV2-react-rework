@@ -44,6 +44,15 @@ const JoinGroupForm = () => {
       })
       .catch(error => {
         setShowLoadingSpinner(false);
+
+        if (error === 'GROUP_FULL') {
+          setDialog({
+            title: 'Skupina je polna',
+            text: 'V tej skupini ni več prostih mest.',
+          });
+          return;
+        }
+
         setDialog({
           title: 'Napaka pri pridruževanju',
           text: 'Prišlo je do napake pri pridruževanju. Prosimo preverite, če ste vnesli pravilno kodo skupine.',
