@@ -15,7 +15,7 @@ import QuestionOverlay from '../components/questions/QuestionOverlay';
 import QuestionCard from '../components/questions/QuestionCard';
 
 const PointQuestions = () => {
-  const { setShowLoadingSpinner, setNotification } = useUIContext();
+  const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();
 
   const { hash } = useParams();
   const navigate = useNavigate();
@@ -75,10 +75,19 @@ const PointQuestions = () => {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
+
         localStorage.removeItem('point');
+
         navigate('/leaderboard');
+
+        if (err === 'GROUP_UNABLE_TO_START') {
+          setDialog({
+            title: 'Skupina ni pripravljena',
+            text: 'Skupina še ni pripravljena za odgovarjanje na vprašanja.',
+          });
+        }
       });
-  }, [hash, setShowLoadingSpinner, navigate]);
+  }, [hash, setShowLoadingSpinner, navigate, setDialog]);
 
   // Submit Question
   const submitQuestion = useCallback(() => {
