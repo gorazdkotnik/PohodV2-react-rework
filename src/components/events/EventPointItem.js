@@ -73,6 +73,10 @@ const EventPointItem = ({
           title: 'Napaka pri točkah',
           text: 'Prišlo je do napake pri spreminjanju točk. Poskusite znova.',
         });
+      })
+      .finally(() => {
+        if (document.activeElement instanceof HTMLElement)
+          document.activeElement.blur();
       });
   };
 
