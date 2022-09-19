@@ -57,15 +57,19 @@ const Leaderboard = () => {
             return {
               id: index + 1,
               groupName: item.name,
-              time: item.time,
+              start_time: item.start_time.split(" ")[1],
+              end_time: item.done ? item.end_time.split(" ")[1] : "",
+              time: item.done ? item.time : 'Še na poti',
               answersPoints: `${item.correct_answers} / ${item.possible_points}`,
             };
           });
 
           const newColumns = [
-            { field: 'id', headerName: '#', width: 100 },
-            { field: 'groupName', headerName: 'Ime skupine', width: 250 },
-            { field: 'time', headerName: 'Čas hoje', width: 250 },
+            { field: 'id', headerName: '#', width: 50 },
+            { field: 'groupName', headerName: 'Ime skupine', width: 150 },
+            { field: 'start_time', headerName: 'Začetni čas', width: 125 },
+            { field: 'end_time', headerName: 'Končni čas', width: 125 },
+            { field: 'time', headerName: 'Čas hoje', width: 125 },
             {
               field: 'answersPoints',
               headerName: 'Točke za odgovore',
