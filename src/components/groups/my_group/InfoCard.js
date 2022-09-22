@@ -132,7 +132,13 @@ const InfoCard = ({ user }) => {
           <Button
             variant="contained"
             color="warning"
-            onClick={regenerateCodeHandler}
+            onClick={() => {
+              setDialog({
+                title: 'Regeneriraj kodo skupine',
+                text: 'Ali ste prepričani, da želite regenerirati kodo skupine?',
+                onClose: regenerateCodeHandler,
+              });
+            }}
           >
             Regeneriraj kodo
           </Button>
