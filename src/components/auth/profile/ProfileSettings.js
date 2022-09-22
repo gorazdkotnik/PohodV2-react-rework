@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-import { useAuthContext } from '../../context/AuthContext';
-import { useToggleTheme } from '../../context/ThemeContext';
+import { useAuthContext } from '../../../context/AuthContext';
+import { useToggleTheme } from '../../../context/ThemeContext';
 
 const ProfileSettings = () => {
   // Navigate

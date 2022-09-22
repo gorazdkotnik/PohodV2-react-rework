@@ -4,8 +4,8 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-import ProfileInfo from '../components/auth/ProfileInfo';
-import ProfileSettings from '../components/auth/ProfileSettings';
+import ProfileInfo from '../components/auth/profile/ProfileInfo';
+import ProfileSettings from '../components/auth/profile/ProfileSettings';
 
 const Profile = () => {
   return (
