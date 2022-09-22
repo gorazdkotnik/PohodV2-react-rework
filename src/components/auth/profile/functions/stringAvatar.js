@@ -14,13 +14,13 @@ const stringToColor = string => {
   } catch (err) {}
 };
 
-const stringAvatar = name => {
+const stringAvatar = (name, width = 100) => {
   try {
     return {
       sx: {
         bgcolor: stringToColor(name),
-        width: 100,
-        height: 100,
+        width: width,
+        height: width,
       },
       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };

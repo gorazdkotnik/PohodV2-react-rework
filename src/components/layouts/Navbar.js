@@ -17,6 +17,7 @@ import MobileMenu from './navbar/MobileMenu';
 import DesktopMenu from './navbar/DesktopMenu';
 
 import { useAuthContext } from '../../context/AuthContext';
+import stringAvatar from '../auth/profile/functions/stringAvatar';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -132,7 +133,12 @@ const Navbar = () => {
             {loggedIn && (
               <Tooltip title="Odpri nastavitve">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
+                  <Avatar
+                    {...stringAvatar(
+                      `${user.first_name} ${user.last_name}`,
+                      null
+                    )}
+                  />
                 </IconButton>
               </Tooltip>
             )}
