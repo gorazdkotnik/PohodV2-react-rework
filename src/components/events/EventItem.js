@@ -12,7 +12,7 @@ import { useUIContext } from '../../context/UIContext';
 import Map from '../ui/Map';
 
 import EventsForm from './EventsForm';
-import EventPoints from './EventPoints';
+import EventPoints from './points/EventPoints';
 
 import { formatDate, request } from '../../utils/functions';
 

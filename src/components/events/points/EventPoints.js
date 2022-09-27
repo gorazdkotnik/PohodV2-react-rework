@@ -7,9 +7,9 @@ import Stack from '@mui/material/Stack';
 import EventPointQuestionGroup from './EventPointQuestionGroup';
 import EventPointItem from './EventPointItem';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 const EventPoints = ({ event, points, onReloadEvent }) => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();

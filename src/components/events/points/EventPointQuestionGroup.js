@@ -9,9 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 const EventPointQuestionGroup = ({
   event,

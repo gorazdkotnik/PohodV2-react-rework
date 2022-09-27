@@ -12,10 +12,10 @@ import Input from '@mui/material/Input';
 
 import QRCode from 'react-qr-code';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
-import { FRONTEND_URL } from '../../config';
+import { request } from '../../../utils/functions';
+import { FRONTEND_URL } from '../../../config';
 
 const EventPointItem = ({
   point,
