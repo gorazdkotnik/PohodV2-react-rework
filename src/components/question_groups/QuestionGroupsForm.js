@@ -73,7 +73,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
 
           <Button
             variant="contained"
-            sx={{ m: 1, mt: 4 }}
+            sx={{ m: 1, mt: 2 }}
             onClick={formOnSubmitHandler}
             color={method === 'PUT' ? 'warning' : 'primary'}
           >

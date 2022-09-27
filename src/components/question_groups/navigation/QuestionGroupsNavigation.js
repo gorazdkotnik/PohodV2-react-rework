@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageMenu from '../ui/PageMenu';
+import PageMenu from '../../ui/PageMenu';
 
 const QuestionGroupsNavigation = () => {
   const labels = ['Vse skupine vprašanj', 'Nova skupina vprašanj'];

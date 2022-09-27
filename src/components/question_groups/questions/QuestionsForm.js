@@ -4,20 +4,22 @@ import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import { useUIContext } from '../../../context/UIContext';
 
 import { request } from '../../../utils/functions';
 
-// a component that renders a form for adding a question to a question group with endpoint /questions
-
 const QuestionsForm = ({
   data = {},
   method = 'POST',
   show = true,
+  onCloseHandler,
   questionGroupId,
   onReloadQuestionGroup,
-  setShowAddQuestionForm,
 }) => {
   const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();
 
@@ -53,7 +55,6 @@ const QuestionsForm = ({
         });
 
         onReloadQuestionGroup();
-        setShowAddQuestionForm(false);
       })
       .catch(error => {
         setShowLoadingSpinner(false);
@@ -66,8 +67,18 @@ const QuestionsForm = ({
 
   return (
     <>
-      {show && (
-        <div>
+      <Dialog
+        open={show}
+        onClose={onCloseHandler}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth={true}
+        maxWidth="sm"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {method === 'POST' ? 'Dodaj novo vprašanje' : 'Uredi vprašanje'}
+        </DialogTitle>
+        <DialogContent sx={{ ml: -1 }}>
           <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
             <InputLabel htmlFor="name">Besedilo vprašanja</InputLabel>
             <Input
@@ -77,17 +88,14 @@ const QuestionsForm = ({
               error={questionInvalid}
             />
           </FormControl>
-
-          <Button
-            variant="contained"
-            sx={{ m: 1, mt: 4 }}
-            onClick={formOnSubmitHandler}
-            color={method === 'PUT' ? 'warning' : 'primary'}
-          >
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCloseHandler}>Prekliči</Button>
+          <Button onClick={formOnSubmitHandler}>
             {method === 'POST' ? 'Ustvari' : 'Posodobi'}
           </Button>
-        </div>
-      )}
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

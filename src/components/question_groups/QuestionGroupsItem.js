@@ -11,9 +11,7 @@ import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
 
-import QuestionGroupsForm from './QuestionGroupsForm';
-import QuestionsForm from './questions/QuestionsForm';
-import QuestionsList from './questions/QuestionsList';
+import QuestionGroupsTabs from './QuestionGroupsTabs';
 
 const QuestionGroupsItem = ({
   questionGroup,
@@ -24,9 +22,6 @@ const QuestionGroupsItem = ({
   const navigate = useNavigate();
 
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
-
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [showAddQuestionForm, setShowAddQuestionForm] = useState(false);
 
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
@@ -83,26 +78,6 @@ const QuestionGroupsItem = ({
               </Button>
             )}
 
-            {showDetails && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setShowEditForm(prev => !prev)}
-              >
-                {showEditForm ? 'Skrij' : 'Spremeni'}
-              </Button>
-            )}
-
-            {showDetails && (
-              <Button
-                variant="contained"
-                color="warning"
-                onClick={() => setShowAddQuestionForm(prev => !prev)}
-              >
-                {showAddQuestionForm ? 'Skrij' : 'Dodaj vprašanje'}
-              </Button>
-            )}
-
             {!showDetails && (
               <Button
                 variant="contained"
@@ -121,25 +96,9 @@ const QuestionGroupsItem = ({
           </Stack>
         </Stack>
 
-        {showEditForm && (
-          <QuestionGroupsForm
-            data={questionGroup}
-            onReloadQuestionGroup={onReloadQuestionGroup}
-            method="PUT"
-          />
-        )}
-
-        {showAddQuestionForm && (
-          <QuestionsForm
-            questionGroupId={questionGroup.question_group_id}
-            onReloadQuestionGroup={onReloadQuestionGroup}
-            setShowAddQuestionForm={setShowAddQuestionForm}
-          />
-        )}
-
         {showDetails && (
-          <QuestionsList
-            questions={questionGroup.questions}
+          <QuestionGroupsTabs
+            questionGroup={questionGroup}
             onReloadQuestionGroup={onReloadQuestionGroup}
           />
         )}

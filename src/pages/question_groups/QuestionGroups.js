@@ -8,7 +8,7 @@ import AllQuestionGroups from './AllQuestionGroups';
 import NewQuestionGroup from './NewQuestionGroup';
 import QuestionGroupDetails from './QuestionGroupDetails';
 
-import QuestionGroupsNavigation from '../../components/question_groups/QuestionGroupsNavigation';
+import QuestionGroupsNavigation from '../../components/question_groups/navigation/QuestionGroupsNavigation';
 
 const QuestionGroups = () => {
   const navigate = useNavigate();
