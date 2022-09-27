@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -100,6 +100,7 @@ const QuestionGroupsItem = ({
           <QuestionGroupsTabs
             questionGroup={questionGroup}
             onReloadQuestionGroup={onReloadQuestionGroup}
+            onDeleteHandler={onDeleteHandler}
           />
         )}
       </CardContent>

@@ -14,7 +14,11 @@ import QuestionsList from './questions/QuestionsList';
 
 import { useUIContext } from '../../context/UIContext';
 
-const QuestionGroupsTabs = ({ questionGroup, onReloadQuestionGroup }) => {
+const QuestionGroupsTabs = ({
+  questionGroup,
+  onReloadQuestionGroup,
+  onDeleteHandler,
+}) => {
   const { setDialog } = useUIContext();
 
   const [value, setValue] = React.useState(1);
@@ -73,7 +77,19 @@ const QuestionGroupsTabs = ({ questionGroup, onReloadQuestionGroup }) => {
           alignItems="center"
           sx={{ my: 2 }}
         >
-          test 123
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              setDialog({
+                title: 'Brisanje skupine vprašanj',
+                text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
+                onClose: onDeleteHandler,
+              });
+            }}
+          >
+            Izbriši
+          </Button>
         </Stack>
       </TabPanel>
     </Box>

@@ -62,6 +62,9 @@ const QuestionsForm = ({
           title: 'Napaka pri dodajanju novega vprašanja',
           text: 'Prišlo je do napake pri dodajanju novega vprašanja.',
         });
+      })
+      .finally(() => {
+        onCloseHandler();
       });
   };
 
