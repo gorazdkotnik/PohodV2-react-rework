@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { BACKEND_URL } from './../../config/env';
+import { BACKEND_URL } from './../../config';
 
 const LoginButton = () => {
   const URL = `https://login.microsoftonline.com/f6232921-d0d7-4c1a-9eee-0da15213004d/oauth2/v2.0/authorize?
