@@ -31,7 +31,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
       setNameInvalid(true);
     }
 
-    if (nameInvalid) {
+    if (name.trim() === '') {
       return;
     }
 
@@ -39,7 +39,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
     request(
       `/question_groups${method === 'PUT' ? `/${data.question_group_id}` : ''}`,
       method,
-      { name }
+      { name: name.trim() }
     )
       .then(response => {
         setShowLoadingSpinner(false);
