@@ -8,7 +8,7 @@ import AllEvents from './AllEvents';
 import NewEvent from './NewEvent';
 import EventDetails from './EventDetails';
 
-import EventsNavigation from '../../components/events/EventsNavigation';
+import EventsNavigation from '../../components/events/navigation/EventsNavigation';
 
 const Events = () => {
   const navigate = useNavigate();

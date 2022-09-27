@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageMenu from '../ui/PageMenu';
+import PageMenu from '../../ui/PageMenu';
 
 const EventsNavigation = () => {
   const labels = ['Vsi Dogodki', 'Nov Dogodek'];
