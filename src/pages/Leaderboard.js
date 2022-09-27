@@ -137,7 +137,11 @@ const Leaderboard = () => {
             <Table data={groups} columns={groupsColumns} />
           )}
           {selectedEvent !== '' && groups && groups.length < 1 && (
-            <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ textAlign: 'center', fontWeight: 'light' }}
+            >
               Ni rezultatov za prikaz!
             </Typography>
           )}

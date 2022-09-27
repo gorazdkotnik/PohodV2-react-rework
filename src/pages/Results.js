@@ -74,7 +74,11 @@ const Results = () => {
             <Table data={results} columns={resultsColumns} />
           )}
           {results && results.length < 1 && (
-            <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ textAlign: 'center', fontWeight: 'light' }}
+            >
               Ni odgovorov za prikaz!
             </Typography>
           )}

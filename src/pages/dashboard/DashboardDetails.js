@@ -106,7 +106,11 @@ const DashboardDetails = () => {
         )}
 
         {(!data || data.length < 1) && (
-          <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ textAlign: 'center', fontWeight: 'light' }}
+          >
             Ni podatkov za prikaz!
           </Typography>
         )}
