@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+
+import EventItemTabs from './EventItemTabs';
 
 import { useUIContext } from '../../context/UIContext';
 
 import Map from '../ui/Map';
-
-import EventsForm from './EventsForm';
-import EventPoints from './points/EventPoints';
 
 import { formatDate, request } from '../../utils/functions';
 
@@ -20,9 +18,6 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   const navigate = useNavigate();
 
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
-
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [showPoints, setShowPoints] = useState(false);
 
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
@@ -144,49 +139,10 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
           </Button>
         )}
         {showDetails && (
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={2}
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{ my: 2 }}
-          >
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => {
-                setDialog({
-                  title: 'Brisanje dogodka',
-                  text: 'Ali ste prepričani, da želite izbrisati dogodek?',
-                  onClose: onDeleteHandler,
-                });
-              }}
-            >
-              Izbriši dogodek
-            </Button>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => setShowEditForm(prev => !prev)}
-            >
-              {showEditForm ? 'Zapri' : 'Uredi'}
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => setShowPoints(prev => !prev)}
-            >
-              Točke
-            </Button>
-          </Stack>
-        )}
-        {showDetails && (
-          <EventsForm data={event} method="PUT" show={showEditForm} />
-        )}
-        {showPoints && (
-          <EventPoints
-            points={event.points}
+          <EventItemTabs
             event={event}
             onReloadEvent={onReloadEvent}
+            onDeleteHandler={onDeleteHandler}
           />
         )}
       </CardContent>

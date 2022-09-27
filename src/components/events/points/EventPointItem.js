@@ -86,7 +86,7 @@ const EventPointItem = ({
   };
 
   return (
-    <Card key={point.point_id} sx={{ mb: 2 }}>
+    <Card key={point.point_id} sx={{ my: 2 }}>
       <CardContent>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
