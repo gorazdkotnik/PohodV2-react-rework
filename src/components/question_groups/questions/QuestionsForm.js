@@ -5,9 +5,9 @@ import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 // a component that renders a form for adding a question to a question group with endpoint /questions
 

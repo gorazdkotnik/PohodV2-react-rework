@@ -12,8 +12,8 @@ import { useUIContext } from '../../context/UIContext';
 import { request } from '../../utils/functions';
 
 import QuestionGroupsForm from './QuestionGroupsForm';
-import QuestionsForm from './QuestionsForm';
-import QuestionsList from './QuestionsList';
+import QuestionsForm from './questions/QuestionsForm';
+import QuestionsList from './questions/QuestionsList';
 
 const QuestionGroupsItem = ({
   questionGroup,

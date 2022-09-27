@@ -9,9 +9,9 @@ import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 const AnswersForm = ({ question, onReloadQuestionGroup, onClose }) => {
   const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();

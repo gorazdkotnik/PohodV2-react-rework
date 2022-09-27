@@ -3,9 +3,9 @@ import React from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 const AnswersList = ({ answers, question, onReloadQuestionGroup }) => {
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();

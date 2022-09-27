@@ -6,12 +6,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import AnswersForm from './AnswersForm';
-import AnswersList from './AnswersList';
+import AnswersForm from '../answers/AnswersForm';
+import AnswersList from '../answers/AnswersList';
 
-import { useUIContext } from '../../context/UIContext';
+import { useUIContext } from '../../../context/UIContext';
 
-import { request } from '../../utils/functions';
+import { request } from '../../../utils/functions';
 
 const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
