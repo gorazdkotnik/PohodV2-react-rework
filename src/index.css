@@ -8,6 +8,11 @@
   height: 75vh;
 }
 
+.leaflet-event-container.edit-mode {
+  box-shadow: 0 0 0 2px #0074d9, 0 0 0 4px rgba(0, 116, 217, 0.4),
+    0 0 10px 10px rgba(0, 116, 217, 0.2);
+}
+
 .school-logo {
   width: 100%;
   height: 100%;

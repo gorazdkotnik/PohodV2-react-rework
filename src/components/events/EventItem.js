@@ -148,15 +148,21 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
                   setMapEditMode(prev => !prev);
                 }}
               >
-                {!mapEditMode && <EditLocationAltIcon color="warning" />}
-                {mapEditMode && <LocationOffIcon color="error" />}
+                {!mapEditMode && (
+                  <EditLocationAltIcon color="warning" fontSize="large" />
+                )}
+                {mapEditMode && (
+                  <LocationOffIcon color="error" fontSize="large" />
+                )}
               </IconButton>
             </Tooltip>
           )}
         </Stack>
         {showDetails && (
           <Map
-            className="leaflet-event-container my-10"
+            className={`leaflet-event-container my-10 ${
+              mapEditMode ? 'edit-mode' : ''
+            }`}
             points={event.points}
             onMarkerClickHandler={onMarkerClickHandler}
             onMapClickHandler={onMapClickHandler}

@@ -37,7 +37,7 @@ const Map = ({
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={editMode}
       >
-        <Alert severity="warning" sx={{ width: '100%' }}>
+        <Alert severity="warning" variant="filled" sx={{ width: '100%' }}>
           Trenutno ste v načinu urejanja točk. Kliknite na zemljevid, da dodate
           točko.
         </Alert>
@@ -53,7 +53,13 @@ const Map = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <HandleMapClick onMapClickHandler={onMapClickHandler} />
+        <HandleMapClick
+          onMapClickHandler={e => {
+            if (editMode) {
+              onMapClickHandler(e);
+            }
+          }}
+        />
         {points.map(point => {
           const pointsWithSameCoordinates = points.filter(
             p =>
@@ -70,27 +76,31 @@ const Map = ({
               position={[+point.location_lat, +point.location_long]}
               key={point.point_id}
             >
-              <Popup>
-                <p>{pointText}</p>
-                {onMapClickHandler && onMarkerClickHandler && (
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => {
-                      setDialog({
-                        title: 'Izbriši točko',
-                        text: `Ali ste prepričani, da želite izbrisati točko "${point.name}"?`,
-                        onClose: onMarkerClickHandler.bind(
-                          null,
-                          point.point_id
-                        ),
-                      });
-                    }}
-                  >
-                    Izbriši
-                  </Button>
-                )}
-              </Popup>
+              {editMode && (
+                <Popup>
+                  <p>{pointText}</p>
+                  {onMapClickHandler && onMarkerClickHandler && (
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => {
+                        if (editMode) {
+                          setDialog({
+                            title: 'Izbriši točko',
+                            text: `Ali ste prepričani, da želite izbrisati točko "${point.name}"?`,
+                            onClose: onMarkerClickHandler.bind(
+                              null,
+                              point.point_id
+                            ),
+                          });
+                        }
+                      }}
+                    >
+                      Izbriši
+                    </Button>
+                  )}
+                </Popup>
+              )}
             </Marker>
           );
         })}
