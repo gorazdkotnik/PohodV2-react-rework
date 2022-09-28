@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 import QuestionsItem from './QuestionsItem';
 
-const QuestionsList = ({ questions, onReloadQuestionGroup }) => {
+const QuestionsList = ({ questions, onReloadQuestionGroup, questionGroup }) => {
   return (
     <Stack spacing={2}>
       {questions &&
@@ -15,6 +15,7 @@ const QuestionsList = ({ questions, onReloadQuestionGroup }) => {
             key={question.question_id}
             question={question}
             onReloadQuestionGroup={onReloadQuestionGroup}
+            questionGroup={questionGroup}
           />
         ))}
       {questions && questions.length === 0 && (

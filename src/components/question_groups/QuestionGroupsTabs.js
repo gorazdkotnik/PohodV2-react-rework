@@ -57,6 +57,7 @@ const QuestionGroupsTabs = ({ questionGroup, onReloadQuestionGroup }) => {
         />
         <QuestionsList
           questions={questionGroup.questions}
+          questionGroup={questionGroup}
           onReloadQuestionGroup={onReloadQuestionGroup}
         />
       </TabPanel>

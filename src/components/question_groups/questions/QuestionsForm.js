@@ -23,7 +23,7 @@ const QuestionsForm = ({
 }) => {
   const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();
 
-  const [question, setQuestion] = useState(data.question || '');
+  const [question, setQuestion] = useState(data.text || '');
   const [questionInvalid, setQuestionInvalid] = useState(false);
 
   const questionOnChangeHandler = event => {
@@ -43,7 +43,7 @@ const QuestionsForm = ({
     setShowLoadingSpinner(true);
 
     request(
-      `/questions${method === 'PUT' ? `/${questionGroupId}` : ''}`,
+      `/questions${method === 'PUT' ? `/${data.question_id}` : ''}`,
       method,
       { text: question, question_group_id: questionGroupId, answers: [] }
     )
@@ -51,7 +51,10 @@ const QuestionsForm = ({
         setShowLoadingSpinner(false);
 
         setNotification({
-          title: 'Uspešno dodano novo vprašanje',
+          title:
+            method === 'PUT'
+              ? 'Vprašanje je bilo uspešno posodobljeno'
+              : 'Vprašanje je bilo uspešno dodano',
         });
 
         onReloadQuestionGroup();
@@ -59,11 +62,18 @@ const QuestionsForm = ({
       .catch(error => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri dodajanju novega vprašanja',
-          text: 'Prišlo je do napake pri dodajanju novega vprašanja.',
+          title:
+            method === 'PUT'
+              ? 'Napaka pri posodabljanju vprašanja'
+              : 'Napaka pri dodajanju vprašanja',
+          text:
+            method === 'PUT'
+              ? 'Prišlo je do napake pri posodabljanju vprašanja. Poskusite znova.'
+              : 'Prišlo je do napake pri dodajanju vprašanja. Poskusite znova.',
         });
       })
       .finally(() => {
+        setQuestion(method === 'PUT' ? question : '');
         onCloseHandler();
       });
   };

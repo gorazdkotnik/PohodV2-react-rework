@@ -5,18 +5,22 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import AnswersForm from '../answers/AnswersForm';
 import AnswersList from '../answers/AnswersList';
+import QuestionsForm from './QuestionsForm';
 
 import { useUIContext } from '../../../context/UIContext';
 
 import { request } from '../../../utils/functions';
 
-const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
+const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
 
   const [showAddAnswerForm, setShowAddAnswerForm] = React.useState(false);
+  const [showEditQuestionForm, setShowEditQuestionForm] = React.useState(false);
 
   const onDeleteHandler = questionId => {
     setShowLoadingSpinner(true);
@@ -49,9 +53,44 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
             alignItems="start"
             spacing={2}
           >
-            <Typography variant="body" component="div">
-              {question.text}
-            </Typography>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Typography variant="body" component="div">
+                {question.text}
+              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+              >
+                <EditIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    setShowEditQuestionForm(true);
+                  }}
+                  color="warning"
+                />
+                <DeleteForeverIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    setDialog({
+                      title: 'Brisanje vprašanja',
+                      text: 'Ali ste prepričani, da želite izbrisati to vprašanje?',
+                      onClose: () => {
+                        onDeleteHandler(question.question_id);
+                      },
+                    });
+                  }}
+                  color="error"
+                />
+              </Stack>
+            </Stack>
+
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
               <Button
                 variant="contained"
@@ -60,22 +99,6 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
                 }}
               >
                 Dodaj odgovor
-              </Button>
-
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => {
-                  setDialog({
-                    title: 'Brisanje vprašanja',
-                    text: 'Ali ste prepričani, da želite izbrisati to vprašanje?',
-                    onClose: () => {
-                      onDeleteHandler(question.question_id);
-                    },
-                  });
-                }}
-              >
-                Izbriši
               </Button>
             </Stack>
           </Stack>
@@ -95,6 +118,15 @@ const QuestionsItem = ({ question, onReloadQuestionGroup }) => {
           />
         </CardContent>
       </Card>
+
+      <QuestionsForm
+        questionGroupId={questionGroup.question_group_id}
+        onReloadQuestionGroup={onReloadQuestionGroup}
+        show={showEditQuestionForm}
+        onCloseHandler={() => setShowEditQuestionForm(false)}
+        data={question}
+        method="PUT"
+      />
     </>
   );
 };
