@@ -39,7 +39,10 @@ const Map = ({
       >
         <Alert severity="warning" variant="filled" sx={{ width: '100%' }}>
           Trenutno ste v načinu urejanja točk. Kliknite na zemljevid, da dodate
-          točko.
+          točko. Za brisanje točke kliknite na točko na zemljevidu, da se vam
+          prikaže meni za brisanje. Če želite prekiniti način urejanja točk,
+          kliknite na gumb "Prekini urejanje" (enak gumb, ki ste ga uporabili za
+          prehod v ta način).
         </Alert>
       </Snackbar>
 
