@@ -134,23 +134,25 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
           >
             {formatDate(event.date)}
           </Typography>
-          <Tooltip
-            title={
-              !mapEditMode
-                ? 'Preidi v način urejanja točk na mapi'
-                : 'Prekini način urejanja točk na mapi'
-            }
-          >
-            <IconButton
-              sx={{ display: 'block', mb: 3, mt: 5 }}
-              onClick={() => {
-                setMapEditMode(prev => !prev);
-              }}
+          {showDetails && (
+            <Tooltip
+              title={
+                !mapEditMode
+                  ? 'Preidi v način urejanja točk na mapi'
+                  : 'Prekini način urejanja točk na mapi'
+              }
             >
-              {!mapEditMode && <EditLocationAltIcon color="warning" />}
-              {mapEditMode && <LocationOffIcon color="error" />}
-            </IconButton>
-          </Tooltip>
+              <IconButton
+                sx={{ display: 'block', mb: 3, mt: 5 }}
+                onClick={() => {
+                  setMapEditMode(prev => !prev);
+                }}
+              >
+                {!mapEditMode && <EditLocationAltIcon color="warning" />}
+                {mapEditMode && <LocationOffIcon color="error" />}
+              </IconButton>
+            </Tooltip>
+          )}
         </Stack>
         {showDetails && (
           <Map
