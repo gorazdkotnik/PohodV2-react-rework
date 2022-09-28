@@ -8,6 +8,8 @@ import {
 } from 'react-leaflet';
 
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -25,11 +27,22 @@ const Map = ({
   className = 'leaflet-container',
   onMarkerClickHandler = () => {},
   onMapClickHandler,
+  editMode = false,
 } = {}) => {
   const { setDialog } = useUIContext();
 
   return (
     <div className={className}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={editMode}
+      >
+        <Alert severity="warning" sx={{ width: '100%' }}>
+          Trenutno ste v načinu urejanja točk. Kliknite na zemljevid, da dodate
+          točko.
+        </Alert>
+      </Snackbar>
+
       <MapContainer
         className={className}
         center={position}

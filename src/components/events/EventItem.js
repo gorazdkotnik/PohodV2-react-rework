@@ -5,6 +5,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
+import LocationOffIcon from '@mui/icons-material/LocationOff';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 import EventItemTabs from './EventItemTabs';
 
@@ -18,6 +23,8 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
   const navigate = useNavigate();
 
   const { setShowLoadingSpinner, setDialog, setNotification } = useUIContext();
+
+  const [mapEditMode, setMapEditMode] = React.useState(false);
 
   const onDeleteHandler = () => {
     setShowLoadingSpinner(true);
@@ -114,19 +121,44 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
         >
           {event.name}
         </Typography>
-        <Typography
-          variant="p"
-          gutterBottom
-          sx={{ display: 'block', mb: 3, mt: 5 }}
+
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          {formatDate(event.date)}
-        </Typography>
+          <Typography
+            variant="p"
+            gutterBottom
+            sx={{ display: 'block', mb: 3, mt: 5 }}
+          >
+            {formatDate(event.date)}
+          </Typography>
+          <Tooltip
+            title={
+              !mapEditMode
+                ? 'Preidi v način urejanja točk na mapi'
+                : 'Prekini način urejanja točk na mapi'
+            }
+          >
+            <IconButton
+              sx={{ display: 'block', mb: 3, mt: 5 }}
+              onClick={() => {
+                setMapEditMode(prev => !prev);
+              }}
+            >
+              {!mapEditMode && <EditLocationAltIcon color="warning" />}
+              {mapEditMode && <LocationOffIcon color="error" />}
+            </IconButton>
+          </Tooltip>
+        </Stack>
         {showDetails && (
           <Map
             className="leaflet-event-container my-10"
             points={event.points}
             onMarkerClickHandler={onMarkerClickHandler}
             onMapClickHandler={onMapClickHandler}
+            editMode={mapEditMode}
           />
         )}
         {!showDetails && (
