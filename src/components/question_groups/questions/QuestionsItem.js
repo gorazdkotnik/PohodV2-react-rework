@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import IconButton from '@mui/material/IconButton';
 
 import AnswersForm from '../answers/AnswersForm';
 import AnswersList from '../answers/AnswersList';
@@ -68,15 +69,15 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
                 alignItems="center"
                 spacing={2}
               >
-                <EditIcon
-                  sx={{ cursor: 'pointer' }}
+                <IconButton
                   onClick={() => {
                     setShowEditQuestionForm(true);
                   }}
-                  color="warning"
-                />
-                <DeleteForeverIcon
-                  sx={{ cursor: 'pointer' }}
+                >
+                  <EditIcon color="warning" />
+                </IconButton>
+
+                <IconButton
                   onClick={() => {
                     setDialog({
                       title: 'Brisanje vprašanja',
@@ -86,8 +87,9 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
                       },
                     });
                   }}
-                  color="error"
-                />
+                >
+                  <DeleteForeverIcon color="error" />
+                </IconButton>
               </Stack>
             </Stack>
 
