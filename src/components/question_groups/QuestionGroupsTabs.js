@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 
 import TabPanel from '../ui/TabPanel';
@@ -42,12 +43,14 @@ const QuestionGroupsTabs = ({ questionGroup, onReloadQuestionGroup }) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Stack direction="row" spacing={2} sx={{ my: 2 }}>
-          <Button
-            variant="outlined"
-            onClick={() => setShowAddQuestionForm(!showAddQuestionForm)}
-          >
-            Dodaj vprašanje
-          </Button>
+          <Tooltip title="Dodaj novo vprašanje k tej skupini vprašanj">
+            <Button
+              variant="outlined"
+              onClick={() => setShowAddQuestionForm(!showAddQuestionForm)}
+            >
+              Dodaj vprašanje
+            </Button>
+          </Tooltip>
         </Stack>
         <QuestionsForm
           questionGroupId={questionGroup.question_group_id}

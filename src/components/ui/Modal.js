@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -33,27 +34,31 @@ const Modal = () => {
             </DialogContent>
             <DialogActions>
               {dialog.onClose && (
-                <Button
-                  onClick={() => {
-                    setDialog(null);
-                  }}
-                >
-                  Prekliči
-                </Button>
+                <Tooltip title="Zapri okno">
+                  <Button
+                    onClick={() => {
+                      setDialog(null);
+                    }}
+                  >
+                    Prekliči
+                  </Button>
+                </Tooltip>
               )}
 
-              <Button
-                onClick={() => {
-                  if (dialog.onClose) {
-                    dialog.onClose();
-                  }
+              <Tooltip title="Potrdi dejanje">
+                <Button
+                  onClick={() => {
+                    if (dialog.onClose) {
+                      dialog.onClose();
+                    }
 
-                  setDialog(null);
-                }}
-                autoFocus
-              >
-                Vredu
-              </Button>
+                    setDialog(null);
+                  }}
+                  autoFocus
+                >
+                  Vredu
+                </Button>
+              </Tooltip>
             </DialogActions>
           </Dialog>,
           document.getElementById('modal-root')

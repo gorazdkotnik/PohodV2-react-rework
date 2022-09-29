@@ -8,6 +8,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -103,10 +104,21 @@ const QuestionsForm = ({
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCloseHandler}>Prekliči</Button>
-          <Button onClick={formOnSubmitHandler}>
-            {method === 'POST' ? 'Ustvari' : 'Posodobi'}
-          </Button>
+          <Tooltip title="Zapri okno">
+            <Button onClick={onCloseHandler}>Prekliči</Button>
+          </Tooltip>
+
+          <Tooltip
+            title={
+              method === 'POST'
+                ? 'Dodaj vprašanje k tej skupini vprašanj s podanimi podatki'
+                : 'Uredi vprašanje s podanimi podatki'
+            }
+          >
+            <Button onClick={formOnSubmitHandler}>
+              {method === 'POST' ? 'Ustvari' : 'Posodobi'}
+            </Button>
+          </Tooltip>
         </DialogActions>
       </Dialog>
     </>

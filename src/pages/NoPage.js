@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
 
 import LoginButton from '../components/auth/LoginButton';
 
@@ -42,9 +43,11 @@ const NoPage = () => {
             {!loggedIn && <LoginButton />}
           </CardContent>
           <CardActions>
-            <Button size="small" component={Link} to="/">
-              Pojdite nazaj
-            </Button>
+            <Tooltip title="Nazaj na domačo stran">
+              <Button size="small" component={Link} to="/">
+                Pojdite nazaj
+              </Button>
+            </Tooltip>
           </CardActions>
         </Card>
       </Stack>

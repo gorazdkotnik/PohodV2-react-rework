@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 const PageMenu = ({ labels, links }) => {
   const { pathname } = useLocation();
@@ -15,14 +16,16 @@ const PageMenu = ({ labels, links }) => {
       spacing={2}
     >
       {links.map((link, index) => (
-        <Button
-          key={index}
-          component={Link}
-          to={link}
-          variant={pathname === link ? 'contained' : 'outlined'}
-        >
-          {labels[index]}
-        </Button>
+        <Tooltip title={`Pojdi na "${labels[index]}"`} key={link}>
+          <Button
+            key={index}
+            component={Link}
+            to={link}
+            variant={pathname === link ? 'contained' : 'outlined'}
+          >
+            {labels[index]}
+          </Button>
+        </Tooltip>
       ))}
     </Stack>
   );

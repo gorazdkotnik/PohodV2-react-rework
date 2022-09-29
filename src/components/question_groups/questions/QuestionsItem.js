@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 import AnswersForm from '../answers/AnswersForm';
 import AnswersList from '../answers/AnswersList';
@@ -69,39 +70,45 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
                 alignItems="center"
                 spacing={2}
               >
-                <IconButton
-                  onClick={() => {
-                    setShowEditQuestionForm(true);
-                  }}
-                >
-                  <EditIcon color="warning" />
-                </IconButton>
+                <Tooltip title="Uredi vprašanje">
+                  <IconButton
+                    onClick={() => {
+                      setShowEditQuestionForm(true);
+                    }}
+                  >
+                    <EditIcon color="warning" />
+                  </IconButton>
+                </Tooltip>
 
-                <IconButton
-                  onClick={() => {
-                    setDialog({
-                      title: 'Brisanje vprašanja',
-                      text: 'Ali ste prepričani, da želite izbrisati to vprašanje?',
-                      onClose: () => {
-                        onDeleteHandler(question.question_id);
-                      },
-                    });
-                  }}
-                >
-                  <DeleteForeverIcon color="error" />
-                </IconButton>
+                <Tooltip title="Izbriši vprašanje">
+                  <IconButton
+                    onClick={() => {
+                      setDialog({
+                        title: 'Brisanje vprašanja',
+                        text: 'Ali ste prepričani, da želite izbrisati to vprašanje?',
+                        onClose: () => {
+                          onDeleteHandler(question.question_id);
+                        },
+                      });
+                    }}
+                  >
+                    <DeleteForeverIcon color="error" />
+                  </IconButton>
+                </Tooltip>
               </Stack>
             </Stack>
 
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setShowAddAnswerForm(true);
-                }}
-              >
-                Dodaj odgovor
-              </Button>
+              <Tooltip title="Dodaj odgovor k temu vprašanju">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setShowAddAnswerForm(true);
+                  }}
+                >
+                  Dodaj odgovor
+                </Button>
+              </Tooltip>
             </Stack>
           </Stack>
 

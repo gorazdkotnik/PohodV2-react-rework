@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import QuestionTimer from './QuestionTimer';
 
@@ -54,14 +55,16 @@ const QuestionCard = ({
         sx={{ my: 5 }}
       >
         {question.answers.map((answer, index) => (
-          <Button
-            variant={answerId === answer.answer_id ? 'contained' : 'outlined'}
-            color="secondary"
-            key={answer.answer_id}
-            onClick={() => setAnswerId(answer.answer_id)}
-          >
-            {answer.text}
-          </Button>
+          <Tooltip title="Izberi odgovor" key={answer.id}>
+            <Button
+              variant={answerId === answer.answer_id ? 'contained' : 'outlined'}
+              color="secondary"
+              key={answer.answer_id}
+              onClick={() => setAnswerId(answer.answer_id)}
+            >
+              {answer.text}
+            </Button>
+          </Tooltip>
         ))}
       </Stack>
 
@@ -73,13 +76,15 @@ const QuestionCard = ({
         alignItems="center"
         spacing={2}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => submitQuestion()}
-        >
-          Odgovori
-        </Button>
+        <Tooltip title="Oddaj odgovor">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => submitQuestion()}
+          >
+            Odgovori
+          </Button>
+        </Tooltip>
       </Stack>
     </Box>
   );

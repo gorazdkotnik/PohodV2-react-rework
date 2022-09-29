@@ -10,6 +10,7 @@ import {
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -83,24 +84,26 @@ const Map = ({
                 <Popup>
                   <p>{pointText}</p>
                   {onMapClickHandler && onMarkerClickHandler && (
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => {
-                        if (editMode) {
-                          setDialog({
-                            title: 'Izbriši točko',
-                            text: `Ali ste prepričani, da želite izbrisati točko "${point.name}"?`,
-                            onClose: onMarkerClickHandler.bind(
-                              null,
-                              point.point_id
-                            ),
-                          });
-                        }
-                      }}
-                    >
-                      Izbriši
-                    </Button>
+                    <Tooltip title="Izbriši to točko">
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => {
+                          if (editMode) {
+                            setDialog({
+                              title: 'Izbriši točko',
+                              text: `Ali ste prepričani, da želite izbrisati točko "${point.name}"?`,
+                              onClose: onMarkerClickHandler.bind(
+                                null,
+                                point.point_id
+                              ),
+                            });
+                          }
+                        }}
+                      >
+                        Izbriši
+                      </Button>
+                    </Tooltip>
                   )}
                 </Popup>
               )}

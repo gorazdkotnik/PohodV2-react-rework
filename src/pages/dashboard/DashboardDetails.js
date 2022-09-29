@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import Table from '../../components/ui/Table';
 
@@ -89,13 +90,15 @@ const DashboardDetails = () => {
   return (
     <Card>
       <CardContent>
-        <Button
-          variant="outlined"
-          onClick={() => navigate('/dashboard')}
-          sx={{ mb: 3 }}
-        >
-          Nazaj
-        </Button>
+        <Tooltip title="Nazaj na pregled nadzorne plošče">
+          <Button
+            variant="outlined"
+            onClick={() => navigate('/dashboard')}
+            sx={{ mb: 3 }}
+          >
+            Nazaj
+          </Button>
+        </Tooltip>
 
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
           {title}

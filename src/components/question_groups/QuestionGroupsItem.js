@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 
 import { useUIContext } from '../../context/UIContext';
@@ -69,29 +70,33 @@ const QuestionGroupsItem = ({
             sx={{ mt: 2 }}
           >
             {!showDetails && (
-              <Button
-                variant="outlined"
-                component={NavLink}
-                to={`/question_groups/${questionGroup.question_group_id}`}
-              >
-                Oglej si skupino vprašanj
-              </Button>
+              <Tooltip title="Oglej si podrobnosti skupine vprašanj">
+                <Button
+                  variant="outlined"
+                  component={NavLink}
+                  to={`/question_groups/${questionGroup.question_group_id}`}
+                >
+                  Oglej si skupino vprašanj
+                </Button>
+              </Tooltip>
             )}
 
             {!showDetails && (
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => {
-                  setDialog({
-                    title: 'Brisanje skupine vprašanj',
-                    text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
-                    onClose: onDeleteHandler,
-                  });
-                }}
-              >
-                Izbriši
-              </Button>
+              <Tooltip title="Izbriši skupino vprašanj">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    setDialog({
+                      title: 'Brisanje skupine vprašanj',
+                      text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
+                      onClose: onDeleteHandler,
+                    });
+                  }}
+                >
+                  Izbriši
+                </Button>
+              </Tooltip>
             )}
           </Stack>
         </Stack>

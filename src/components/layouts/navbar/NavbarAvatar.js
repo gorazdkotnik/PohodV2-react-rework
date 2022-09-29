@@ -22,7 +22,7 @@ const NavbarAvatar = ({
   return (
     <Box sx={{ flexGrow: 0 }}>
       {loggedIn && (
-        <Tooltip title="Odpri nastavitve">
+        <Tooltip title="Odprite nastavitve profila">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar
               {...stringAvatar(`${user.first_name} ${user.last_name}`, null)}
