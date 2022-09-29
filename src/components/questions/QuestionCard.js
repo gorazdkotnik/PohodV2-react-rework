@@ -55,7 +55,7 @@ const QuestionCard = ({
         sx={{ my: 5 }}
       >
         {question.answers.map((answer, index) => (
-          <Tooltip title="Izberi odgovor" key={answer.id}>
+          <Tooltip title="Izberi odgovor" key={answer.answer_id}>
             <Button
               variant={answerId === answer.answer_id ? 'contained' : 'outlined'}
               color="secondary"

@@ -7,12 +7,14 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import AnswersForm from '../answers/AnswersForm';
 import AnswersList from '../answers/AnswersList';
 import QuestionsForm from './QuestionsForm';
+import QuestionItemPreview from './QuestionItemPreview';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -23,6 +25,7 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
 
   const [showAddAnswerForm, setShowAddAnswerForm] = React.useState(false);
   const [showEditQuestionForm, setShowEditQuestionForm] = React.useState(false);
+  const [showQuestionPreview, setShowQuestionPreview] = React.useState(false);
 
   const onDeleteHandler = questionId => {
     setShowLoadingSpinner(true);
@@ -47,6 +50,12 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
 
   return (
     <>
+      <QuestionItemPreview
+        open={showQuestionPreview}
+        setOpen={setShowQuestionPreview}
+        question={question}
+      />
+
       <Card sx={{ width: '100%', my: 2 }}>
         <CardContent>
           <Stack
@@ -93,6 +102,16 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
                     }}
                   >
                     <DeleteForeverIcon color="error" />
+                  </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Predogled tega vprašanja">
+                  <IconButton
+                    onClick={() => {
+                      setShowQuestionPreview(true);
+                    }}
+                  >
+                    <ContentPasteSearchIcon color="secondary" />
                   </IconButton>
                 </Tooltip>
               </Stack>
