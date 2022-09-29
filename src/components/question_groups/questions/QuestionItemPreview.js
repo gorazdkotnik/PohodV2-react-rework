@@ -9,6 +9,7 @@ import Slide from '@mui/material/Slide';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Tooltip from '@mui/material/Tooltip';
 
 import QuestionCard from '../../questions/QuestionCard';
 
@@ -28,16 +29,18 @@ const QuestionItemPreview = ({ open, setOpen, question }) => {
     >
       <AppBar sx={{ position: 'relative' }}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => {
-              setOpen(false);
-            }}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
+          <Tooltip title="Zapri predogled vprašanja">
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => {
+                setOpen(false);
+              }}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
             Predogled vprašanja
           </Typography>
