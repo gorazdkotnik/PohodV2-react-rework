@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
 
 import TabPanel from '../ui/TabPanel';
 
@@ -53,19 +54,21 @@ const EventItemTabs = ({ event, onReloadEvent, onDeleteHandler }) => {
           alignItems="center"
           sx={{ my: 2 }}
         >
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => {
-              setDialog({
-                title: 'Brisanje dogodka',
-                text: 'Ali ste prepričani, da želite izbrisati dogodek?',
-                onClose: onDeleteHandler,
-              });
-            }}
-          >
-            Izbriši dogodek
-          </Button>
+          <Tooltip title="Izbrišite dogodek na katerem se trenutno nahajate">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                setDialog({
+                  title: 'Brisanje dogodka',
+                  text: 'Ali ste prepričani, da želite izbrisati dogodek?',
+                  onClose: onDeleteHandler,
+                });
+              }}
+            >
+              Izbriši dogodek
+            </Button>
+          </Tooltip>
         </Stack>
       </TabPanel>
     </Box>

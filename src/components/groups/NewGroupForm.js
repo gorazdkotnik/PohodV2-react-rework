@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -111,13 +112,16 @@ const NewGroupForm = () => {
           ))}
         </Select>
       </FormControl>
-      <Button
-        variant="contained"
-        sx={{ m: 1, mt: 4 }}
-        onClick={formOnSubmitHandler}
-      >
-        Ustvari skupino
-      </Button>
+
+      <Tooltip title="Ustvari skupino s podanimi podatki">
+        <Button
+          variant="contained"
+          sx={{ m: 1, mt: 4 }}
+          onClick={formOnSubmitHandler}
+        >
+          Ustvari skupino
+        </Button>
+      </Tooltip>
     </>
   );
 };

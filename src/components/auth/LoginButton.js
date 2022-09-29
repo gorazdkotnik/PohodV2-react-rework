@@ -1,4 +1,6 @@
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
 import { BACKEND_URL } from './../../config';
 
 const LoginButton = () => {
@@ -12,11 +14,13 @@ const LoginButton = () => {
     JSON.stringify({
       redirect: window.location.href,
     })
-  )}`
+  )}`;
   return (
-    <Button variant="contained" component="a" href={URL} sx={{ p: 0 }}>
-      <img src="/images/login.svg" alt="login" />
-    </Button>
+    <Tooltip title="Prijavite se v aplikacijo z Microsoft računom">
+      <Button variant="contained" component="a" href={URL} sx={{ p: 0 }}>
+        <img src="/images/login.svg" alt="login" />
+      </Button>
+    </Tooltip>
   );
 };
 

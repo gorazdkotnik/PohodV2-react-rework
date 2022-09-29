@@ -5,6 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -153,14 +154,22 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
             />
           </FormControl>
 
-          <Button
-            variant="contained"
-            sx={{ m: 1, mt: 2 }}
-            onClick={formOnSubmitHandler}
-            color={method === 'PUT' ? 'warning' : 'primary'}
+          <Tooltip
+            title={
+              method === 'POST'
+                ? 'Ustvarite dogodek s podanimi podatki'
+                : 'Posodobite izbran dogodek s podanimi podatki'
+            }
           >
-            {method === 'POST' ? 'Ustvari' : 'Posodobi'}
-          </Button>
+            <Button
+              variant="contained"
+              sx={{ m: 1, mt: 2 }}
+              onClick={formOnSubmitHandler}
+              color={method === 'PUT' ? 'warning' : 'primary'}
+            >
+              {method === 'POST' ? 'Ustvari' : 'Posodobi'}
+            </Button>
+          </Tooltip>
         </div>
       )}
     </>

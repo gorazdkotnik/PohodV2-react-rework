@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -61,25 +62,29 @@ const MembersList = ({ user }) => {
                 </Typography>
 
                 {member.user_id === user.group.leader_id && (
-                  <Button variant="contained">Vodja</Button>
+                  <Tooltip title="Ta član skupine je vodja">
+                    <Button variant="contained">Vodja</Button>
+                  </Tooltip>
                 )}
 
                 {member.user_id !== user.group.leader_id &&
                   user.user_id === user.group.leader_id && (
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => {
-                        setDialog({
-                          title: 'Odstrani člana',
-                          text: `Ali ste prepričani, da želite odstraniti člana "${member.first_name} ${member.last_name}"?`,
+                    <Tooltip title="Odstrani člana iz skupine">
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => {
+                          setDialog({
+                            title: 'Odstrani člana',
+                            text: `Ali ste prepričani, da želite odstraniti člana "${member.first_name} ${member.last_name}"?`,
 
-                          onClose: kickMemberHandler.bind(null, member),
-                        });
-                      }}
-                    >
-                      Odstrani
-                    </Button>
+                            onClose: kickMemberHandler.bind(null, member),
+                          });
+                        }}
+                      >
+                        Odstrani
+                      </Button>
+                    </Tooltip>
                   )}
               </Stack>
             </CardContent>

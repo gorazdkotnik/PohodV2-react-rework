@@ -5,6 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -45,7 +46,7 @@ const JoinGroupForm = () => {
       .catch(error => {
         setShowLoadingSpinner(false);
 
-        console.log("join err", error);
+        console.log('join err', error);
 
         if (error?.response?.data === 'GROUP_FULL') {
           setDialog({
@@ -74,13 +75,15 @@ const JoinGroupForm = () => {
         />
       </FormControl>
 
-      <Button
-        variant="contained"
-        sx={{ m: 1, mt: 4 }}
-        onClick={formOnSubmitHandler}
-      >
-        Pridruži se skupini
-      </Button>
+      <Tooltip title="Pridruži se skupini s podano kodo">
+        <Button
+          variant="contained"
+          sx={{ m: 1, mt: 4 }}
+          onClick={formOnSubmitHandler}
+        >
+          Pridruži se skupini
+        </Button>
+      </Tooltip>
     </>
   );
 };

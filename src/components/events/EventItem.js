@@ -170,13 +170,15 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
           />
         )}
         {!showDetails && (
-          <Button
-            variant="outlined"
-            component={NavLink}
-            to={`/events/${event.event_id}`}
-          >
-            Oglej si dogodek
-          </Button>
+          <Tooltip title="Oglejte si podrobnosti dogodka">
+            <Button
+              variant="outlined"
+              component={NavLink}
+              to={`/events/${event.event_id}`}
+            >
+              Oglej si dogodek
+            </Button>
+          </Tooltip>
         )}
         {showDetails && (
           <EventItemTabs

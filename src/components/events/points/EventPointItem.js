@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
+import Tooltip from '@mui/material/Tooltip';
 
 import QRCode from 'react-qr-code';
 
@@ -142,35 +143,42 @@ const EventPointItem = ({
               spacing={1}
               sx={{ mt: 1 }}
             >
-              <Button
-                variant={showQRCode[point.hash] ? 'contained' : 'outlined'}
-                onClick={() => {
-                  setShowQRCode(prevState => ({
-                    ...prevState,
-                    [point.hash]: !prevState[point.hash],
-                  }));
-                }}
-              >
-                {showQRCode[point.hash] ? 'Skrij QR kodo' : 'Prikaži QR kodo'}
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => downloadQRCode(point.hash, point.name)}
-              >
-                Shrani QR kodo
-              </Button>
+              <Tooltip title="Prikaži QR kodo te točke">
+                <Button
+                  variant={showQRCode[point.hash] ? 'contained' : 'outlined'}
+                  onClick={() => {
+                    setShowQRCode(prevState => ({
+                      ...prevState,
+                      [point.hash]: !prevState[point.hash],
+                    }));
+                  }}
+                >
+                  {showQRCode[point.hash] ? 'Skrij QR kodo' : 'Prikaži QR kodo'}
+                </Button>
+              </Tooltip>
 
-              <Button
-                variant="contained"
-                color="warning"
-                onClick={() => {
-                  setSelectedPoint(point);
-                  setShowQuestionGroupSelection(true);
-                }}
-              >
-                Izberi skupino vprašanj
-              </Button>
+              <Tooltip title="Prenesi QR kodo te točke na računalnik">
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => downloadQRCode(point.hash, point.name)}
+                >
+                  Shrani QR kodo
+                </Button>
+              </Tooltip>
+
+              <Tooltip title="Izberite skupino vprašanj te točke">
+                <Button
+                  variant="contained"
+                  color="warning"
+                  onClick={() => {
+                    setSelectedPoint(point);
+                    setShowQuestionGroupSelection(true);
+                  }}
+                >
+                  Izberi skupino vprašanj
+                </Button>
+              </Tooltip>
             </Stack>
           </Box>
         </Stack>

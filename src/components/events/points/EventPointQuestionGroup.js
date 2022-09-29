@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -90,7 +91,9 @@ const EventPointQuestionGroup = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Prekliči</Button>
+        <Tooltip title="Zapri">
+          <Button onClick={onClose}>Prekliči</Button>
+        </Tooltip>
       </DialogActions>
     </Dialog>
   );

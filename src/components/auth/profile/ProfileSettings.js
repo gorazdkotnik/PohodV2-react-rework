@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useAuthContext } from '../../../context/AuthContext';
 import { useToggleTheme } from '../../../context/ThemeContext';
@@ -32,25 +33,31 @@ const ProfileSettings = () => {
       sx={{ my: 5 }}
     >
       {/* Change password */}
-      <Button
-        variant="text"
-        component="a"
-        href="https://mdm.arnes.si/Prijava/Login.aspx"
-        target="_blank"
-        sx={{ alignSelf: 'start' }}
-      >
-        Spremeni geslo
-      </Button>
+      <Tooltip title="Spremenite geslo vašega Microsoft računa">
+        <Button
+          variant="text"
+          component="a"
+          href="https://mdm.arnes.si/Prijava/Login.aspx"
+          target="_blank"
+          sx={{ alignSelf: 'start' }}
+        >
+          Spremeni geslo
+        </Button>
+      </Tooltip>
 
       {/* Toggle theme */}
-      <Button variant="outlined" onClick={toggleTheme}>
-        Preklopi med temami
-      </Button>
+      <Tooltip title="Preklopite med temnim in svetlim načinom">
+        <Button variant="outlined" onClick={toggleTheme}>
+          Preklopi med temami
+        </Button>
+      </Tooltip>
 
       {/* Logout */}
-      <Button variant="contained" onClick={logoutHandler}>
-        Izpiši se
-      </Button>
+      <Tooltip title="Odjavite se iz aplikacije">
+        <Button variant="contained" onClick={logoutHandler}>
+          Izpiši se
+        </Button>
+      </Tooltip>
     </Stack>
   );
 };

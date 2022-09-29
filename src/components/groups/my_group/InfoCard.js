@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 import MembersList from './MembersList';
 
@@ -115,9 +116,12 @@ const InfoCard = ({ user }) => {
         >
           {user.group.code}
         </Typography>
-        <Button variant="contained" color="success" onClick={copyCodeHandler}>
-          Kopiraj kodo
-        </Button>
+
+        <Tooltip title="Kopiraj kodo skupine">
+          <Button variant="contained" color="success" onClick={copyCodeHandler}>
+            Kopiraj kodo
+          </Button>
+        </Tooltip>
       </Stack>
 
       <MembersList user={user} />
@@ -129,33 +133,38 @@ const InfoCard = ({ user }) => {
         spacing={2}
       >
         {user?.user_id === user?.group?.leader_id && (
+          <Tooltip title="Spremeni trenutno kodo skupine na novo naključno">
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={() => {
+                setDialog({
+                  title: 'Regeneriraj kodo skupine',
+                  text: 'Ali ste prepričani, da želite regenerirati kodo skupine?',
+                  onClose: regenerateCodeHandler,
+                });
+              }}
+            >
+              Regeneriraj kodo
+            </Button>
+          </Tooltip>
+        )}
+
+        <Tooltip title="Zapusti skupino v kateri se trenutno nahajaš">
           <Button
             variant="contained"
-            color="warning"
+            color="error"
             onClick={() => {
               setDialog({
-                title: 'Regeneriraj kodo skupine',
-                text: 'Ali ste prepričani, da želite regenerirati kodo skupine?',
-                onClose: regenerateCodeHandler,
+                title: 'Zapusti skupino',
+                text: 'Ali ste prepričani, da želite zapustiti skupino?',
+                onClose: leaveGroupHandler,
               });
             }}
           >
-            Regeneriraj kodo
+            Zapusti skupino
           </Button>
-        )}
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => {
-            setDialog({
-              title: 'Zapusti skupino',
-              text: 'Ali ste prepričani, da želite zapustiti skupino?',
-              onClose: leaveGroupHandler,
-            });
-          }}
-        >
-          Zapusti skupino
-        </Button>
+        </Tooltip>
       </Stack>
     </Stack>
   );
