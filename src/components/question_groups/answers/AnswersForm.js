@@ -6,14 +6,17 @@ import Input from '@mui/material/Input';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import { useUIContext } from '../../../context/UIContext';
 
 import { request } from '../../../utils/functions';
 
-const AnswersForm = ({ question, onReloadQuestionGroup, onClose }) => {
+const AnswersForm = ({ question, onReloadQuestionGroup, onClose, open }) => {
   const { setShowLoadingSpinner, setNotification, setDialog } = useUIContext();
 
   const [answer, setAnswer] = React.useState('');
@@ -64,56 +67,63 @@ const AnswersForm = ({ question, onReloadQuestionGroup, onClose }) => {
           title: 'Napaka pri odgovorih',
           text: 'Prišlo je do napake pri dodajanju odgovorov. Poskusite znova.',
         });
+      })
+      .finally(() => {
+        setAnswer('');
       });
   };
 
   return (
-    <Box sx={{ mt: 2 }}>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="stretch"
-        spacing={4}
-      >
-        <FormControl fullWidth>
-          <InputLabel htmlFor="answer-label">Odgovor</InputLabel>
-          <Input
-            id="answer"
-            value={answer}
-            onChange={answerOnChangeHandler}
-            error={answerInvalid}
-          />
-        </FormControl>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      maxWidth="sm"
+      fullWidth
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Use Google's location service?"}
+      </DialogTitle>
+      <DialogContent>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
+          sx={{ mt: 1 }}
+        >
+          <FormControl fullWidth>
+            <InputLabel htmlFor="answer-label">Odgovor</InputLabel>
+            <Input
+              id="answer"
+              value={answer}
+              onChange={answerOnChangeHandler}
+              error={answerInvalid}
+            />
+          </FormControl>
 
-        <FormControl fullWidth>
-          <InputLabel htmlFor="is-correct-label">Pravilen odgovor</InputLabel>
-          <Select
-            id="is-correct"
-            value={isCorrect}
-            label="Pravilen odgovor"
-            onChange={event => setIsCorrect(event.target.value)}
-          >
-            <MenuItem value={true}>Da</MenuItem>
-            <MenuItem value={false}>Ne</MenuItem>
-          </Select>
-        </FormControl>
-      </Stack>
-
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={2}
-        sx={{ mt: 2 }}
-      >
-        <Button variant="outlined" onClick={onClose}>
-          Prekliči
-        </Button>
-        <Button variant="contained" onClick={formOnSubmitHandler}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="is-correct-label">Pravilen odgovor</InputLabel>
+            <Select
+              id="is-correct"
+              value={isCorrect}
+              label="Pravilen odgovor"
+              onChange={event => setIsCorrect(event.target.value)}
+            >
+              <MenuItem value={true}>Da</MenuItem>
+              <MenuItem value={false}>Ne</MenuItem>
+            </Select>
+          </FormControl>
+        </Stack>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Prekliči</Button>
+        <Button onClick={formOnSubmitHandler} autoFocus>
           Shrani
         </Button>
-      </Stack>
-    </Box>
+      </DialogActions>
+    </Dialog>
   );
 };
 

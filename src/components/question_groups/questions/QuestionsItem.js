@@ -131,13 +131,12 @@ const QuestionsItem = ({ question, onReloadQuestionGroup, questionGroup }) => {
             </Stack>
           </Stack>
 
-          {showAddAnswerForm && (
-            <AnswersForm
-              question={question}
-              onReloadQuestionGroup={onReloadQuestionGroup}
-              onClose={() => setShowAddAnswerForm(false)}
-            />
-          )}
+          <AnswersForm
+            question={question}
+            onReloadQuestionGroup={onReloadQuestionGroup}
+            onClose={() => setShowAddAnswerForm(false)}
+            open={showAddAnswerForm}
+          />
 
           <AnswersList
             answers={question.answers}

@@ -46,7 +46,11 @@ const QuestionsForm = ({
     request(
       `/questions${method === 'PUT' ? `/${data.question_id}` : ''}`,
       method,
-      { text: question, question_group_id: questionGroupId, answers: [] }
+      {
+        text: question,
+        question_group_id: questionGroupId,
+        answers: data.answers || [],
+      }
     )
       .then(response => {
         setShowLoadingSpinner(false);
@@ -100,6 +104,8 @@ const QuestionsForm = ({
               value={question}
               onChange={questionOnChangeHandler}
               error={questionInvalid}
+              rows={4}
+              multiline
             />
           </FormControl>
         </DialogContent>
