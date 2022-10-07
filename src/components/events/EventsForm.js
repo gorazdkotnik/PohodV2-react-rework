@@ -19,8 +19,9 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
   const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
 
+  // TODO: novi datumi (zdaj so ure)
   const [date, setDate] = useState(
-    data.date || new Date().toISOString().slice(0, 10)
+    data.event_start_time || new Date().toISOString().slice(0, 10)
   );
   const [dateInvalid, setDateInvalid] = useState(false);
 

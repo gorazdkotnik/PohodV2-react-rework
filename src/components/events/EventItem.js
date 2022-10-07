@@ -132,7 +132,8 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
             gutterBottom
             sx={{ display: 'block', mb: 3, mt: 5 }}
           >
-            {formatDate(event.date)}
+            {/* // TODO: novi datumi (zdaj so ure) */}
+            {formatDate(event.event_start_time)}
           </Typography>
           {showDetails && (
             <Tooltip
