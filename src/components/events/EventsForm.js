@@ -7,6 +7,13 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/sl';
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 import { useUIContext } from '../../context/UIContext';
 
 import { request } from '../../utils/functions';
@@ -19,11 +26,23 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
   const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
 
-  // TODO: novi datumi (zdaj so ure)
-  const [date, setDate] = useState(
-    data.event_start_time || new Date().toISOString().slice(0, 10)
+  const [signupStartTime, setSignupStartTime] = useState(
+    data.signup_start_time || new Date().toISOString()
   );
-  const [dateInvalid, setDateInvalid] = useState(false);
+
+  const [signUpEndTime, setSignUpEndTime] = useState(
+    data.signup_end_time ||
+      dayjs(data.signup_start_time).add(1, 'minute').toISOString()
+  );
+
+  const [eventStartTime, setEventStartTime] = useState(
+    data.event_start_time || new Date().toISOString()
+  );
+
+  const [eventEndTime, setEventEndTime] = useState(
+    data.event_end_time ||
+      dayjs(data.event_start_time).add(1, 'minute').toISOString()
+  );
 
   const [minMembers, setMinMembers] = useState(data.min_group_members || 4);
   const [minMembersInvalid, setMinMembersInvalid] = useState(false);
@@ -33,10 +52,6 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
 
   const nameOnChangeHandler = event => {
     setName(event.target.value);
-  };
-
-  const dateOnChangeHandler = event => {
-    setDate(event.target.value);
   };
 
   const minMembersOnChangeHandler = event => {
@@ -51,16 +66,11 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     event.preventDefault();
 
     setNameInvalid(false);
-    setDateInvalid(false);
     setMinMembersInvalid(false);
     setMaxMembersInvalid(false);
 
     if (name.trim() === '') {
       setNameInvalid(true);
-    }
-
-    if (date === '') {
-      setDateInvalid(true);
     }
 
     if (minMembers > maxMembers) {
@@ -72,8 +82,11 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     }
 
     if (
+      dayjs(signupStartTime).isAfter(signUpEndTime) ||
+      dayjs(signUpEndTime).isBefore(signupStartTime) ||
+      dayjs(eventStartTime).isAfter(eventEndTime) ||
+      dayjs(eventEndTime).isBefore(eventStartTime) ||
       name.trim() === '' ||
-      date === '' ||
       minMembers > maxMembers ||
       maxMembers < minMembers
     ) {
@@ -83,7 +96,10 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     setShowLoadingSpinner(true);
     request(`/events${method === 'PUT' ? `/${data.event_id}` : ''}`, method, {
       name,
-      date,
+      signup_start_time: signupStartTime,
+      signup_end_time: signUpEndTime,
+      event_start_time: eventStartTime,
+      event_end_time: eventEndTime,
       min_group_members: minMembers,
       max_group_members: maxMembers,
     })
@@ -124,16 +140,6 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
           </FormControl>
 
           <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <Input
-              id="date"
-              value={date}
-              onChange={dateOnChangeHandler}
-              error={dateInvalid}
-              type="date"
-            />
-          </FormControl>
-
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
             <InputLabel htmlFor="minMembers">Najmanj članov v ekipi</InputLabel>
             <Input
               id="minMembers"
@@ -153,6 +159,72 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
               error={maxMembersInvalid}
               type="number"
             />
+          </FormControl>
+
+          {/* <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <Input
+              id="date"
+              value={date}
+              onChange={dateOnChangeHandler}
+              error={dateInvalid}
+              type="date"
+            />
+          </FormControl> */}
+
+          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
+              <DateTimePicker
+                renderInput={props => <TextField {...props} />}
+                label="Začetek prijave na dogodek"
+                value={signupStartTime}
+                onChange={newValue => {
+                  setSignupStartTime(newValue);
+                }}
+                maxDateTime={dayjs(signUpEndTime).subtract(1, 'minute')}
+              />
+            </LocalizationProvider>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
+              <DateTimePicker
+                renderInput={props => <TextField {...props} />}
+                label="Konec prijave na dogodek"
+                value={signUpEndTime}
+                onChange={newValue => {
+                  setSignUpEndTime(newValue);
+                }}
+                minDateTime={dayjs(signupStartTime).add(1, 'minute')}
+              />
+            </LocalizationProvider>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
+              <DateTimePicker
+                renderInput={props => <TextField {...props} />}
+                label="Začetek dogodka"
+                value={eventStartTime}
+                onChange={newValue => {
+                  setEventStartTime(newValue);
+                }}
+                maxDateTime={dayjs(eventEndTime).subtract(1, 'minute')}
+              />
+            </LocalizationProvider>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
+              <DateTimePicker
+                renderInput={props => <TextField {...props} />}
+                label="Konec dogodka"
+                value={eventEndTime}
+                onChange={newValue => {
+                  setEventEndTime(newValue);
+                }}
+                minDateTime={dayjs(eventStartTime).add(1, 'minute')}
+              />
+            </LocalizationProvider>
           </FormControl>
 
           <Tooltip

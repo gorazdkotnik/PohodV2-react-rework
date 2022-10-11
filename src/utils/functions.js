@@ -27,9 +27,17 @@ export function request(
 }
 
 export function formatDate(date) {
-  const [year, month, day] = date.split('-').map(part => Number(part));
-  const newDate = new Date(year, month - 1, day);
-  const newDay = newDate.toLocaleDateString('sl-SL', { weekday: 'long' });
-  const newMonth = newDate.toLocaleString('sl-SL', { month: 'long' });
-  return `${day}. ${newMonth} ${year}, ${newDay}`;
+  return new Date(date).toLocaleString('sl-SI', {
+    year: 'numeric',
+    month: 'long',
+    day: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  // const [year, month, day] = date.split('-').map(part => Number(part));
+  // const newDate = new Date(year, month - 1, day);
+  // const newDay = newDate.toLocaleDateString('sl-SL', { weekday: 'long' });
+  // const newMonth = newDate.toLocaleString('sl-SL', { month: 'long' });
+  // return `${day}. ${newMonth} ${year}, ${newDay}`;
 }
