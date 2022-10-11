@@ -44,6 +44,10 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
       dayjs(data.event_start_time).add(1, 'minute').toISOString()
   );
 
+  const [numOfQuestionsAtPoint, setNumOfQuestionsAtPoint] = useState(
+    data.num_questions_at_point || 1
+  );
+
   const [minMembers, setMinMembers] = useState(data.min_group_members || 4);
   const [minMembersInvalid, setMinMembersInvalid] = useState(false);
 
@@ -60,6 +64,10 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
 
   const maxMembersOnChangeHandler = event => {
     setMaxMembers(event.target.value < 1 ? 1 : event.target.value);
+  };
+
+  const numOfQuestionsAtPointOnChangeHandler = event => {
+    setNumOfQuestionsAtPoint(event.target.value < 1 ? 1 : event.target.value);
   };
 
   const formOnSubmitHandler = event => {
@@ -103,6 +111,7 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
       event_end_time: Math.trunc(dayjs(eventEndTime).unix() / 1000),
       min_group_members: minMembers,
       max_group_members: maxMembers,
+      num_questions_at_point: numOfQuestionsAtPoint,
     })
       .then(data => {
         setShowLoadingSpinner(false);
@@ -162,15 +171,18 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
             />
           </FormControl>
 
-          {/* <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+            <InputLabel htmlFor="numberOfQuestionsAtPoint">
+              Število vprašanj na posamezni točki
+            </InputLabel>
             <Input
-              id="date"
-              value={date}
-              onChange={dateOnChangeHandler}
-              error={dateInvalid}
-              type="date"
+              id="numberOfQuestionsAtPoint"
+              value={numOfQuestionsAtPoint}
+              onChange={numOfQuestionsAtPointOnChangeHandler}
+              type="number"
+              min={1}
             />
-          </FormControl> */}
+          </FormControl>
 
           <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
