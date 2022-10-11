@@ -45,15 +45,15 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
       .then(response => {
         setShowLoadingSpinner(false);
         setNotification({
-          title: 'Uspešno dodana nova skupina vprašanj',
+          title: 'Uspešno dodano novo področje vprašanj',
         });
         navigate('/question_groups');
       })
       .catch(error => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri dodajanju nove skupine vprašanj',
-          text: 'Prišlo je do napake pri dodajanju nove skupine vprašanj.',
+          title: 'Napaka pri dodajanju novega področja vprašanj',
+          text: 'Prišlo je do napake pri dodajanju novega področja vprašanj.',
         });
       });
   };
@@ -63,7 +63,7 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
       {show && (
         <div>
           <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <InputLabel htmlFor="name">Ime skupine vprašanj</InputLabel>
+            <InputLabel htmlFor="name">Ime področja vprašanj</InputLabel>
             <Input
               id="name"
               value={name}
@@ -75,8 +75,8 @@ const QuestionGroupsForm = ({ data = {}, method = 'POST', show = true }) => {
           <Tooltip
             title={
               method === 'POST'
-                ? 'Ustavi skupino vprašanj s podanimi podatki'
-                : 'Posodobi skupino vprašanj s podanimi podatki'
+                ? 'Ustavi področje vprašanj s podanimi podatki'
+                : 'Posodobi področje vprašanj s podanimi podatki'
             }
           >
             <Button

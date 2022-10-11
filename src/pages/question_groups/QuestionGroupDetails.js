@@ -24,8 +24,8 @@ const QuestionGroupDetails = () => {
       .catch(err => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri pridobivanju skupine vprašanj',
-          text: 'Prišlo je do napake pri pridobivanju skupine vprašanj. Poskusite znova.',
+          title: 'Napaka pri pridobivanju področja vprašanj',
+          text: 'Prišlo je do napake pri pridobivanju področja vprašanj. Poskusite znova.',
         });
       });
   }, [id, setShowLoadingSpinner, setDialog]);

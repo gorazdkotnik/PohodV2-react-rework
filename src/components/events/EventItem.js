@@ -84,8 +84,8 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
 
         if (res.length === 0) {
           setDialog({
-            title: 'Za ustvarjanje točke ni skupin vprašanj',
-            text: 'Za ustvarjanje točke morate najprej ustvariti skupino vprašanj.',
+            title: 'Za ustvarjanje točke ni področja',
+            text: 'Za ustvarjanje točke morate najprej ustvariti področje vprašanj.',
           });
 
           return;
@@ -105,8 +105,8 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
       .catch(err => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri pridobivanju skupine vprašanj',
-          text: 'Prišlo je do napake pri pridobivanju skupine vprašanj. Poskusite znova.',
+          title: 'Napaka pri pridobivanju področja vprašanj',
+          text: 'Prišlo je do napake pri pridobivanju področja vprašanj. Poskusite znova.',
         });
       });
   };

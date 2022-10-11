@@ -43,7 +43,7 @@ const QuestionGroupsTabs = ({ questionGroup, onReloadQuestionGroup }) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Stack direction="row" spacing={2} sx={{ my: 2 }}>
-          <Tooltip title="Dodaj novo vprašanje k tej skupini vprašanj">
+          <Tooltip title="Dodaj novo vprašanje k temu področju vprašanj">
             <Button
               variant="outlined"
               onClick={() => setShowAddQuestionForm(!showAddQuestionForm)}

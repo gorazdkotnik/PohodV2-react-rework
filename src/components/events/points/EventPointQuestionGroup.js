@@ -65,17 +65,17 @@ const EventPointQuestionGroup = ({
       sx={{ zIndex: 500 }}
     >
       <DialogTitle id="alert-dialog-title">
-        {`Spremeni skupino vprašanj za točko "${point.name}"`}
+        {`Spremeni področje točke "${point.name}"`}
       </DialogTitle>
       <DialogContent>
         {questionGroups && questionGroups.length > 0 && (
           <FormControl fullWidth sx={{ mt: 1 }}>
-            <InputLabel id="questionGroupLabel">Skupina vprašanj</InputLabel>
+            <InputLabel id="questionGroupLabel">Področje vprašanj</InputLabel>
             <Select
               labelId="questionGroupLabel"
               id="questionGroup"
               value={point.question_group_id}
-              label="Skupina vprašanj"
+              label="Področje vprašanj"
               onChange={changeQuestionGroupHandler}
             >
               {questionGroups.map(questionGroup => (

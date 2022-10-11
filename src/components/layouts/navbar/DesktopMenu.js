@@ -49,13 +49,13 @@ const DesktopMenu = ({ loggedIn, handleCloseNavMenu, user, pointHash }) => {
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
           <Button
-            key={'Skupine vprašanj'}
+            key={'Vprašanja'}
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: 'white', display: 'block' }}
             component={Link}
             to="/question_groups"
           >
-            Skupine vprašanj
+            Vprašanja
           </Button>
         )}
       {loggedIn &&

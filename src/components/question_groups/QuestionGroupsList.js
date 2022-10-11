@@ -23,7 +23,7 @@ const QuestionGroupsList = ({ questionGroups, onReloadQuestionGroups }) => {
           align="center"
           sx={{ mt: 2, fontWeight: 'light' }}
         >
-          Ni skupin vprašanj za prikaz!
+          Ni področji vprašanj za prikaz!
         </Typography>
       )}
     </>

@@ -117,7 +117,7 @@ const QuestionsForm = ({
           <Tooltip
             title={
               method === 'POST'
-                ? 'Dodaj vprašanje k tej skupini vprašanj s podanimi podatki'
+                ? 'Dodaj vprašanje k temu področju vprašanj s podanimi podatki'
                 : 'Uredi vprašanje s podanimi podatki'
             }
           >

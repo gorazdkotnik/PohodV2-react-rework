@@ -167,7 +167,7 @@ const EventPointItem = ({
                 </Button>
               </Tooltip>
 
-              <Tooltip title="Izberite skupino vprašanj te točke">
+              <Tooltip title="Izberite področje vprašanj te točke">
                 <Button
                   variant="contained"
                   color="warning"
@@ -176,7 +176,7 @@ const EventPointItem = ({
                     setShowQuestionGroupSelection(true);
                   }}
                 >
-                  Izberi skupino vprašanj
+                  Izberi področje vprašanj
                 </Button>
               </Tooltip>
             </Stack>

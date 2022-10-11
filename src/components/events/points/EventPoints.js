@@ -90,8 +90,8 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       .catch(err => {
         setShowLoadingSpinner(false);
         setDialog({
-          title: 'Napaka pri pridobivanju skupin vprašanj',
-          text: 'Prišlo je do napake pri pridobivanju skupin vprašanj. Poskusite znova.',
+          title: 'Napaka pri pridobivanju področji vprašanj',
+          text: 'Prišlo je do napake pri pridobivanju področji vprašanj. Poskusite znova.',
         });
       });
   }, [setShowLoadingSpinner, setDialog]);

@@ -32,7 +32,7 @@ const QuestionGroupsItem = ({
         navigate('/question_groups/all');
 
         setNotification({
-          title: 'Skupina vprašanj je bila uspešno izbrisana',
+          title: 'Področje vprašanj je bila uspešno izbrisana',
         });
 
         onReloadQuestionGroups && onReloadQuestionGroups();
@@ -42,7 +42,7 @@ const QuestionGroupsItem = ({
         console.log(err);
         setDialog({
           title: 'Napaka pri brisanju',
-          text: 'Prišlo je do napake pri brisanju skupine vprašanj. Poskusite znova.',
+          text: 'Prišlo je do napake pri brisanju področja vprašanj. Poskusite znova.',
         });
       });
   };
@@ -70,26 +70,26 @@ const QuestionGroupsItem = ({
             sx={{ mt: 2 }}
           >
             {!showDetails && (
-              <Tooltip title="Oglej si podrobnosti skupine vprašanj">
+              <Tooltip title="Oglej si podrobnosti področja vprašanj">
                 <Button
                   variant="outlined"
                   component={NavLink}
                   to={`/question_groups/${questionGroup.question_group_id}`}
                 >
-                  Oglej si skupino vprašanj
+                  Oglej si področje vprašanj
                 </Button>
               </Tooltip>
             )}
 
             {!showDetails && (
-              <Tooltip title="Izbriši skupino vprašanj">
+              <Tooltip title="Izbriši področje vprašanj">
                 <Button
                   variant="contained"
                   color="error"
                   onClick={() => {
                     setDialog({
-                      title: 'Brisanje skupine vprašanj',
-                      text: 'Ali ste prepričani, da želite izbrisati skupino vprašanj?',
+                      title: 'Brisanje področja vprašanj',
+                      text: 'Ali ste prepričani, da želite izbrisati področje vprašanj?',
                       onClose: onDeleteHandler,
                     });
                   }}
