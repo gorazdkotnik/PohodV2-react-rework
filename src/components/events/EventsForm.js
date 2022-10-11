@@ -96,10 +96,11 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     setShowLoadingSpinner(true);
     request(`/events${method === 'PUT' ? `/${data.event_id}` : ''}`, method, {
       name,
-      signup_start_time: signupStartTime,
-      signup_end_time: signUpEndTime,
-      event_start_time: eventStartTime,
-      event_end_time: eventEndTime,
+      // TODO: Fix this
+      signup_start_time: Math.trunc(dayjs(signupStartTime).unix() / 1000),
+      signup_end_time: Math.trunc(dayjs(signUpEndTime).unix() / 1000),
+      event_start_time: Math.trunc(dayjs(eventStartTime).unix() / 1000),
+      event_end_time: Math.trunc(dayjs(eventEndTime).unix() / 1000),
       min_group_members: minMembers,
       max_group_members: maxMembers,
     })

@@ -133,7 +133,7 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
             sx={{ display: 'block', mb: 3, mt: 5 }}
           >
             {/* // TODO: novi datumi (zdaj so ure) */}
-            {formatDate(event.event_start_time)}
+            {formatDate(event.signup_start_time)}
           </Typography>
           {showDetails && (
             <Tooltip
