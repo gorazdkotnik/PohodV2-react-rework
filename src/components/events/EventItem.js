@@ -127,14 +127,40 @@ const EventItem = ({ event, showDetails, onReloadEvent }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography
-            variant="p"
-            gutterBottom
-            sx={{ display: 'block', mb: 3, mt: 5 }}
-          >
-            {/* // TODO: novi datumi (zdaj so ure) */}
-            {formatDate(event.signup_start_time)}
-          </Typography>
+          <Stack direction="column" sx={{ mb: 3, mt: 5 }} spacing={2}>
+            <Typography variant="p" gutterBottom>
+              <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                Začetek prijave:
+              </Typography>{' '}
+              {formatDate(event.signup_start_time)}
+            </Typography>
+
+            {showDetails && (
+              <>
+                <Typography variant="p" gutterBottom>
+                  <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                    Konec prijave:
+                  </Typography>{' '}
+                  {formatDate(event.signup_end_time)}
+                </Typography>
+
+                <Typography variant="p" gutterBottom>
+                  <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                    Začetek dogodka:
+                  </Typography>{' '}
+                  {formatDate(event.event_start_time)}
+                </Typography>
+
+                <Typography variant="p" gutterBottom>
+                  <Typography variant="span" sx={{ fontWeight: 'bold' }}>
+                    Konec dogodka:
+                  </Typography>{' '}
+                  {formatDate(event.event_end_time)}
+                </Typography>
+              </>
+            )}
+          </Stack>
+
           {showDetails && (
             <Tooltip
               title={
