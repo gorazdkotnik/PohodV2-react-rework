@@ -23,11 +23,19 @@ const NewGroupForm = () => {
   const [groupName, setGroupName] = useState('');
   const [groupNameInvalid, setGroupNameInvalid] = useState(false);
 
+  const [contactPhoneNumber, setContactPhoneNumber] = useState('');
+  const [contactPhoneNumberInvalid, setContactPhoneNumberInvalid] =
+    useState(false);
+
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('');
 
   const groupNameOnChangeHandler = event => {
     setGroupName(event.target.value);
+  };
+
+  const contactPhoneNumberOnChangeHandler = event => {
+    setContactPhoneNumber(event.target.value);
   };
 
   const eventOnChangeHandler = event => {
@@ -44,6 +52,11 @@ const NewGroupForm = () => {
       return;
     }
 
+    if (contactPhoneNumber.trim() === '') {
+      setContactPhoneNumberInvalid(true);
+      return;
+    }
+
     if (selectedEvent.trim() === '') {
       setDialog({
         title: 'Napaka pri ustvarjanju skupine',
@@ -53,7 +66,11 @@ const NewGroupForm = () => {
     }
 
     setShowLoadingSpinner(true);
-    request('/groups', 'POST', { name: groupName, event_id: selectedEvent })
+    request('/groups', 'POST', {
+      name: groupName.trim(),
+      event_id: selectedEvent,
+      contact_phone_number: contactPhoneNumber.trim(),
+    })
       .then(data => {
         setShowLoadingSpinner(false);
         refreshUser().then(() => {
@@ -71,7 +88,7 @@ const NewGroupForm = () => {
 
   useEffect(() => {
     setShowLoadingSpinner(true);
-    request('/events')
+    request('/signup_events')
       .then(data => {
         setShowLoadingSpinner(false);
         setEvents(data);
@@ -94,6 +111,17 @@ const NewGroupForm = () => {
           value={groupName}
           onChange={groupNameOnChangeHandler}
           error={groupNameInvalid}
+        />
+      </FormControl>
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+        <InputLabel htmlFor="event">
+          Telefonska številka vodje skupine
+        </InputLabel>
+        <Input
+          id="contactPhoneNumber"
+          value={contactPhoneNumber}
+          onChange={contactPhoneNumberOnChangeHandler}
+          error={contactPhoneNumberInvalid}
         />
       </FormControl>
       <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
