@@ -8,6 +8,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -104,7 +106,14 @@ const NewGroupForm = () => {
 
   return (
     <>
-      <FormControl fullWidth sx={{ m: 1, mt: 4 }} variant="standard">
+      <Alert severity="warning" sx={{ mb: 2, mt: 4 }}>
+        <AlertTitle>Vnos telefonske številke</AlertTitle>
+        Bodite pozorni pri vnosu telefonske številke. Nadaljne spreminjanje po
+        ustvarjanju skupine je mogoče le s{' '}
+        <strong>kontaktiranjem administratorja</strong>!
+      </Alert>
+
+      <FormControl fullWidth sx={{ m: 1 }} variant="standard">
         <InputLabel htmlFor="groupName">Ime skupine</InputLabel>
         <Input
           id="groupName"
