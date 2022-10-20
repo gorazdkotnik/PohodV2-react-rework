@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -61,11 +62,24 @@ const MembersList = ({ user }) => {
                   {member.first_name} {member.last_name}
                 </Typography>
 
-                {member.user_id === user.group.leader_id && (
-                  <Tooltip title="Ta član skupine je vodja">
-                    <Button variant="contained">Vodja</Button>
-                  </Tooltip>
-                )}
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  {member.user_id === user.group.leader_id && (
+                    <Button variant="outlined" startIcon={<PhoneIcon />}>
+                      {user.group.contact_phone_number}
+                    </Button>
+                  )}
+
+                  {member.user_id === user.group.leader_id && (
+                    <Tooltip title="Ta član skupine je vodja">
+                      <Button variant="contained">Vodja</Button>
+                    </Tooltip>
+                  )}
+                </Stack>
 
                 {member.user_id !== user.group.leader_id &&
                   user.user_id === user.group.leader_id && (
