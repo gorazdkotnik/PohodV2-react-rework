@@ -27,7 +27,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     setShowLoadingSpinner(true);
-    request('/events')
+    request('/finished_events')
       .then(data => {
         setShowLoadingSpinner(false);
         setEvents(data);
