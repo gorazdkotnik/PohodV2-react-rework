@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 import TabPanel from '../ui/TabPanel';
 
@@ -13,6 +14,7 @@ import EventsForm from './EventsForm';
 import EventPoints from './points/EventPoints';
 
 import { useUIContext } from '../../context/UIContext';
+import { BACKEND_URL } from '../../config';
 
 const EventItemTabs = ({ event, onReloadEvent, onDeleteHandler }) => {
   const { setDialog } = useUIContext();
@@ -54,6 +56,24 @@ const EventItemTabs = ({ event, onReloadEvent, onDeleteHandler }) => {
           alignItems="center"
           sx={{ my: 2 }}
         >
+          <Tooltip title="Prenesi seznam skupin v Excel-u" placement="top">
+            <Button
+              variant="outlined"
+              color="success"
+              endIcon={<DescriptionIcon />}
+              onClick={() => {
+                window.open(
+                  `${BACKEND_URL}/events/${event.event_id}/spreadsheet`,
+                  '_blank',
+                  'noopener,noreferrer'
+                );
+              }}
+            >
+              Prenesi seznam skupin
+            </Button>
+          </Tooltip>
+
+          {/* Delete event */}
           <Tooltip title="Izbrišite dogodek na katerem se trenutno nahajate">
             <Button
               variant="contained"
