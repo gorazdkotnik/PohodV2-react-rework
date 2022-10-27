@@ -3,9 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -21,7 +19,6 @@ const AnswersForm = ({ question, onReloadQuestionGroup, onClose, open }) => {
 
   const [answer, setAnswer] = React.useState('');
   const [answerInvalid, setAnswerInvalid] = React.useState(false);
-  const [isCorrect, setIsCorrect] = React.useState(false);
 
   const answerOnChangeHandler = event => {
     setAnswer(event.target.value);
@@ -41,7 +38,7 @@ const AnswersForm = ({ question, onReloadQuestionGroup, onClose, open }) => {
       ...question.answers,
       {
         text: answer,
-        correct: isCorrect ? 1 : 0,
+        correct: question.answers.find(answer => +answer.correct === 1) ? 0 : 1,
         question_id: question.question_id,
       },
     ];
@@ -101,19 +98,6 @@ const AnswersForm = ({ question, onReloadQuestionGroup, onClose, open }) => {
               onChange={answerOnChangeHandler}
               error={answerInvalid}
             />
-          </FormControl>
-
-          <FormControl fullWidth>
-            <InputLabel htmlFor="is-correct-label">Pravilen odgovor</InputLabel>
-            <Select
-              id="is-correct"
-              value={isCorrect}
-              label="Pravilen odgovor"
-              onChange={event => setIsCorrect(event.target.value)}
-            >
-              <MenuItem value={true}>Da</MenuItem>
-              <MenuItem value={false}>Ne</MenuItem>
-            </Select>
           </FormControl>
         </Stack>
       </DialogContent>

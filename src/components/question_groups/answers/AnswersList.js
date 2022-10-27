@@ -18,6 +18,10 @@ const AnswersList = ({ answers, question, onReloadQuestionGroup }) => {
       answer => answer.answer_id !== answerId
     );
 
+    if (!updatedAnswers.find(answer => +answer.correct === 1)) {
+      updatedAnswers[0].correct = 1;
+    }
+
     setShowLoadingSpinner(true);
 
     request(`/questions/${question.question_id}`, 'PUT', {
