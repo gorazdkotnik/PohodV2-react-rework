@@ -2,6 +2,9 @@ import React from 'react';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import RadioGroup from '@mui/material/RadioGroup';
+
+import AnswerItem from './AnswersItem';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -38,26 +41,63 @@ const AnswersList = ({ answers, question, onReloadQuestionGroup }) => {
       });
   };
 
+  const onCorrectAnswerChangeHandler = event => {
+    const updatedAnswers = question.answers.map(answer => {
+      if (+answer.answer_id === +event.target.value) {
+        return {
+          ...answer,
+          correct: 1,
+        };
+      } else {
+        return {
+          ...answer,
+          correct: 0,
+        };
+      }
+    });
+
+    setShowLoadingSpinner(true);
+
+    request(`/questions/${question.question_id}`, 'PUT', {
+      answers: updatedAnswers,
+    })
+      .then(res => {
+        setShowLoadingSpinner(false);
+        setNotification({
+          title: 'Pravilen odgovor je bil uspešno spremenjen',
+        });
+
+        onReloadQuestionGroup();
+      })
+
+      .catch(e => {
+        setShowLoadingSpinner(false);
+        setDialog({
+          title: 'Napaka pri spremembi pravilnega odgovora',
+          text: 'Prišlo je do napake pri spremembi pravilnega odgovora. Poskusite znova.',
+        });
+      });
+  };
+
   return (
     <>
       {answers && answers.length > 0 && (
-        <Stack spacing={2} sx={{ mt: 2 }}>
-          {answers.map(answer => (
-            <Alert
-              onClose={() => {
-                setDialog({
-                  title: 'Brisanje odgovora',
-                  text: 'Ali ste prepričani, da želite izbrisati odgovor?',
-                  onClose: () => onDeleteHandler(answer.answer_id),
-                });
-              }}
-              severity={+answer.correct === 1 ? 'success' : 'error'}
-              key={answer.answer_id}
-            >
-              {answer.text}
-            </Alert>
-          ))}
-        </Stack>
+        <RadioGroup
+          aria-label="answers"
+          name="answers"
+          value={question.correct_answer_id}
+          onChange={onCorrectAnswerChangeHandler}
+        >
+          <Stack spacing={2} sx={{ mt: 2 }}>
+            {answers.map(answer => (
+              <AnswerItem
+                key={answer.answer_id}
+                answer={answer}
+                onDeleteHandler={onDeleteHandler}
+              />
+            ))}
+          </Stack>
+        </RadioGroup>
       )}
       {answers && answers.length === 0 && (
         <Alert severity="info" sx={{ mt: 2 }}>
