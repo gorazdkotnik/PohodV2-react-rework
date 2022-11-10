@@ -6,6 +6,11 @@ import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Typography from '@mui/material/Typography';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/sl';
@@ -98,6 +103,11 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
       minMembers > maxMembers ||
       maxMembers < minMembers
     ) {
+      setDialog({
+        title: 'Napaka pri vnosu podatkov',
+        text: 'Prosimo, preverite vnesene podatke in, če so vsi zahtevani podatki vneseni ter poskusite znova.',
+      });
+
       return;
     }
 
@@ -138,106 +148,144 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     <>
       {show && (
         <div>
-          <FormControl fullWidth sx={{ m: 1, mt: 4 }} variant="standard">
-            <InputLabel htmlFor="name">Ime dogodka</InputLabel>
-            <Input
-              id="name"
-              value={name}
-              onChange={nameOnChangeHandler}
-              error={nameInvalid}
-            />
-          </FormControl>
+          <Accordion sx={{ my: 2 }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Osnovni podatki</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormControl fullWidth sx={{ m: 1, mt: -1 }} variant="standard">
+                <InputLabel htmlFor="name">Ime dogodka</InputLabel>
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={nameOnChangeHandler}
+                  error={nameInvalid}
+                />
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <InputLabel htmlFor="minMembers">Najmanj članov v ekipi</InputLabel>
-            <Input
-              id="minMembers"
-              value={minMembers}
-              onChange={minMembersOnChangeHandler}
-              error={minMembersInvalid}
-              type="number"
-            />
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <InputLabel htmlFor="minMembers">
+                  Najmanj članov v ekipi
+                </InputLabel>
+                <Input
+                  id="minMembers"
+                  value={minMembers}
+                  onChange={minMembersOnChangeHandler}
+                  error={minMembersInvalid}
+                  type="number"
+                />
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <InputLabel htmlFor="maxMembers">Največ članov v ekipi</InputLabel>
-            <Input
-              id="maxMembers"
-              value={maxMembers}
-              onChange={maxMembersOnChangeHandler}
-              error={maxMembersInvalid}
-              type="number"
-            />
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <InputLabel htmlFor="maxMembers">
+                  Največ članov v ekipi
+                </InputLabel>
+                <Input
+                  id="maxMembers"
+                  value={maxMembers}
+                  onChange={maxMembersOnChangeHandler}
+                  error={maxMembersInvalid}
+                  type="number"
+                />
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <InputLabel htmlFor="numberOfQuestionsAtPoint">
-              Število vprašanj na posamezni točki
-            </InputLabel>
-            <Input
-              id="numberOfQuestionsAtPoint"
-              value={numOfQuestionsAtPoint}
-              onChange={numOfQuestionsAtPointOnChangeHandler}
-              type="number"
-              min={1}
-            />
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <InputLabel htmlFor="numberOfQuestionsAtPoint">
+                  Število vprašanj na posamezni točki
+                </InputLabel>
+                <Input
+                  id="numberOfQuestionsAtPoint"
+                  value={numOfQuestionsAtPoint}
+                  onChange={numOfQuestionsAtPointOnChangeHandler}
+                  type="number"
+                  min={1}
+                />
+              </FormControl>
+            </AccordionDetails>
+          </Accordion>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
-              <DateTimePicker
-                renderInput={props => <TextField {...props} />}
-                label="Začetek prijave na dogodek"
-                value={signupStartTime}
-                onChange={newValue => {
-                  setSignupStartTime(newValue);
-                }}
-                maxDateTime={dayjs(signUpEndTime).subtract(1, 'minute')}
-              />
-            </LocalizationProvider>
-          </FormControl>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Časovni podatki</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="sl"
+                >
+                  <DateTimePicker
+                    renderInput={props => <TextField {...props} />}
+                    label="Začetek prijave na dogodek"
+                    value={signupStartTime}
+                    onChange={newValue => {
+                      setSignupStartTime(newValue);
+                    }}
+                    maxDateTime={dayjs(signUpEndTime).subtract(1, 'minute')}
+                  />
+                </LocalizationProvider>
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
-              <DateTimePicker
-                renderInput={props => <TextField {...props} />}
-                label="Konec prijave na dogodek"
-                value={signUpEndTime}
-                onChange={newValue => {
-                  setSignUpEndTime(newValue);
-                }}
-                minDateTime={dayjs(signupStartTime).add(1, 'minute')}
-              />
-            </LocalizationProvider>
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="sl"
+                >
+                  <DateTimePicker
+                    renderInput={props => <TextField {...props} />}
+                    label="Konec prijave na dogodek"
+                    value={signUpEndTime}
+                    onChange={newValue => {
+                      setSignUpEndTime(newValue);
+                    }}
+                    minDateTime={dayjs(signupStartTime).add(1, 'minute')}
+                  />
+                </LocalizationProvider>
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
-              <DateTimePicker
-                renderInput={props => <TextField {...props} />}
-                label="Začetek dogodka"
-                value={eventStartTime}
-                onChange={newValue => {
-                  setEventStartTime(newValue);
-                }}
-                maxDateTime={dayjs(eventEndTime).subtract(1, 'minute')}
-              />
-            </LocalizationProvider>
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="sl"
+                >
+                  <DateTimePicker
+                    renderInput={props => <TextField {...props} />}
+                    label="Začetek dogodka"
+                    value={eventStartTime}
+                    onChange={newValue => {
+                      setEventStartTime(newValue);
+                    }}
+                    maxDateTime={dayjs(eventEndTime).subtract(1, 'minute')}
+                  />
+                </LocalizationProvider>
+              </FormControl>
 
-          <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sl">
-              <DateTimePicker
-                renderInput={props => <TextField {...props} />}
-                label="Konec dogodka"
-                value={eventEndTime}
-                onChange={newValue => {
-                  setEventEndTime(newValue);
-                }}
-                minDateTime={dayjs(eventStartTime).add(1, 'minute')}
-              />
-            </LocalizationProvider>
-          </FormControl>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="sl"
+                >
+                  <DateTimePicker
+                    renderInput={props => <TextField {...props} />}
+                    label="Konec dogodka"
+                    value={eventEndTime}
+                    onChange={newValue => {
+                      setEventEndTime(newValue);
+                    }}
+                    minDateTime={dayjs(eventStartTime).add(1, 'minute')}
+                  />
+                </LocalizationProvider>
+              </FormControl>
+            </AccordionDetails>
+          </Accordion>
 
           <Tooltip
             title={
