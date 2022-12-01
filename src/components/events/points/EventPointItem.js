@@ -6,12 +6,13 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
 import Tooltip from '@mui/material/Tooltip';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 
 import QRCode from 'react-qr-code';
+
+import EventPointEditName from './EventPointEditName';
 
 import { useUIContext } from '../../../context/UIContext';
 
@@ -36,15 +37,13 @@ const EventPointItem = ({
   const [pointName, setPointName] = React.useState(point.name);
   const [pointNameInvalid, setPointNameInvalid] = React.useState(false);
 
-  const editPointNameHandler = () => {
-    setEditingPointName(true);
-  };
-
   const pointNameOnChangeHandler = event => {
     setPointName(event.target.value);
   };
 
   const savePointNameHandler = () => {
+    setPointNameInvalid(false);
+
     if (pointName.trim() === '' || pointName.trim().length > 50) {
       setPointNameInvalid(true);
       return;
@@ -76,14 +75,8 @@ const EventPointItem = ({
         });
       })
       .finally(() => {
-        if (document.activeElement instanceof HTMLElement)
-          document.activeElement.blur();
+        setEditingPointName(false);
       });
-  };
-
-  const cancelPointNameHandler = () => {
-    setEditingPointName(false);
-    setPointName(point.name);
   };
 
   return (
@@ -94,44 +87,49 @@ const EventPointItem = ({
           justifyContent="space-between"
           alignItems="center"
           spacing={2}
+          sx={{ width: '100%' }}
         >
-          <Box>
-            {!editingPointName && (
-              <Typography
-                variant="h6"
-                component="h2"
-                onDoubleClick={editPointNameHandler}
-              >
+          <Box sx={{ width: '100%' }}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={2}
+              sx={{ width: '100%' }}
+            >
+              <Typography variant="h6" component="h2">
                 {point.name}
               </Typography>
-            )}
+
+              <Tooltip title="Uredi ime točke">
+                <IconButton
+                  onClick={() => {
+                    setEditingPointName(true);
+                  }}
+                >
+                  <EditIcon color="warning" />
+                </IconButton>
+              </Tooltip>
+            </Stack>
 
             {editingPointName && (
-              <FormControl fullWidth sx={{ my: 2 }} variant="standard">
-                <InputLabel htmlFor="pointName">Ime točke</InputLabel>
-                <Input
-                  id="pointName"
-                  value={pointName}
-                  onChange={pointNameOnChangeHandler}
-                  error={pointNameInvalid}
-                  autoFocus
-                  onBlur={() => {
-                    if (pointName !== point.name) {
-                      savePointNameHandler();
-                    } else {
-                      cancelPointNameHandler();
-                    }
-                  }}
-                  onKeyPress={event => {
-                    if (event.key === 'Enter') {
-                      savePointNameHandler();
-                    }
-                  }}
-                />
-              </FormControl>
+              <EventPointEditName
+                open={editingPointName}
+                handleClose={() => {
+                  setEditingPointName(false);
+                }}
+                pointName={pointName}
+                pointNameOnChangeHandler={pointNameOnChangeHandler}
+                pointNameInvalid={pointNameInvalid}
+                savePointNameHandler={savePointNameHandler}
+              />
             )}
 
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: { xs: 'center', sm: 'initial' } }}
+            >
               {point.location_lat}, {point.location_long}
             </Typography>
 
