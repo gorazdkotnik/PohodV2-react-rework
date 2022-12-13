@@ -10,16 +10,7 @@ import { request } from '../../../utils/functions';
 const EventPoints = ({ event, points, onReloadEvent }) => {
   const { setShowLoadingSpinner, setDialog } = useUIContext();
 
-  // sort points by point.next_point_id
-  const [currentPoints, setCurrentPoints] = React.useState(
-    points.sort((a, b) => {
-      if (a.next_point_id === null) return 1;
-      if (b.next_point_id === null) return -1;
-      if (a.next_point_id === b.point_id) return -1;
-      if (b.next_point_id === a.point_id) return 1;
-      return 0;
-    })
-  );
+  const [currentPoints, setCurrentPoints] = React.useState([]);
 
   const [selectedPoint, setSelectedPoint] = React.useState(null);
 
@@ -37,6 +28,25 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
         [point.point_id]: false,
       }));
     });
+
+    // sort a linked list points
+    // point.next_point_id is the id of the next point in the list
+    // the last point in the list has next_point_id = null
+    // the first point in the list is the one with the id that is not in any other point's next_point_id
+    const firstPoint = points.find(point => {
+      return !points.some(p => p.next_point_id === point.point_id);
+    });
+
+    const remainingPoints = [];
+    let currentPoint = firstPoint;
+    while (currentPoint) {
+      remainingPoints.push(currentPoint);
+      currentPoint = points.find(
+        point => point.point_id === currentPoint.next_point_id
+      );
+    }
+
+    setCurrentPoints(remainingPoints);
   }, [points]);
 
   React.useEffect(() => {
