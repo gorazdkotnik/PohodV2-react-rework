@@ -59,12 +59,24 @@ const MobileMenu = ({
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
           <MenuItem
-            key={'Dogodki'}
+            key={'Urejevalnik dogodkov'}
             onClick={handleCloseNavMenu}
             component={Link}
             to="/events"
           >
-            <Typography textAlign="center">Dogodki</Typography>
+            <Typography textAlign="center">Urejevalnik dogodkov</Typography>
+          </MenuItem>
+        )}
+      {loggedIn &&
+        user.user_type === userTypes.ADMIN &&
+        Object.keys(user).length > 0 && (
+          <MenuItem
+            key={'Skupine in razredi'}
+            onClick={handleCloseNavMenu}
+            component={Link}
+            to="/admin-groups"
+          >
+            <Typography textAlign="center">Skupine in razredi</Typography>
           </MenuItem>
         )}
       {loggedIn &&

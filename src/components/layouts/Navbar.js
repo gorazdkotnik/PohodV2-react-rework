@@ -7,12 +7,14 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 
 import MobileMenu from './navbar/MobileMenu';
 import DesktopMenu from './navbar/DesktopMenu';
 import NavbarLogo from './navbar/NavbarLogo';
 import NavbarMobileLogo from './navbar/NavbarMobileLogo';
 import NavbarAvatar from './navbar/NavbarAvatar';
+import NavbarAdmin from './navbar/NavbarAdmin';
 
 import { useAuthContext } from '../../context/AuthContext';
 
@@ -94,15 +96,24 @@ const Navbar = () => {
             />
           </Box>
 
-          <NavbarAvatar
-            loggedIn={loggedIn}
-            user={user}
-            handleOpenUserMenu={handleOpenUserMenu}
-            handleCloseUserMenu={handleCloseUserMenu}
-            profileHandler={profileHandler}
-            logoutHandler={logoutHandler}
-            anchorElUser={anchorElUser}
-          />
+          <Stack
+            direction="row"
+            spacing={4}
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <NavbarAdmin loggedIn={loggedIn} user={user} />
+
+            <NavbarAvatar
+              loggedIn={loggedIn}
+              user={user}
+              handleOpenUserMenu={handleOpenUserMenu}
+              handleCloseUserMenu={handleCloseUserMenu}
+              profileHandler={profileHandler}
+              logoutHandler={logoutHandler}
+              anchorElUser={anchorElUser}
+            />
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>

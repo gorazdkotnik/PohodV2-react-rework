@@ -20,45 +20,6 @@ const DesktopMenu = ({ loggedIn, handleCloseNavMenu, user, pointHash }) => {
         </Button>
       )}
       {loggedIn &&
-        user.user_type === userTypes.ADMIN &&
-        Object.keys(user).length > 0 && (
-          <Button
-            key={'Nadzorna plošča'}
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-            component={Link}
-            to="/dashboard"
-          >
-            Nadzorna plošča
-          </Button>
-        )}
-      {loggedIn &&
-        user.user_type === userTypes.ADMIN &&
-        Object.keys(user).length > 0 && (
-          <Button
-            key={'Dogodki'}
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-            component={Link}
-            to="/events"
-          >
-            Dogodki
-          </Button>
-        )}
-      {loggedIn &&
-        user.user_type === userTypes.ADMIN &&
-        Object.keys(user).length > 0 && (
-          <Button
-            key={'Vprašanja'}
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-            component={Link}
-            to="/question_groups"
-          >
-            Vprašanja
-          </Button>
-        )}
-      {loggedIn &&
         user.user_type === userTypes.USER &&
         Object.keys(user).length > 0 && (
           <Button
