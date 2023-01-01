@@ -11,6 +11,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/sl';
@@ -58,6 +60,14 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
 
   const [maxMembers, setMaxMembers] = useState(data.max_group_members || 6);
   const [maxMembersInvalid, setMaxMembersInvalid] = useState(false);
+
+  const [allowStudentGroupCreation, setAllowStudentGroupCreation] = useState(
+    data.allow_student_group_creation || true
+  );
+
+  const allowStudentGroupCreationOnChangeHandler = event => {
+    setAllowStudentGroupCreation(event.target.value);
+  };
 
   const nameOnChangeHandler = event => {
     setName(event.target.value);
@@ -152,7 +162,6 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
-              id="panel1a-header"
             >
               <Typography>Osnovni podatki</Typography>
             </AccordionSummary>
@@ -208,11 +217,10 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          <Accordion sx={{ my: 2 }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
-              id="panel1a-header"
             >
               <Typography>Časovni podatki</Typography>
             </AccordionSummary>
@@ -283,6 +291,41 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
                     minDateTime={dayjs(eventStartTime).add(1, 'minute')}
                   />
                 </LocalizationProvider>
+              </FormControl>
+            </AccordionDetails>
+          </Accordion>
+
+          {/* TODO: implementacija na backendu, ce admin dovoli da dijaki sami kreirajo dogodke */}
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+            >
+              <Typography>Administratorska konfiguracija</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }}>
+                <InputLabel id="group-creation-label">
+                  Ustvarjanje in dodajanje skupin
+                </InputLabel>
+                <Select
+                  labelId="group-creation-label"
+                  id="group-creation"
+                  value={allowStudentGroupCreation}
+                  label="Ustvarjanje in dodajanje skupin"
+                  onChange={allowStudentGroupCreationOnChangeHandler}
+                >
+                  <MenuItem value={true}>
+                    Dijaki imajo pravice, da v času prijave sami ustvarijo
+                    skupine, poleg tega pa imajo možnost pridružitve obstoječim
+                    skupinam
+                  </MenuItem>
+                  <MenuItem value={false}>
+                    Možnost ustvarjanja skupin je onemogočena, dijaki se lahko
+                    samo pridružijo obstoječim skupinam. Ustvarjanje skupin je
+                    možno le preko administratorskega vmesnika.
+                  </MenuItem>
+                </Select>
               </FormControl>
             </AccordionDetails>
           </Accordion>
