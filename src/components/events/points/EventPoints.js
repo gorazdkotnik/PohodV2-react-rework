@@ -29,10 +29,6 @@ const EventPoints = ({ event, points, onReloadEvent }) => {
       }));
     });
 
-    // sort a linked list points
-    // point.next_point_id is the id of the next point in the list
-    // the last point in the list has next_point_id = null
-    // the first point in the list is the one with the id that is not in any other point's next_point_id
     const firstPoint = points.find(point => {
       return !points.some(p => p.next_point_id === point.point_id);
     });
