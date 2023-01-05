@@ -65,6 +65,16 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
     data.allow_student_group_creation || true
   );
 
+  const [maxNumberOfTeachersOnPoint, setMaxNumberOfTeachersOnPoint] = useState(
+    data.max_num_teachers_on_point || 1
+  );
+
+  const maxNumberOfTeachersOnPointOnChangeHandler = event => {
+    setMaxNumberOfTeachersOnPoint(
+      event.target.value < 1 ? 1 : event.target.value
+    );
+  };
+
   const allowStudentGroupCreationOnChangeHandler = event => {
     setAllowStudentGroupCreation(event.target.value);
   };
@@ -326,6 +336,20 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
                     možno le preko administratorskega vmesnika.
                   </MenuItem>
                 </Select>
+              </FormControl>
+
+              <FormControl fullWidth sx={{ m: 1, mt: 2 }} variant="standard">
+                <InputLabel htmlFor="maxNumberOfTeachersOnPoint">
+                  Maksimalno število učiteljev na posamezni točki
+                </InputLabel>
+                <Input
+                  id="maxNumberOfTeachersOnPoint"
+                  value={maxNumberOfTeachersOnPoint}
+                  onChange={maxNumberOfTeachersOnPointOnChangeHandler}
+                  error={maxNumberOfTeachersOnPoint < 1}
+                  type="number"
+                  min={1}
+                />
               </FormControl>
             </AccordionDetails>
           </Accordion>
