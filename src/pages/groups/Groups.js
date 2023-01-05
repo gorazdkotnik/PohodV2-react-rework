@@ -12,7 +12,7 @@ import MyGroup from './MyGroup';
 import { useAuthContext } from '../../context/AuthContext';
 
 const Groups = () => {
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

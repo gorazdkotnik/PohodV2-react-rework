@@ -19,6 +19,7 @@ import Results from '../../pages/Results';
 import PointQuestions from '../../pages/PointQuestions';
 import Dashboard from '../../pages/dashboard/Dashboard';
 import DashboardDetails from '../../pages/dashboard/DashboardDetails';
+import AdminGroups from '../../pages/admin_groups/AdminGroups';
 import { useAuthContext } from '../../context/AuthContext';
 
 function RoutesList() {
@@ -45,19 +46,15 @@ function RoutesList() {
           <Route exact path="/login" element={<Login />} />
 
           {/* Profile Page */}
-          {
-            user && <Route exact path="/profile" element={<Profile />} />
-          }
+          {user && <Route exact path="/profile" element={<Profile />} />}
 
           {/* Leaderboard Page */}
-          {user?.group && (
-            <Route exact path="/results" element={<Results />} />
+          {user?.group && <Route exact path="/results" element={<Results />} />}
+
+          {/* Leaderboard Page */}
+          {user && (
+            <Route exact path="/leaderboard" element={<Leaderboard />} />
           )}
-
-          {/* Leaderboard Page */}
-          {
-            user && <Route exact path="/leaderboard" element={<Leaderboard />} />
-          }
 
           {/* Dashboard */}
           {user?.user_type === userTypes.ADMIN && (
@@ -72,6 +69,11 @@ function RoutesList() {
           {/* Events */}
           {user?.user_type === userTypes.ADMIN && (
             <Route path="/events/*" element={<Events />} />
+          )}
+
+          {/* Admin groups */}
+          {user?.user_type === userTypes.ADMIN && (
+            <Route path="/admin-groups/*" element={<AdminGroups />} />
           )}
 
           {/* Question groups */}
