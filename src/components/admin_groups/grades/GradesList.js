@@ -5,8 +5,6 @@ import Typography from '@mui/material/Typography';
 import GradeItem from './GradeItem';
 
 const GradesList = ({ grades }) => {
-  console.log(grades);
-
   return (
     <>
       {grades &&
