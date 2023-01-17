@@ -62,7 +62,7 @@ const GradesItem = ({ grade }) => {
             <Button
               variant="outlined"
               component={NavLink}
-              to={`/admin-groups/grades/${grade.event_id}`}
+              to={`/admin-groups/grades/${grade.grade_id}`}
             >
               Oglej si razred
             </Button>
