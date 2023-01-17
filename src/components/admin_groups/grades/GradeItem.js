@@ -14,7 +14,7 @@ const GradesItem = ({ grade }) => {
         <Typography
           variant="h5"
           gutterBottom
-          sx={{ backgroundColor: '#f50057', p: 1, color: '#fff' }}
+          sx={{ p: 1 }}
           backgroundColor="secondary"
         >
           {grade.name}
