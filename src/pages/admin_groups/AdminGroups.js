@@ -76,7 +76,10 @@ const Events = () => {
         <AdminGroupsNavigation />
         <Routes>
           <Route path="grades" element={<AdminGroupsGrades />} />
-          <Route path="groups" element={<AdminGroupsGroups />} />
+          <Route
+            path="groups"
+            element={<AdminGroupsGroups eventId={selectedEvent} />}
+          />
         </Routes>
       </CardContent>
     </Card>

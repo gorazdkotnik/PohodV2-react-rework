@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 import { request } from '../../../utils/functions';
 
@@ -39,6 +40,15 @@ const GradesItem = ({ grade }) => {
   return (
     <Card sx={{ my: 4 }}>
       <CardContent>
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{ p: 1 }}
+          backgroundColor="secondary"
+        >
+          {grade.name}
+        </Typography>
+
         <Stack
           direction={{
             xs: 'column',
@@ -46,32 +56,25 @@ const GradesItem = ({ grade }) => {
           }}
           justifyContent="space-between"
           alignItems="center"
+          spacing={2}
         >
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ p: 1 }}
-            backgroundColor="secondary"
-          >
-            {grade.name}
-          </Typography>
+          <Tooltip title="Oglejte si podrobnosti razreda">
+            <Button
+              variant="outlined"
+              component={NavLink}
+              to={`/admin-groups/grades/${grade.event_id}`}
+            >
+              Oglej si razred
+            </Button>
+          </Tooltip>
 
           <Tooltip title="Število dijakov v skupini / Število prijavljenih dijakov">
             <Button variant="contained">
+              <AssessmentIcon />
               {numberOfStudentsInGroup} / {numberOfSignedStudents}
             </Button>
           </Tooltip>
         </Stack>
-
-        <Tooltip title="Oglejte si podrobnosti razreda">
-          <Button
-            variant="outlined"
-            component={NavLink}
-            to={`/grades/${grade.event_id}`}
-          >
-            Oglej si razred
-          </Button>
-        </Tooltip>
       </CardContent>
     </Card>
   );
