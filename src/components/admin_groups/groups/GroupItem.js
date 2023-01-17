@@ -56,7 +56,8 @@ const GroupItem = ({ group, event }) => {
           <Typography variant="span" sx={{ fontWeight: 'bold' }}>
             Vodja skupine:
           </Typography>{' '}
-          {groupLeader?.first_name} {groupLeader?.last_name}
+          {groupLeader?.first_name} {groupLeader?.last_name},{' '}
+          {groupLeader?.grade}
         </Typography>
 
         <Stack
