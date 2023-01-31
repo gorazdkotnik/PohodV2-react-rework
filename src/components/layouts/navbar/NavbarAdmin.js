@@ -25,7 +25,7 @@ const NavbarAdmin = ({ user, loggedIn }) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 0, display: { sm: 'none', md: 'block' } }}>
+    <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'block' } }}>
       {loggedIn && user.user_type === userTypes.ADMIN && (
         <Tooltip title="Odprite možnosti nadzorne plošče administratorja">
           <IconButton onClick={handleOpenSettingsMenu} sx={{ p: 0 }}>
@@ -51,7 +51,7 @@ const NavbarAdmin = ({ user, loggedIn }) => {
         open={Boolean(anchorElSettings)}
         onClose={handleCloseSettingsMenu}
       >
-        <MenuItem
+        {/* <MenuItem
           key={'Nadzorna plošča'}
           onClick={() => {
             navigate('/dashboard');
@@ -59,7 +59,7 @@ const NavbarAdmin = ({ user, loggedIn }) => {
           }}
         >
           <Typography textAlign="center">Nadzorna plošča</Typography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           key={'Urejevalnik dogodkov'}
           onClick={() => {

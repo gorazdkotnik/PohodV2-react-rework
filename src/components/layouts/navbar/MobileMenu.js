@@ -43,7 +43,7 @@ const MobileMenu = ({
           <Typography textAlign="center">Domov</Typography>
         </MenuItem>
       )}
-      {loggedIn &&
+      {/* {loggedIn &&
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
           <MenuItem
@@ -54,7 +54,7 @@ const MobileMenu = ({
           >
             <Typography textAlign="center">Nadzorna plošča</Typography>
           </MenuItem>
-        )}
+        )} */}
       {loggedIn &&
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
