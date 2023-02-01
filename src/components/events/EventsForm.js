@@ -305,7 +305,6 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
             </AccordionDetails>
           </Accordion>
 
-          {/* TODO: implementacija na backendu, ce admin dovoli da dijaki sami kreirajo dogodke */}
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
