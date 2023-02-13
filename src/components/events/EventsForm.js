@@ -321,18 +321,14 @@ const EventsForm = ({ data = {}, method = 'POST', show = true } = {}) => {
                   labelId="group-creation-label"
                   id="group-creation"
                   value={allowStudentGroupCreation}
-                  label="Ustvarjanje in dodajanje skupin"
+                  label="Ustvarjanje skupin"
                   onChange={allowStudentGroupCreationOnChangeHandler}
                 >
                   <MenuItem value={true}>
-                    Dijaki imajo pravice, da v času prijave sami ustvarijo
-                    skupine, poleg tega pa imajo možnost pridružitve obstoječim
-                    skupinam
+                    Dijaki lahko sami ustvarjajo skupine
                   </MenuItem>
                   <MenuItem value={false}>
-                    Možnost ustvarjanja skupin je onemogočena, dijaki se lahko
-                    samo pridružijo obstoječim skupinam. Ustvarjanje skupin je
-                    možno le preko administratorskega vmesnika.
+                    Skupine ustvarjajo administratorji
                   </MenuItem>
                 </Select>
               </FormControl>
