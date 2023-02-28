@@ -25,10 +25,14 @@ const TeacherHome = () => {
 
   useEffect(() => {
     setShowLoadingSpinner(true);
-    request('/events')
+    request('/current_events')
       .then(data => {
         setShowLoadingSpinner(false);
         setEvents(data);
+
+        if (data.length > 0) {
+          setSelectedEvent(data[0]?.event_id);
+        }
       })
       .catch(err => {});
   }, [setShowLoadingSpinner, setDialog]);
@@ -97,7 +101,7 @@ const TeacherHome = () => {
             </Select>
           </FormControl>
 
-          {points.length > 0 && <Map points={points} />}
+          {points && <Map points={points} />}
         </Stack>
       </CardContent>
     </Card>
