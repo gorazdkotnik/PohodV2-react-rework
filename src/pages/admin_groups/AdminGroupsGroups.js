@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useUIContext } from '../../context/UIContext';
 
@@ -11,7 +11,7 @@ const AdminGroupsGroups = ({ eventId }) => {
 
   const [groups, setGroups] = useState([]);
 
-  useEffect(() => {
+  const getGroups = useCallback(() => {
     if (!eventId) return;
 
     setShowLoadingSpinner(true);
@@ -29,7 +29,11 @@ const AdminGroupsGroups = ({ eventId }) => {
       });
   }, [eventId, setShowLoadingSpinner, setDialog]);
 
-  return <GroupsList groups={groups} />;
+  useEffect(() => {
+    getGroups();
+  }, [getGroups]);
+
+  return <GroupsList groups={groups} getGroups={getGroups} />;
 };
 
 export default AdminGroupsGroups;

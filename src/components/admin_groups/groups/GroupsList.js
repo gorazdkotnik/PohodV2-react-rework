@@ -7,7 +7,7 @@ import GroupItem from './GroupItem';
 
 import { request } from '../../../utils/functions';
 
-const GroupsList = ({ groups }) => {
+const GroupsList = ({ groups, getGroups }) => {
   const { setDialog } = useUIContext();
 
   const [event, setEvent] = React.useState(null);
@@ -32,7 +32,12 @@ const GroupsList = ({ groups }) => {
       {groups &&
         groups.length > 0 &&
         groups.map(group => (
-          <GroupItem key={group.group_id} group={group} event={event} />
+          <GroupItem
+            key={group.group_id}
+            group={group}
+            event={event}
+            getGroups={getGroups}
+          />
         ))}
       {groups && groups.length === 0 && (
         <Typography
