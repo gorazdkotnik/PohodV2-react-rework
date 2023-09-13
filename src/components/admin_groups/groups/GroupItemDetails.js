@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import Container from '@mui/material/Container';
 import PhoneIcon from '@mui/icons-material/Phone';
+import GroupItemDetailsAddMember from './GroupItemDetailsAddMember';
 
 import { request } from '../../../utils/functions';
 
@@ -31,11 +32,15 @@ const GroupItemDetails = ({
 }) => {
   const { setDialog, setShowLoadingSpinner, setNotification } = useUIContext();
 
+  const [addMember, setAddMember] = React.useState(false);
+
   const kickMemberHandler = ({ user_id, first_name, last_name } = {}) => {
     setShowLoadingSpinner(true);
 
     request(`/groups/kick/${user_id}`, 'DELETE')
       .then(data => {
+        console.log(data);
+
         setNotification({
           title: `Uporabnik ${first_name} ${last_name} je bil odstranjen iz skupine`,
           type: 'success',
@@ -91,9 +96,28 @@ const GroupItemDetails = ({
           alignItems="center"
           spacing={2}
         >
-          <Button variant="contained" color="primary">
-            Dodaj člana
-          </Button>
+          <Tooltip title="Dodaj neregistriranega uporabnika ali uporabnika ki ni v skupini v to skupino">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setAddMember(true);
+              }}
+            >
+              Dodaj člana
+            </Button>
+          </Tooltip>
+
+          {addMember && (
+            <GroupItemDetailsAddMember
+              open={addMember}
+              handleClose={() => {
+                setAddMember(false);
+              }}
+              group={group}
+              getGroups={getGroups}
+            />
+          )}
         </Stack>
 
         {group.members.map(member => (

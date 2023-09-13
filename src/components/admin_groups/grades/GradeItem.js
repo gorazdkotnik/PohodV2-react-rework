@@ -63,6 +63,7 @@ const GradesItem = ({ grade }) => {
               variant="outlined"
               component={NavLink}
               to={`/admin-groups/grades/${grade.grade_id}`}
+              disabled={true}
             >
               Oglej si razred
             </Button>
