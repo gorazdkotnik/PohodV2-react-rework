@@ -20,6 +20,7 @@ import PointQuestions from '../../pages/PointQuestions';
 import Dashboard from '../../pages/dashboard/Dashboard';
 import DashboardDetails from '../../pages/dashboard/DashboardDetails';
 import AdminGroups from '../../pages/admin_groups/AdminGroups';
+import UnregisteredUsers from '../../pages/UnregisteredUsers';
 import { useAuthContext } from '../../context/AuthContext';
 
 function RoutesList() {
@@ -79,6 +80,11 @@ function RoutesList() {
           {/* Question groups */}
           {user?.user_type === userTypes.ADMIN && (
             <Route path="/question_groups/*" element={<QuestionGroups />} />
+          )}
+
+          {/* Unregistered users */}
+          {user?.user_type === userTypes.ADMIN && (
+            <Route path="/unregistered_users" element={<UnregisteredUsers />} />
           )}
 
           {/* Groups */}

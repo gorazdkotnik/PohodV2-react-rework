@@ -135,21 +135,23 @@ const GroupItemDetails = ({
                   alignItems="center"
                   spacing={2}
                 >
-                  <Tooltip title="Odstrani člana iz skupine">
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => {
-                        setDialog({
-                          title: 'Odstrani člana',
-                          text: `Ali ste prepričani, da želite odstraniti člana "${member.first_name} ${member.last_name}"?`,
-                          onClose: kickMemberHandler.bind(null, member),
-                        });
-                      }}
-                    >
-                      Odstrani
-                    </Button>
-                  </Tooltip>
+                  {member.user_id !== groupLeader.user_id && (
+                    <Tooltip title="Odstrani člana iz skupine">
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => {
+                          setDialog({
+                            title: 'Odstrani člana',
+                            text: `Ali ste prepričani, da želite odstraniti člana "${member.first_name} ${member.last_name}"?`,
+                            onClose: kickMemberHandler.bind(null, member),
+                          });
+                        }}
+                      >
+                        Odstrani
+                      </Button>
+                    </Tooltip>
+                  )}
 
                   {member.user_id === groupLeader.user_id && (
                     <Tooltip title="Ta član skupine je vodja">

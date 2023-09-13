@@ -87,6 +87,15 @@ const NavbarAdmin = ({ user, loggedIn }) => {
         >
           <Typography textAlign="center">Področja vprašanj</Typography>
         </MenuItem>
+        <MenuItem
+          key={'Neregistrirani uporabniki'}
+          onClick={() => {
+            navigate('/unregistered_users');
+            handleCloseSettingsMenu();
+          }}
+        >
+          <Typography textAlign="center">Neregistrirani uporabniki</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );
